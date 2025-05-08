@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('nidn')->nullable();
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('jenis_kelamin');
+            $table->enum('jenis_kelamin', ['L', 'P']);
             $table->string('email')->unique();
             $table->string('no_hp');
             $table->string('alamat');
-            $table->string('pendidikan_terakhir');
+            $table->string('pendidikan_tertinggi');
             $table->integer('usia');
             $table->decimal('ipk');
             $table->string('bidang_ilmu_kompetensi');

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('pelamar_id')->constrained('pelamars')->onDelete('cascade');
             $table->string('kode_dosen');
+            $table->string('password');
             $table->string('nik_ktp');
             $table->string('nip')->nullable();
             $table->string('nidn')->nullable();
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->string('alamat')->nullable();
             $table->string('agama')->nullable();
+            $table->enum('golongan_darah', ['A', 'B', 'AB', 'O'])->nullable();
             $table->foreignId('fakultas_id')->constrained('fakultas')->onDelete('cascade');
             $table->foreignId('prodi_id')->constrained('prodis')->onDelete('cascade');
             $table->string('bidang_ilmu_kompetensi')->nullable();

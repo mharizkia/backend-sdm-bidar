@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jabatan_akademiks', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_jabatan_akademik');
-            $table->timestamps();
+        Schema::table('prodis', function (Blueprint $table) {
+            $table->foreignId('jenjang_id')->nullable()->constrained('jenjangs')->onDelete('cascade');
         });
     }
 
@@ -23,6 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jabatan_akademiks');
+        Schema::table('prodis', function (Blueprint $table) {
+            $table->dropForeign(['jenjang_id']);
+            $table->dropColumn('jenjang_id');
+        });
     }
 };
