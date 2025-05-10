@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pelamars', function (Blueprint $table) {
             $table->id();
+            $table->string('kode')->unique();
             $table->string('nama_pelamar');
             $table->string('nidn')->nullable();
             $table->string('tempat_lahir');
@@ -22,10 +23,10 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('alamat');
             $table->string('pendidikan_tertinggi');
-            $table->integer('usia');
-            $table->decimal('ipk');
+            $table->integer('umur');
+            $table->decimal('ipk', 4, 2);
             $table->string('bidang_ilmu_kompetensi');
-            $table->string('pilihan_lamaran');
+            $table->enum('pilihan_lamaran', ['Dosen', 'Karyawan']);
             $table->date('tanggal_lamaran');
             $table->string('dokumen_lamaran');
             $table->boolean('status')->default(true);

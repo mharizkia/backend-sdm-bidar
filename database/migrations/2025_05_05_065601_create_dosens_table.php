@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nip')->nullable();
             $table->string('nidn')->nullable();
             $table->string('nama_dosen');
+            $table->integer('umur')->nullable();
             $table->string('gelar_depan')->nullable();
             $table->string('gelar_belakang')->nullable();
             $table->string('email')->unique();

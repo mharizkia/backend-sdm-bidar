@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('nik_ktp');
             $table->string('nama_karyawan');
+            $table->integer('umur')->nullable();
             $table->string('email')->unique();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();

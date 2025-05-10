@@ -34,4 +34,8 @@ class Karyawan extends Model
         'dokumen_karyawan',
     ];
 
+    public function pelamar()
+    {
+        return $this->belongsTo(Pelamar::class);
+    }
 }
