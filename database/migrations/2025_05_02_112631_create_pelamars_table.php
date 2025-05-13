@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('umur');
             $table->decimal('ipk', 4, 2);
             $table->string('bidang_ilmu_kompetensi');
-            $table->enum('pilihan_lamaran', ['Dosen', 'Karyawan']);
+            $table->enum('pilihan_lamaran', ['dosen', 'karyawan']);
             $table->date('tanggal_lamaran');
             $table->string('dokumen_lamaran');
             $table->boolean('status')->default(true);
