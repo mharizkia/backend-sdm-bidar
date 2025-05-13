@@ -12,7 +12,7 @@ class FormPelamar extends Component
     use WithFileUploads;
 
     public  $nama_pelamar, $nidn, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, 
-            $email, $no_hp, $alamat, $pendidikan_tertinggi, $usia, $ipk,
+            $email, $no_hp, $alamat, $pendidikan_tertinggi, $umur, $ipk,
             $bidang_ilmu_kompetensi, $pilihan_lamaran, $tanggal_lamaran, $dokumen_lamaran, $status;
     
 
@@ -33,7 +33,7 @@ class FormPelamar extends Component
             'no_hp' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'pendidikan_tertinggi' => 'required|string|max:255',
-            'usia' => 'required|integer|min:0',
+            'umur' => 'required|integer|min:0',
             'ipk' => 'required|numeric|min:0|max:4',
             'bidang_ilmu_kompetensi' => 'required|string|max:255',
             'pilihan_lamaran' => 'required|in:dosen,karyawan',
@@ -58,13 +58,13 @@ class FormPelamar extends Component
             'no_hp' => $this->no_hp,
             'alamat' => $this->alamat,
             'pendidikan_tertinggi' => $this->pendidikan_tertinggi,
-            'usia' => $this->usia,
+            'umur' => $this->umur,
             'ipk' => $this->ipk,
             'bidang_ilmu_kompetensi' => $this->bidang_ilmu_kompetensi,
             'pilihan_lamaran' => $this->pilihan_lamaran,
             'tanggal_lamaran' => $this->tanggal_lamaran,
             'dokumen_lamaran' => $path,
-            'status' => $this->$status,
+            'status' => $this->status,
         ]);
 
         session()->flash('message', 'Data pelamar berhasil disimpan!');
@@ -72,8 +72,8 @@ class FormPelamar extends Component
         $this->reset([
             'nama_pelamar', 'nidn', 'tempat_lahir', 'tanggal_lahir', 
             'jenis_kelamin', 'email', 'no_hp', 'alamat', 'pendidikan_tertinggi', 
-            'usia', 'ipk', 'bidang_ilmu_kompetensi', 'pilihan_lamaran', 
-            'tanggal_lamaran', 'dokumen_lamaran'
+            'umur', 'ipk', 'bidang_ilmu_kompetensi', 'pilihan_lamaran', 
+            'tanggal_lamaran', 'dokumen_lamaran', 'status'
         ]);
     }
 }

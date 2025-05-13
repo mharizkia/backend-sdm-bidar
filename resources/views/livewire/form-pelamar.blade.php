@@ -67,9 +67,9 @@
         </div>
 
         <div class="mb-4">
-            <label class="block font-medium">usia</label>
-            <input type="text" wire:model.defer="usia" class="w-full border rounded p-2">
-            @error('usia') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+            <label class="block font-medium">umur</label>
+            <input type="text" wire:model.defer="umur" class="w-full border rounded p-2">
+            @error('umur') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>    
 
         <div class="mb-4">
@@ -93,12 +93,17 @@
             </select>
             @error('pilihan_lamaran') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>
+        
+        <div class="mb-4">
+            <label class="block font-medium">tanggal_lamaran</label>
+            <input type="date" wire:model.defer="tanggal_lamaran" class="w-full border rounded p-2">
+            @error('tanggal_lamaran') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
+        </div>
 
         <div class="mb-4">
             <label class="block font-medium">dokumen_lamaran</label>
                 <input type="file" wire:model="dokumen_lamaran" accept="application/pdf"><br>
                 @error('dokumen_lamaran') <span style="color:red">{{ $message }}</span><br> @enderror
-            <button type="submit">Upload</button>
         </div>
 
         <div class="mb-4">
