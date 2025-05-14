@@ -20,7 +20,7 @@ class Pelamar extends Model
         'no_hp',
         'alamat',
         'pendidikan_tertinggi',
-        'usia',
+        'umur',
         'ipk',
         'bidang_ilmu_kompetensi',
         'pilihan_lamaran',
