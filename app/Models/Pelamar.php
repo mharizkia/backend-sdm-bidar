@@ -34,9 +34,9 @@ class Pelamar extends Model
         parent::boot();
 
         static::creating(function ($pelamar) {
-            $prefix = strtoupper(substr($pelamar->tipe, 0, 1)); // 'dosen' -> 'D', 'karyawan' -> 'K'
+            $prefix = strtoupper(substr($pelamar->pilihan_lamaran, 0, 1)); // 'dosen' -> 'D', 'karyawan' -> 'K'
 
-            $lastKode = self::where('tipe', $pelamar->tipe)
+            $lastKode = self::where('pilihan_lamaran', $pelamar->pilihan_lamaran)
                 ->where('kode', 'like', $prefix . '-%')
                 ->orderByDesc('id')
                 ->value('kode');

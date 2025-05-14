@@ -17,6 +17,7 @@ class Dosen extends Model
         'nip',
         'nidn',
         'nama_dosen',
+        'umur',
         'gelar_depan',
         'gelar_belakang',
         'email',
@@ -41,5 +42,8 @@ class Dosen extends Model
         'dokumen_dosen',
     ];
 
-
+    public function pelamar()
+    {
+        return $this->belongsTo(Pelamar::class);
+    }
 }

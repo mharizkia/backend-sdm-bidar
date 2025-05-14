@@ -7,14 +7,16 @@ use App\Models\Pelamar;
 
 class FormPelamar extends Component
 {
-    public $nama, $email, $telepon, $tipe;
+    public $nama_pelamar, $nidn, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $email, $no_hp, $alamat, 
+            $pendidikan_tertinggi, $usia, $ipk, $bidang_ilmu_kompetensi, $pilihan_lamaran, 
+            $tanggal_lamaran, $dokumen_lamaran;
 
     public function render()
     {
         return view('livewire.form-pelamar'); // tanpa layout()
     }
 
-    public function simpan()
+    public function storePelamar()
     {
         $this->validate([
             'kode' => 'required|string|max:255',
@@ -30,25 +32,42 @@ class FormPelamar extends Component
             'usia' => 'required|integer|min:0',
             'ipk' => 'required|numeric|min:0|max:4',
             'bidang_ilmu_kompetensi' => 'required|string|max:255',
-            'pilihan_lamaran' => 'required|string|max:255',
+            'pilihan_lamaran' => 'required|in:dosen,karyawan',
             'tanggal_lamaran' => 'required|date',
             'dokumen_lamaran' => 'required|file|mimes:pdf,doc,docx|max:10248',
             'status' => 'boolean',
         ]);
 
-        $nomor = Pelamar::where('tipe', $this->tipe)->count() + 1;
+        $nomor = Pelamar::where('pilihan_lamaran', $this->pilihan_lamaran)->count() + 1;
         $kode = strtoupper(substr($this->tipe, 0, 1)) . '-' . str_pad($nomor, 4, '0', STR_PAD_LEFT);
 
+        
+
         Pelamar::create([
-            'nama' => $this->nama,
-            'email' => $this->email,
-            'telepon' => $this->telepon,
-            'tipe' => $this->tipe,
             'kode' => $kode,
+            'nama_pelamar' => $this->nama,
+            'nidn' => $this->nidn,
+            'tempat_lahir' => $this->tempat_lahir,
+            'tanggal_lahir' => $this->tanggal_lahir,
+            'jenis_kelamin' => $this->jenis_kelamin,
+            'email' => $this->email,
+            'no_hp' => $this->no_hp,
+            'alamat' => $this->alamat,
+            'pendidikan_tertinggi' => $this->pendidikan_tertinggi,
+            'usia' => $this->usia,
+            'ipk' => $this->ipk,
+            'bidang_ilmu_kompetensi' => $this->bidang_ilmu_kompetensi,
+            'pilihan_lamaran' => $this->pilihan_lamaran,
+            'tanggal_lamaran' => now(),
+            'dokumen_lamaran' => $this->dokumen_lamaran->store('dokumen-lamaran'),
         ]);
 
         session()->flash('message', 'Data pelamar berhasil disimpan!');
 
-        $this->reset(['nama', 'email', 'telepon', 'tipe']);
+        $this->reset([
+            'kode', 'nama_pelamar', 'nidn', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin',
+            'email', 'no_hp', 'alamat', 'pendidikan_tertinggi', 'usia', 'ipk',
+            'bidang_ilmu_kompetensi', 'pilihan_lamaran', 'tanggal_lamaran', 'dokumen_lamaran'
+        ]);
     }
 }
