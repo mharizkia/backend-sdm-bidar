@@ -62,7 +62,14 @@
 
         <div class="mb-4">
             <label class="block font-medium">pendidikan_tertinggi</label>
-            <input type="text" wire:model.defer="pendidikan_tertinggi" class="w-full border rounded p-2">
+            <select wire:model.defer="pendidikan_tertinggi" class="w-full border rounded p-2">
+                <option value="">-- Pilih --</option>
+                <option value="SMA">SMA</option>
+                <option value="DIPLOMA-3">D3</option>
+                <option value="STRATA-1">S1</option>
+                <option value="STRATA-2">S2</option>
+                <option value="STRATA-3">S3</option>
+            </select>
             @error('pendidikan_tertinggi') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
         </div>
 
