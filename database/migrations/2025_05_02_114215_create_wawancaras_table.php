@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pelamar_id')->constrained('pelamars')->onDelete('cascade');
             $table->foreignId('pewawancara_id')->constrained('pewawancaras')->onDelete('cascade');
+            $table->string('nama_pewawancara');
             $table->date('tanggal_wawancara');
             $table->string('poin_poin_wawancara');
             $table->string('kesimpulan');

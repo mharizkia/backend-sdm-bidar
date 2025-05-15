@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pewawancaras', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_pewawancara');
-            
+            $table->string('jabatan_pewawancara');
+            $table->string('dokumen_pewawancara')->nullable();
             $table->timestamps();
         });
     }

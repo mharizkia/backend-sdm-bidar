@@ -10,6 +10,16 @@ class Pewawancara extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama_pewawancara',
+        'jabatan_pewawancara',
+        'dokumen_pewawancara',
     ];
+
+    public function pelamar()
+    {
+        return $this->hasMany(Pelamar::class);
+    }
+    public function wawancara()
+    {
+        return $this->hasMany(Wawancara::class);
+    }
 }

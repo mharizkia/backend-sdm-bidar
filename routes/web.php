@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PewawancaraController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Pewawancara;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,5 +23,14 @@ Route::get('/', function () {
 Route::get('/pelamar', function () {
     return view('pelamar');
 });
+
+Route::get('/wawancara', function () {
+    return view('pelamars.wawancara');
+});
+
+Route::get('/pewawancara', [PewawancaraController::class,'index'])->name('pewawancara.index');
+Route::get('/pewawancara/create', [PewawancaraController::class, 'create'])->name('pewawancara.create');
+Route::post('/pewawancara', [PewawancaraController::class, 'store'])->name('pewawancara.store');
+
 
 require __DIR__.'/auth.php';

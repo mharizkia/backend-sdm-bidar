@@ -16,4 +16,13 @@ class Wawancara extends Model
         'kesimpulan',
         'pewawancara_id',
     ];
+
+    public function pelamar()
+    {
+        return $this->belongsTo(Pelamar::class);
+    }
+    public function pewawancara()
+    {
+        return $this->belongsTo(Pewawancara::class);
+    }
 }

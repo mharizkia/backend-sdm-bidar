@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('ikatan_kerja')->nullable();
             $table->string('jabatan')->nullable();
             $table->date('tanggal_mulai_kerja')->nullable();
-            $table->foreignId('unit_kerja_id')->constrained('unit_kerjas')->onDelete('cascade');
+            $table->foreignId('kat_unit_kerja_id')->constrained('kat_unit_kerjas')->onDelete('cascade');
             $table->string('foto_karyawan')->nullable();
             $table->string('dokumen_karyawan')->nullable();
             $table->timestamps();

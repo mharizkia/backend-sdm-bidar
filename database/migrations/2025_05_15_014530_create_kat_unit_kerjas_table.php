@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('golongans', function (Blueprint $table) {
+        Schema::create('kat_unit_kerjas', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_golongan')->nullable();
-            $table->string('kode_golongan');
-            $table->integer('kumulatif')->nullable();
-            $table->string('pangkat')->nullable();
-            $table->foreignId('jabatan_akademik_id')->constrained('jabatan_akademiks')->onDelete('cascade');
+            $table->string('nama_kat_unit_kerja');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('golongans');
+        Schema::dropIfExists('kat_unit_kerjas');
     }
 };

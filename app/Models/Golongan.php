@@ -11,6 +11,9 @@ class Golongan extends Model
 
     protected $fillable = [
         'nama_golongan',
+        'kode_golongan',
+        'kumulatif',
+        'pangkat',
         'jabatan_akademik_id',
     ];
 
