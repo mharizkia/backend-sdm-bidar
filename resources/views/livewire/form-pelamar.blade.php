@@ -113,16 +113,6 @@
                 @error('dokumen_lamaran') <span style="color:red">{{ $message }}</span><br> @enderror
         </div>
 
-        <div class="mb-4">
-            <label class="block font-medium">status</label>
-            <select wire:model.defer="status" class="w-full border rounded p-2">
-                <option value="">-- Pilih --</option>
-                <option value="0">Aktif</option>
-                <option value="1">Tidak Aktif</option>
-            </select>
-            @error('status') <span class="text-red-600 text-sm">{{ $message }}</span> @enderror
-        </div>
-
         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
             Simpan Pelamar
         </button>

@@ -38,7 +38,6 @@ class FormPelamar extends Component
             'pilihan_lamaran' => 'required|in:dosen,karyawan',
             'tanggal_lamaran' => 'required|date',
             'dokumen_lamaran' => 'required|file|mimes:pdf|max:10248',
-            'status' => 'boolean',
         ]);
 
         $nomor = Pelamar::where('pilihan_lamaran', $this->pilihan_lamaran)->count() + 1;
