@@ -26,7 +26,11 @@ class PewawancaraController extends Controller
             'dokumen_pewawancara' => 'nullable|file|mimes:pdf|max:10248',
         ]);
 
-        $path = $request->file('dokumen_pewawancara')->store('pewawancara', 'public');
+        $file = $request->file('dokumen_pewawancara');
+
+        $originalName = $file->getClientOriginalName();
+
+        $path = $file->storeAs('pewawancara', $originalName, 'public');
 
         Pewawancara::create([
             'jabatan_pewawancara' => $request->jabatan_pewawancara,

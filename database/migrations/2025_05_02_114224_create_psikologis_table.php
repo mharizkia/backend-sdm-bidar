@@ -16,7 +16,9 @@ return new class extends Migration
             $table->foreignId('pelamar_id')->constrained('pelamars')->onDelete('cascade');
             $table->date('tanggal_psikologis');
             $table->string('poin_poin_psikologis');
+            $table->string('hasil_psikologis');
             $table->string('kesimpulan');
+            $table->enum('status', ['lulus', 'tidak_lulus'])->default('tidak_lulus');
             $table->timestamps();
         });
     }

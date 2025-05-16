@@ -11,18 +11,20 @@ class Wawancara extends Model
 
     protected $fillable = [
         'pelamar_id',
+        'nama_pewawancara',
         'tanggal_wawancara',
         'poin_poin_wawancara',
         'kesimpulan',
         'pewawancara_id',
+        'status',
     ];
 
     public function pelamar()
     {
-        return $this->belongsTo(Pelamar::class);
+        return $this->belongsTo(Pelamar::class, 'pelamar_id');
     }
     public function pewawancara()
     {
-        return $this->belongsTo(Pewawancara::class);
+        return $this->belongsTo(Pewawancara::class, 'pewawancara_id');
     }
 }

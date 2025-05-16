@@ -25,7 +25,18 @@ Route::get('/pelamar', function () {
 });
 
 Route::get('/wawancara', function () {
+    return view('pelamars.wawancaraindex');
+});
+Route::get('/wawancara/input', function () {
     return view('pelamars.wawancara');
+});
+
+Route::get('/psikologi', function () {
+    return view('pelamars.psikologiindex');
+});
+
+Route::get('/psikologi/input', function () {
+    return view('pelamars.psikologi');
 });
 
 Route::get('/pewawancara', [PewawancaraController::class,'index'])->name('pewawancara.index');

@@ -13,6 +13,13 @@ class Psikologi extends Model
         'pelamar_id',
         'tanggal_psikologis',
         'poin_poin_psikologis',
-        'kesimpulan',    
+        'hasil_psikologis',
+        'kesimpulan',   
+        'status', 
     ];
+
+    public function pelamar()
+    {
+        return $this->belongsTo(Pelamar::class, 'pelamar_id');
+    }
 }

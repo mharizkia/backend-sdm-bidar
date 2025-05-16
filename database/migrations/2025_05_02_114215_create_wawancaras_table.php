@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('tanggal_wawancara');
             $table->string('poin_poin_wawancara');
             $table->string('kesimpulan');
+            $table->enum('status', ['lulus', 'tidak_lulus'])->default('tidak_lulus');
             $table->timestamps();
         });
     }
