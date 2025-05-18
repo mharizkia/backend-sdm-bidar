@@ -29,7 +29,7 @@ return new class extends Migration
             $table->enum('pilihan_lamaran', ['dosen', 'karyawan']);
             $table->date('tanggal_lamaran');
             $table->string('dokumen_lamaran');
-            $table->enum('status', ['terima', 'tolak', 'pending'])->default('pending');
+            $table->enum('status', ['terima', 'tolak'])->nullable();
             $table->timestamps();
         });
     }

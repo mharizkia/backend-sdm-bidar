@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Form;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,12 +13,6 @@ class FormPelamar extends Component
     public  $nama_pelamar, $nidn, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, 
             $email, $no_hp, $alamat, $pendidikan_tertinggi, $umur, $ipk,
             $bidang_ilmu_kompetensi, $pilihan_lamaran, $tanggal_lamaran, $dokumen_lamaran, $status;
-    
-
-    public function render()
-    {
-        return view('livewire.form-pelamar'); // tanpa layout()
-    }
 
     public function simpan()
     {
@@ -73,5 +67,11 @@ class FormPelamar extends Component
             'umur', 'ipk', 'bidang_ilmu_kompetensi', 'pilihan_lamaran', 
             'tanggal_lamaran', 'dokumen_lamaran', 'status'
         ]);
+        
+    }
+    
+    public function render()
+    {
+        return view('livewire.form.form-pelamar'); // tanpa layout()
     }
 }

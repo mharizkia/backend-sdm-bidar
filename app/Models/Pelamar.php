@@ -48,6 +48,16 @@ class Pelamar extends Model
         });
     }
 
+    public function psikologi()
+    {
+        return $this->hasOne(Psikologi::class);
+    }
+
+    public function wawancara()
+    {
+        return $this->hasOne(Wawancara::class);
+    }
+
     public function karyawan()
     {
         return $this->hasOne(Karyawan::class);

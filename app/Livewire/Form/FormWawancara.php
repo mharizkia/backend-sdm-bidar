@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Form;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -80,7 +80,7 @@ class FormWawancara extends Component
 
     public function render()
     {
-        return view('livewire.form-wawancara', [
+        return view('livewire.form.form-wawancara', [
             'daftarPewawancara' => Pewawancara::all(),
         ]);
     }

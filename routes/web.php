@@ -24,6 +24,10 @@ Route::get('/pelamar', function () {
     return view('pelamar');
 });
 
+Route::get('/pelamar/index', function () {
+    return view('pelamars.pelamarindex');
+});
+
 Route::get('/wawancara', function () {
     return view('pelamars.wawancaraindex');
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Form;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -70,6 +70,6 @@ class FormPsikologi extends Component
 
     public function render()
     {
-        return view('livewire.form-psikologi');
+        return view('livewire.form.form-psikologi');
     }
 }

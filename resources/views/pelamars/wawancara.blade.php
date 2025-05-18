@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <livewire:form-wawancara/>
+    <livewire:form.form-wawancara/>
 @endsection
