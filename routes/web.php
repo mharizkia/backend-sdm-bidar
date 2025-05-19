@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\PewawancaraController;
+use App\Http\Controllers\PelamarController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Pewawancara;
+use App\Http\Controllers\WawancaraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,20 +23,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pelamar', function () {
-    return view('pelamar');
-});
+Route::get('/pelamar/create', [PelamarController::class, 'create'])->name('pelamar.create');
+Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
 
-Route::get('/pelamar/index', function () {
-    return view('pelamars.pelamarindex');
-});
-
-Route::get('/wawancara', function () {
-    return view('pelamars.wawancaraindex');
-});
-Route::get('/wawancara/input', function () {
-    return view('pelamars.wawancara');
-});
+Route::get('/wawancara', [WawancaraController::class, 'index'])->name('wawancara.index');
+Route::get('/wawancara/create', [WawancaraController::class, 'create'])->name('wawancara.create');
+Route::get('/wawancara/edit/{id}', [WawancaraController::class, 'edit'])->name('wawancara.edit');
 
 Route::get('/psikologi', function () {
     return view('pelamars.psikologiindex');

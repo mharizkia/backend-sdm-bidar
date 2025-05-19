@@ -11,12 +11,7 @@ class FormPsikologi extends Component
 {
     use WithFileUploads;
 
-    public $kode;
-    public $pelamar;
-    public $tanggal_psikologis;
-    public $hasil_psikologis;
-    public $kesimpulan;
-    public $status;
+    public $kode, $pelamar, $tanggal_psikologis, $hasil_psikologis, $kesimpulan, $status;
 
     public $previewPath;
     public $poin_poin_psikologis_path = 'psikologis/poin_psikologis.pdf';

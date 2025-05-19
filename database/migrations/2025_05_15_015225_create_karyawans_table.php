@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('pelamar_id')->constrained('pelamars')->onDelete('cascade');
-            $table->string('kode_karyawan')->unique();
-            $table->string('password');
-            $table->string('nik_ktp');
+            $table->string('kode_karyawan')->unique()->nullable();
+            $table->string('password')->nullable();
+            $table->string('nik_ktp')->unique()->nullable();
             $table->string('nama_karyawan');
             $table->integer('umur')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('tempat_lahir')->nullable();
             $table->date('tanggal_lahir')->nullable();
             $table->string('alamat')->nullable();
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->string('ikatan_kerja')->nullable();
             $table->string('jabatan')->nullable();
             $table->date('tanggal_mulai_kerja')->nullable();
-            $table->foreignId('kat_unit_kerja_id')->constrained('kat_unit_kerjas')->onDelete('cascade');
+            $table->foreignId('kat_unit_kerja_id')->nullable()->constrained('kat_unit_kerjas')->onDelete('cascade');
             $table->string('foto_karyawan')->nullable();
             $table->string('dokumen_karyawan')->nullable();
             $table->timestamps();

@@ -12,14 +12,9 @@ class FormWawancara extends Component
 {
     use WithFileUploads;
 
-    public $kode;
-    public $pelamar;
-    public $pewawancara_id;
-    public $nama_pewawancara;
-    public $tanggal_wawancara;
-    public $kesimpulan;
-    public $status;
-    public $poin_poin_wawancara;
+    public  $kode, $pelamar, $pewawancara_id, $nama_pewawancara, $tanggal_wawancara,
+            $kesimpulan, $status, $poin_poin_wawancara;
+            
     public $previewPath;
     public $showPanduan = false;
 
