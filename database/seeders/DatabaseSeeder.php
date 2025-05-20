@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Golongan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +20,7 @@ class DatabaseSeeder extends Seeder
             KatUnitKerjaSeeder::class,
             JabatanSeeder::class,
             GolonganSeeder::class,
+            RolesSeeder::class,
         ]);
     }
 }

@@ -11,6 +11,7 @@
                 <th class="border px-4 py-2">Tanggal Psikologi</th>
                 <th class="border px-4 py-2">Kesimpulan</th>
                 <th class="border px-4 py-2">Hasil Psikologi</th>
+                <th class="border px-4 py-2">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,9 @@
                         @else
                             <span class="text-gray-500">Belum diupload</span>
                         @endif
+                    </td>
+                    <td class="border px-4 py-2">
+                        <a href="{{ route('psikologi.edit', $w->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a>
                     </td>
                 </tr>
             @empty

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('pewawancara_id')->constrained('pewawancaras')->onDelete('cascade');
             $table->string('nama_pewawancara');
             $table->date('tanggal_wawancara');
-            $table->string('poin_poin_wawancara');
+            $table->string('hasil_wawancara');
             $table->string('kesimpulan');
             $table->enum('status', ['lulus', 'tidak_lulus'])->default('tidak_lulus');
             $table->timestamps();

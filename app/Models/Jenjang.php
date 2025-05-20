@@ -13,4 +13,9 @@ class Jenjang extends Model
         'nama_jenjang',
         'kode_jenjang',
     ];
+
+    public function prodis()
+    {
+        return $this->hasMany(Prodi::class);
+    }
 }

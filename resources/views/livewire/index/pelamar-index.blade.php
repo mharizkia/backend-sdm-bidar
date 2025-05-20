@@ -30,8 +30,8 @@
                         @endif
                     </td>
                     <td class="border px-4 py-2 text-center">
-                        @if ($w->wawancara->poin_poin_wawancara)
-                            <a href="{{ asset('storage/' . $w->poin_poin_wawancara) }}" target="_blank" class="text-blue-600 underline">
+                        @if ($w->wawancara->hasil_wawancara)
+                            <a href="{{ asset('storage/' . $w->hasil_wawancara) }}" target="_blank" class="text-blue-600 underline">
                                 Lihat PDF
                             </a>
                         @else

@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <form action="{{ route('wawancara.update', $wawancara->$id)}}" method="POST" enctype="multipart/form-data">
+    <div>
+        <label for="pelamar_id">Nama Pelamar</label>
+        <p>{{ $wawancara->pelamar->nama_pelamar }}</p>
+    </div>
+    <form action="{{ route('wawancara.update', $wawancara->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="container">
@@ -14,8 +18,8 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="nama_pewawancara" class="form-label">Kesimpulan</label>
-                <input type="text" class="form-control" id="nama_pewawancara" name="nama_pewawancara" value="{{ old('nama_pewawancara', $wawancara->kesimpulan) }}" required>
+                <label for="nama_pewawancara" class="form-label">Nama Pewawancara</label>
+                <input type="text" class="form-control" id="nama_pewawancara" name="nama_pewawancara" value="{{ old('nama_pewawancara', $wawancara->nama_pewawancara) }}" required>
             </div>
             <div class="mb-3">
                 <label for="tanggal_wawancara" class="form-label">Tanggal Wawancara</label>

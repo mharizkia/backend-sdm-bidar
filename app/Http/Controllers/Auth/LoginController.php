@@ -24,42 +24,36 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        $kode = $request->kode;
-        $password = $request->password;
+        $user = User::where('kode', $request->kode)->first();
 
-        // Admin
-        $user = User::where('kode', $kode)->first();
-        if ($user && Hash::check($password, $user->password)) {
-            Auth::login($user);
-            return redirect('/dashboard');
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['kode' => 'Kode atau password salah.']);
         }
 
-        // Dosen
-        $dosen = Dosen::where('kode', $kode)->first();
-        if ($dosen && Hash::check($password, $dosen->password)) {
-            $user = User::firstOrCreate(['kode' => $dosen->kode], [
-                'name' => $dosen->nama,
-                'email' => $dosen->kode . '@dosen.fake',
-                'password' => bcrypt($password),
-            ]);
-            $user->assignRole('dosen');
-            Auth::login($user);
-            return redirect('/dashboard');
+        $statusAktif = optional($user->dosen)->status_aktivasi === 'aktif' ||
+                    optional($user->karyawan)->status_aktivasi === 'aktif';
+
+        if (!$statusAktif && !$user->hasRole('admin')) {
+            return back()->withErrors(['kode' => 'Akun belum diaktifkan.']);
         }
 
-        // Karyawan
-        $karyawan = Karyawan::where('kode', $kode)->first();
-        if ($karyawan && Hash::check($password, $karyawan->password)) {
-            $user = User::firstOrCreate(['kode' => $karyawan->kode], [
-                'name' => $karyawan->nama,
-                'email' => $karyawan->kode . '@karyawan.fake',
-                'password' => bcrypt($password),
-            ]);
-            $user->assignRole('karyawan');
-            Auth::login($user);
-            return redirect('/dashboard');
+        Auth::login($user);
+
+        // Redirect berdasarkan role
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->hasRole('dosen')) {
+            return redirect()->route('pegawai.dashboard');
+        } elseif ($user->hasRole('karyawan')) {
+            return redirect()->route('pegawai.dashboard');
         }
 
-        return back()->withErrors(['kode' => 'Kode atau password salah']);
+        return redirect('/');
+    }
+    
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

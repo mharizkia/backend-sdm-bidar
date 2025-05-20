@@ -32,7 +32,9 @@
 
         @if ($previewPath)
             <div class="mt-2">
-                <iframe src="{{ $previewPath }}" width="100%" height="400px" class="border"></iframe>
+                <a href="{{ $previewPath }}" target="_blank" class="text-blue-600 underline">
+                    Lihat PDF Hasil Psikologi
+                </a>
             </div>
         @endif
 

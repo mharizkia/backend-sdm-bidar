@@ -7,23 +7,26 @@ use Livewire\WithFileUploads;
 use App\Models\Pelamar;
 use App\Models\Pewawancara;
 use App\Models\Wawancara;
+use Illuminate\Support\Facades\Storage;
 
 class FormWawancara extends Component
 {
     use WithFileUploads;
 
     public  $kode, $pelamar, $pewawancara_id, $nama_pewawancara, $tanggal_wawancara,
-            $kesimpulan, $status, $poin_poin_wawancara;
+            $kesimpulan, $status, $hasil_wawancara;
             
     public $previewPath;
     public $showPanduan = false;
 
-    public function updatedPoinPoinWawancara()
+    public function updatedHasilWawancara()
     {
-        if ($this->poin_poin_wawancara) {
-            $this->previewPath = $this->poin_poin_wawancara->temporaryUrl();
+        if ($this->hasil_wawancara) {
+            $path = $this->hasil_wawancara->store('hasil_wawancara_preview', 'public');
+            $this->previewPath = asset('storage/' . $path);
         }
     }
+
 
     public function cariPelamar()
     {
@@ -48,11 +51,11 @@ class FormWawancara extends Component
             'nama_pewawancara' => 'required|string|max:255',
             'tanggal_wawancara' => 'required|date',
             'kesimpulan' => 'required|string|max:255',
-            'poin_poin_wawancara' => 'required|file|mimes:pdf|max:10248',
+            'hasil_wawancara' => 'required|file|mimes:pdf|max:10248',
             'status' => 'required|in:lulus,tidak_lulus',
         ]);
 
-        $path = $this->poin_poin_wawancara->store('hasil_wawancara', 'public');
+        $path = $this->hasil_wawancara->store('hasil_wawancara', 'public');
 
         Wawancara::create([
             'pelamar_id' => $this->pelamar->id,
@@ -60,15 +63,17 @@ class FormWawancara extends Component
             'nama_pewawancara' => $this->nama_pewawancara,
             'tanggal_wawancara' => $this->tanggal_wawancara,
             'kesimpulan' => $this->kesimpulan,
-            'poin_poin_wawancara' => $path,
+            'hasil_wawancara' => $path,
             'status' => $this->status,
         ]);
 
         session()->flash('success', 'Hasil wawancara berhasil disimpan.');
 
+        Storage::disk('public')->deleteDirectory('hasil_wawancara_preview');
+
         $this->reset([
             'kode', 'pelamar', 'pewawancara_id', 'nama_pewawancara',
-            'tanggal_wawancara', 'kesimpulan', 'poin_poin_wawancara',
+            'tanggal_wawancara', 'kesimpulan', 'hasil_wawancara',
             'previewPath', 'showPanduan', 'status',
         ]);
     }

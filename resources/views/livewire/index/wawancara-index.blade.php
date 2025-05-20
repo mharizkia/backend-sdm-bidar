@@ -28,13 +28,16 @@
                     <td class="border px-4 py-2">{{ $w->tanggal_wawancara }}</td>
                     <td class="border px-4 py-2">{{ $w->kesimpulan }}</td>
                     <td class="border px-4 py-2 text-center">
-                        @if ($w->poin_poin_wawancara)
-                            <a href="{{ asset('storage/' . $w->poin_poin_wawancara) }}" target="_blank" class="text-blue-600 underline">
+                        @if ($w->hasil_wawancara)
+                            <a href="{{ asset('storage/' . $w->hasil_wawancara) }}" target="_blank" class="text-blue-600 underline">
                                 Lihat PDF
                             </a>
                         @else
                             <span class="text-gray-500">Belum diupload</span>
                         @endif
+                    </td>
+                    <td class="border px-4 py-2">
+                        <a href="{{ route('wawancara.edit', $w->id) }}" class="text-yellow-500 hover:text-yellow-700">Edit</a>
                     </td>
                 </tr>
             @empty

@@ -36,6 +36,7 @@ return new class extends Migration
             $table->foreignId('kat_unit_kerja_id')->nullable()->constrained('kat_unit_kerjas')->onDelete('cascade');
             $table->string('foto_karyawan')->nullable();
             $table->string('dokumen_karyawan')->nullable();
+            $table->enum('status_aktivasi', ['aktif', 'nonaktif'])->nullable();
             $table->timestamps();
         });
     }

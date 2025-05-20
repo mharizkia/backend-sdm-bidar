@@ -42,8 +42,34 @@ class Dosen extends Model
         'dokumen_dosen',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function pelamar()
     {
         return $this->belongsTo(Pelamar::class);
     }
+
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
+
+    public function jabatanAkademik()
+    {
+        return $this->belongsTo(JabatanAkademik::class);
+    }
+
+    public function golongan()
+    {
+        return $this->belongsTo(Golongan::class);
+    }
+    
 }

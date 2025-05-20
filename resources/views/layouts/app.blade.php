@@ -16,7 +16,7 @@
     <nav class="bg-white shadow mb-6">
         <div class="container mx-auto px-4 py-4 flex justify-between">
             <div class="font-bold text-lg">
-                {{ config('app.name', 'Laravel App') }}
+                test sdm
             </div>
             <div>
                 <a href="/" class="text-blue-600 hover:underline">Home</a>

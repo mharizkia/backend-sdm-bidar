@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Wawancara;
 use App\Models\Pelamar;
+use App\Models\Pewawancara;
 
 
 class WawancaraController extends Controller
@@ -21,10 +22,10 @@ class WawancaraController extends Controller
 
     public function edit($id)
     {
-        $wawancara = Wawancara::findOrFail($id);
-        $pelamar = Pelamar::findOrFail($wawancara->pelamar_id);
+        $wawancara = Wawancara::with('pelamar')->findOrFail($id);
+        $daftarPewawancara = Pewawancara::all();
 
-        return view('pelamars.wawancara.edit', compact('wawancara', 'pelamar')); 
+        return view('pelamars.wawancara.edit', compact('wawancara', 'daftarPewawancara')); 
     }
 
     public function update(Request $request, $id)
@@ -33,7 +34,7 @@ class WawancaraController extends Controller
             'pewawancara_id' => 'required|exists:pewawancaras,id',
             'nama_pewawancara' => 'required|string|max:255',
             'tanggal_wawancara' => 'required|date',
-            'poin_poin_wawancara' => 'required|file|mimes:pdf|max:10248',
+            'poin_poin_wawancara' => 'nullable|file|mimes:pdf|max:10248',
             'kesimpulan' => 'required|string|max:255',
             'status' => 'required|in:lulus,tidak_lulus',
         ]);
@@ -53,6 +54,6 @@ class WawancaraController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('pelamars.wawancara.index')->with('success', 'Wawancara updated successfully.');
+        return redirect()->route('wawancara.index')->with('success', 'Wawancara updated successfully.');
     }
 }

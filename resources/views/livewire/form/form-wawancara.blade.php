@@ -63,7 +63,7 @@
 
     <div class="mt-4">
         <label>Upload Hasil Wawancara (PDF):</label>
-        <input type="file" wire:model="poin_poin_wawancara" accept="application/pdf" class="mt-1">
+        <input type="file" wire:model="hasil_wawancara" accept="application/pdf" class="mt-1">
     </div>
 
     <div class="mt-2">
@@ -77,10 +77,12 @@
 
     @if ($previewPath)
         <div class="mt-2">
-            <p><strong>Preview Hasil Wawancara:</strong></p>
-            <iframe src="{{ $previewPath }}" width="100%" height="400px" class="border"></iframe>
+            <a href="{{ $previewPath }}" target="_blank" class="text-blue-600 underline">
+                Lihat PDF Hasil Wawancara
+            </a>
         </div>
     @endif
+
 
     <button wire:click="simpan" class="mt-4 px-4 py-2 bg-green-600 text-white rounded">Simpan</button>
 

@@ -28,14 +28,24 @@ class Karyawan extends Model
         'ikatan_kerja',
         'jabatan',
         'tanggal_mulai_kerja',
-        'unit_kerja_id',
+        'kat_unit_kerja_id',
         'status_aktivasi',
         'foto_karyawan',
         'dokumen_karyawan',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function pelamar()
     {
         return $this->belongsTo(Pelamar::class);
+    }
+
+    public function katUnitKerja()
+    {
+        return $this->belongsTo(KatUnitKerja::class);
     }
 }

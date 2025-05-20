@@ -13,7 +13,7 @@ class Wawancara extends Model
         'pelamar_id',
         'nama_pewawancara',
         'tanggal_wawancara',
-        'poin_poin_wawancara',
+        'hasil_wawancara',
         'kesimpulan',
         'pewawancara_id',
         'status',

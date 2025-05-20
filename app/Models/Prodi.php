@@ -21,4 +21,14 @@ class Prodi extends Model
     {
         return $this->belongsTo(Fakultas::class);
     }
+
+    public function jenjang()
+    {
+        return $this->belongsTo(Jenjang::class);
+    }
+
+    public function dosens()
+    {
+        return $this->hasMany(Dosen::class);
+    }
 }

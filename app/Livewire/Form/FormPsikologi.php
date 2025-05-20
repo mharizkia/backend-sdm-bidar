@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Pelamar;
 use App\Models\Psikologi;
+use Illuminate\Support\Facades\Storage;
 
 class FormPsikologi extends Component
 {
@@ -21,10 +22,11 @@ class FormPsikologi extends Component
         $this->cariPelamar();
     }
 
-    public function updatedHasilPsikologis()
+    public function updatedHasilpsikologis()
     {
         if ($this->hasil_psikologis) {
-            $this->previewPath = $this->hasil_psikologis->temporaryUrl();
+            $path = $this->hasil_psikologis->store('hasil_psikologis_preview', 'public');
+            $this->previewPath = asset('storage/' . $path);
         }
     }
 
@@ -59,6 +61,8 @@ class FormPsikologi extends Component
         ]);
 
         session()->flash('success', 'Data psikologis berhasil disimpan.');
+
+        Storage::disk('public')->deleteDirectory('hasil_psikologis_preview');
 
         $this->reset(['kode', 'pelamar', 'tanggal_psikologis', 'hasil_psikologis', 'kesimpulan', 'status', 'previewPath']);
     }
