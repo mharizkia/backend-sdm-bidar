@@ -15,9 +15,47 @@ class WawancaraController extends Controller
         return view('pelamars.wawancara.index'); // Berisi Livewire component untuk tabel
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('pelamars.wawancara.create'); // Pasang Livewire create component
+        $pelamar = null;
+        if ($request->kode) {
+            $pelamar = Pelamar::where('kode', $request->kode)->first();
+            if (!$pelamar) {
+                session()->flash('not_found', 'Data pelamar tidak ditemukan.');
+            }
+        }
+
+        return view('wawancara', [
+            'pelamar' => $pelamar,
+            'daftarPewawancara' => Pewawancara::all(),
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pelamar_id' => 'required|exists:pelamars,id',
+            'pewawancara_id' => 'required|exists:pewawancaras,id',
+            'nama_pewawancara' => 'required|string|max:255',
+            'tanggal_wawancara' => 'required|date',
+            'kesimpulan' => 'required|string|max:255',
+            'hasil_wawancara' => 'required|file|mimes:pdf|max:10248',
+            'status' => 'required|in:lulus,tidak_lulus',
+        ]);
+
+        $path = $request->file('hasil_wawancara')->store('hasil_wawancara', 'public');
+
+        Wawancara::create([
+            'pelamar_id' => $request->pelamar_id,
+            'pewawancara_id' => $request->pewawancara_id,
+            'nama_pewawancara' => $request->nama_pewawancara,
+            'tanggal_wawancara' => $request->tanggal_wawancara,
+            'kesimpulan' => $request->kesimpulan,
+            'hasil_wawancara' => $path,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('wawancara.create')->with('success', 'Hasil wawancara berhasil disimpan.');
     }
 
     public function edit($id)

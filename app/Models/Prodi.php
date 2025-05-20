@@ -19,12 +19,12 @@ class Prodi extends Model
 
     public function fakultas()
     {
-        return $this->belongsTo(Fakultas::class);
+        return $this->belongsTo(Fakultas::class, 'fakultas_id');
     }
 
     public function jenjang()
     {
-        return $this->belongsTo(Jenjang::class);
+        return $this->belongsTo(Jenjang::class, 'jenjang_id');
     }
 
     public function dosens()

@@ -6,9 +6,6 @@
     <title>{{ config('app.name', 'Laravel Livewire') }}</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
     @livewireStyles
 </head>
 <body class="bg-gray-100 text-gray-900">

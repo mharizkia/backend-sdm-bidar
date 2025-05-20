@@ -16,14 +16,16 @@ class FormDosen extends Component
     public $kode_dosen, $password, $nama_dosen, $email, $status_aktivasi,
         $nik_ktp, $nip, $nidn, $umur, $gelar_depan, $gelar_belakang,
         $no_hp, $no_npwp, $tempat_lahir, $tanggal_lahir,
-        $jenis_kelamin, $alamat, $agama, $golongan_darah,
-        $fakultas_id, $prodi_id, $bidang_ilmu_kompetensi,
+        $jenis_kelamin, $alamat, $agama, $golongan_darah, $bidang_ilmu_kompetensi,
         $ikatan_kerja, $tanggal_mulai_kerja,
         $pendidikan_tertinggi, $jabatan_akademik_id,
         $golongan_id, $foto_dosen, $dokumen_dosen;
-    public $fakultas, $prodi, $jabatan_akademiks, $golongan;
+    public $fakultas_id;
+    public $prodi_id;
+    public $fakultas = []; 
+    public $jabatan_akademiks;
     public $prodis = [];
-    public $golongans = [];
+    public $golongans;
 
     public function mount()
     {

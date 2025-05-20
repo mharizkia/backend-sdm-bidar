@@ -13,9 +13,44 @@ class PsikologiController extends Controller
         return view('pelamars.psikologi.index'); // Berisi Livewire component untuk tabel
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('pelamars.psikologi.create'); // Pasang Livewire create component
+        $pelamar = null;
+        if ($request->kode) {
+            $pelamar = Pelamar::where('kode', $request->kode)->first();
+            if (!$pelamar) {
+                session()->flash('not_found', 'Pelamar tidak ditemukan.');
+            }
+        }
+
+        return view('psikologi', [
+            'pelamar' => $pelamar,
+            'poinPsikologisPath' => 'psikologis/poin_psikologis.pdf',
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pelamar_id' => 'required|exists:pelamars,id',
+            'tanggal_psikologis' => 'required|date',
+            'hasil_psikologis' => 'required|file|mimes:pdf|max:10248',
+            'kesimpulan' => 'required|string|max:255',
+            'status' => 'required|in:lulus,tidak_lulus',
+        ]);
+
+        $path = $request->file('hasil_psikologis')->store('hasil_psikologis', 'public');
+
+        Psikologi::create([
+            'pelamar_id' => $request->pelamar_id,
+            'tanggal_psikologis' => $request->tanggal_psikologis,
+            'poin_poin_psikologis' => 'psikologis/poin_psikologis.pdf',
+            'hasil_psikologis' => $path,
+            'kesimpulan' => $request->kesimpulan,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('psikologi.create')->with('success', 'Data psikologis berhasil disimpan.');
     }
 
     public function edit($id)
