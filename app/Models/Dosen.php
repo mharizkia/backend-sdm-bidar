@@ -11,6 +11,7 @@ class Dosen extends Model
 
     protected $fillable = [
         'pelamar_id',
+        'user_id',
         'kode_dosen',
         'password',
         'nik_ktp',
@@ -44,7 +45,7 @@ class Dosen extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function pelamar()

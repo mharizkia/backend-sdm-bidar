@@ -49,24 +49,20 @@
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
         </div>
 
-        {{-- Contoh input fakultas --}}
-            <div class="col-md-6 mb-3">
-                <label for="fakultas_id">Fakultas</label>
-                <select name="fakultas_id" id="fakultas" required>
-                    <option value="">Pilih Fakultas</option>
-                    @foreach($fakultas as $f)
-                        <option value="{{ $f->id }}">{{ $f->nama_fakultas }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-        {{-- Contoh input prodi, sebaiknya diisi via ajax --}}
         <div class="mb-3">
-            <label for="prodi_id" class="form-label">Prodi</label>
-            <select name="prodi_id" id="prodi" class="form-select">
-                <option value="">-- Pilih Prodi --</option>
-                {{-- Jika ingin ajax, kosong dulu --}}
+            <select id="fakultas" name="fakultas_id" class="form-control">
+                <option value="">Pilih Fakultas</option>
+                @foreach($fakultas as $f)
+                    <option value="{{ $f->id }}">{{ $f->nama_fakultas }}</option>
+                @endforeach
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="prodi_id" class="form-label">Program Studi</label>
+                <select id="prodi" name="prodi_id" class="form-select">
+                    <option value="">Pilih Prodi</option>
+                </select>
         </div>
 
         <div class="mb-3">
@@ -111,20 +107,19 @@
     </form>
 </div>
 
-{{-- Optional: tambahkan script AJAX untuk dependent dropdown fakultas->prodi, jabatan->golongan --}}
 <script>
     $('#fakultas').on('change', function () {
-        var fakultasID = $(this).val();
-        if (fakultasID) {
-            $.get('/get-prodi/' + fakultasID, function (data) {
-                $('#prodi').empty();
-                $('#prodi').append('<option value="">Pilih Program Studi</option>');
+        var fakultasId = $(this).val();
+        $('#prodi').html('<option value="">Loading...</option>');
+        if (fakultasId) {
+            $.get('/get-prodi/' + fakultasId, function (data) {
+                $('#prodi').empty().append('<option value="">Pilih Prodi</option>');
                 $.each(data, function (key, value) {
-                    $('#prodi').append('<option value="' + key + '">' + value + '</option>');
+                    $('#prodi').append('<option value="'+ value.id +'">'+ value.jenjang.kode_jenjang + ' ' + value.nama_prodi +'</option>');
                 });
             });
         } else {
-            $('#prodi').empty().append('<option value="">Pilih Program Studi</option>');
+            $('#prodi').html('<option value="">Pilih Prodi</option>');
         }
     });
 </script>

@@ -25,7 +25,7 @@ class WawancaraController extends Controller
             }
         }
 
-        return view('wawancara', [
+        return view('pelamars.wawancara.create', [
             'pelamar' => $pelamar,
             'daftarPewawancara' => Pewawancara::all(),
         ]);

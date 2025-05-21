@@ -23,7 +23,7 @@ class PsikologiController extends Controller
             }
         }
 
-        return view('psikologi', [
+        return view('pelamars.psikologi.create', [
             'pelamar' => $pelamar,
             'poinPsikologisPath' => 'psikologis/poin_psikologis.pdf',
         ]);

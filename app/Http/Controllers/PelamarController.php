@@ -17,7 +17,7 @@ class PelamarController extends Controller
     }
     public function create()
     {
-        return view('pelamar');
+        return view('pelamars.pelamar.create');
     }
 
     public function store(Request $request)
