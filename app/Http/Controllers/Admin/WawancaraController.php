@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Wawancara;
 use App\Models\Pelamar;
 use App\Models\Pewawancara;
@@ -12,7 +13,7 @@ class WawancaraController extends Controller
 {
     public function index()
     {
-        return view('pelamars.wawancara.index'); // Berisi Livewire component untuk tabel
+        return view('admin.wawancara.index'); // Berisi Livewire component untuk tabel
     }
 
     public function create(Request $request)
@@ -25,7 +26,7 @@ class WawancaraController extends Controller
             }
         }
 
-        return view('pelamars.wawancara.create', [
+        return view('admin.wawancara.create', [
             'pelamar' => $pelamar,
             'daftarPewawancara' => Pewawancara::all(),
         ]);
@@ -55,7 +56,7 @@ class WawancaraController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('wawancara.create')->with('success', 'Hasil wawancara berhasil disimpan.');
+        return redirect()->route('wawancara.index')->with('success', 'Hasil wawancara berhasil disimpan.');
     }
 
     public function edit($id)
@@ -63,7 +64,7 @@ class WawancaraController extends Controller
         $wawancara = Wawancara::with('pelamar')->findOrFail($id);
         $daftarPewawancara = Pewawancara::all();
 
-        return view('pelamars.wawancara.edit', compact('wawancara', 'daftarPewawancara')); 
+        return view('admin.wawancara.edit', compact('wawancara', 'daftarPewawancara')); 
     }
 
     public function update(Request $request, $id)
@@ -92,6 +93,6 @@ class WawancaraController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('wawancara.index')->with('success', 'Wawancara updated successfully.');
+        return redirect()->route('admin.wawancara.index')->with('success', 'Wawancara updated successfully.');
     }
 }

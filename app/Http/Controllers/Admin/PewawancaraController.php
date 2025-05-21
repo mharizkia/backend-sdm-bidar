@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Pewawancara;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class PewawancaraController extends Controller
@@ -11,12 +12,12 @@ class PewawancaraController extends Controller
     {
         $pewawancaras = Pewawancara::all();
 
-        return view('pewawancara.index', compact('pewawancaras'));
+        return view('admin.pewawancara.index', compact('pewawancaras'));
     }
 
     public function create()
     {
-        return view('pewawancara.create');
+        return view('admin.pewawancara.create');
     }
 
     public function store(Request $request)
@@ -37,12 +38,12 @@ class PewawancaraController extends Controller
             'dokumen_pewawancara' => $path,
         ]);
 
-        return redirect()->route('pewawancara.index')->with('success', 'Pewawancara created successfully.');
+        return redirect()->route('admin.pewawancara.index')->with('success', 'Pewawancara created successfully.');
     }
 
     public function edit($id)
     {
-        return view('pewawancara.edit', compact('id'));
+        return view('admin.pewawancara.edit', compact('id'));
     }
 
     public function update(Request $request, $id)

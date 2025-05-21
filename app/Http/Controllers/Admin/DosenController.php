@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Dosen;
 use App\Models\Prodi;
@@ -8,14 +8,23 @@ use App\Models\Golongan;
 use App\Models\Fakultas;
 use App\Models\JabatanAkademik;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class DosenController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
+
     public function index()
     {
-        return view('dosen.index'); // Berisi Livewire component untuk tabel
+        $dosens = Dosen::all();
+        return view('admin.dosen.index', compact('dosens')); 
     }
 
     public function create()
@@ -25,7 +34,7 @@ class DosenController extends Controller
         $prodis = Prodi::all();
         $golongans = Golongan::all();
 
-        return view('dosen.create', compact('fakultas', 'jabatanAkademik', 'prodis', 'golongans'));
+        return view('admin.dosen.create', compact('fakultas', 'jabatanAkademik', 'prodis', 'golongans'));
     }
 
     public function store(Request $request)
@@ -110,7 +119,7 @@ class DosenController extends Controller
             'user_id' => $user?->id,
         ]);
 
-        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
+        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
     }
 
     public function getProdi($fakultas_id)
@@ -134,7 +143,7 @@ class DosenController extends Controller
         $jabatanAkademik = JabatanAkademik::all();
         $prodis = Prodi::all();
         $golongans = Golongan::all();
-        return view('dosen.edit', compact('dosen', 'fakultas', 'jabatanAkademik', 'prodis', 'golongans')); 
+        return view('admin.dosen.edit', compact('dosen', 'fakultas', 'jabatanAkademik', 'prodis', 'golongans')); 
     }
 
     public function update(Request $request, Dosen $dosen)
@@ -220,6 +229,6 @@ class DosenController extends Controller
             $dosen->save();
         }
 
-        return redirect()->route('dosen.index')->with('success', 'Dosen diperbarui.');
+        return redirect()->route('admin.dosen.index')->with('success', 'Dosen diperbarui.');
     }
 }

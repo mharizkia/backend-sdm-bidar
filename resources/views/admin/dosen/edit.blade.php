@@ -26,13 +26,6 @@
             <input type="text" name="kode_dosen" class="form-control" value="{{ old('kode_dosen', $dosen->kode_dosen) }}">
         </div>
 
-        {{-- Password (optional) --}}
-        <div class="mb-3">
-            <label>Password (Opsional)</label>
-            <input type="password" name="password" class="form-control">
-            <input type="password" name="password_confirmation" class="form-control mt-1" placeholder="Konfirmasi Password">
-        </div>
-
         {{-- Umur --}}
         <div class="mb-3">
             <label>Umur</label>

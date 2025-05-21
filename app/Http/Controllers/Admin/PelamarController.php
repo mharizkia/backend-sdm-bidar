@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
 use App\Models\Dosen;
 use App\Models\Karyawan;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
 
 class PelamarController extends Controller
 {
     public function index()
     {
         $pelamars = Pelamar::whereNull('status')->get();
-        return view('pelamars.pelamar.index', compact('pelamars'));
+        return view('admin.pelamar.index', compact('pelamars'));
     }
     public function create()
     {
-        return view('pelamars.pelamar.create');
+        return view('admin.pelamar.create');
     }
 
     public function store(Request $request)
@@ -67,7 +68,7 @@ class PelamarController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->back()->with('message', 'Data pelamar berhasil disimpan!');
+        return redirect()->route('admin.pelamar.index')->back()->with('message', 'Data pelamar berhasil disimpan!');
     }
 
     public function konfirmasi(Request $request, $id)
@@ -75,7 +76,7 @@ class PelamarController extends Controller
         $status = $request->input('status');
 
         if (!$status) {
-            return redirect()->route('pelamar.index')
+            return redirect()->route('admin.pelamar.index')
                 ->with('message', 'Silakan pilih status terlebih dahulu.');
         }
 
@@ -118,7 +119,26 @@ class PelamarController extends Controller
                 Karyawan::create([
                     'pelamar_id' => $pelamar->id,
                     'nama_karyawan' => $pelamar->nama_pelamar,
+                    'kode_karyawan' => '',
+                    'password' => '',
+                    'nik_ktp' => '',
+                    'email' => $pelamar->email,
+                    'tempat_lahir' => $pelamar->tempat_lahir,
+                    'tanggal_lahir' => $pelamar->tanggal_lahir,
+                    'alamat' => $pelamar->alamat,
+                    'agama' => '',
+                    'jenis_kelamin' => $pelamar->jenis_kelamin,
+                    'no_hp' => $pelamar->no_hp,
+                    'no_npwp' => '',
+                    'golongan_darah' => null,
+                    'pendidikan_tertinggi' => $pelamar->pendidikan_tertinggi,
+                    'ikatan_kerja' => '',
+                    'tanggal_mulai_kerja' => null,
                     'jabatan' => '',
+                    'kat_unit_kerja_id' => null,
+                    'status_aktivasi' => null,
+                    'foto_karyawan' => '',
+                    'dokumen_karyawan' => '',
                 ]);
             }
         }

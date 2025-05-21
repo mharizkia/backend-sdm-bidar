@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Psikologi;
 use App\Models\Pelamar;
 
@@ -10,7 +11,7 @@ class PsikologiController extends Controller
 {
     public function index()
     {
-        return view('pelamars.psikologi.index'); // Berisi Livewire component untuk tabel
+        return view('admin.psikologi.index'); // Berisi Livewire component untuk tabel
     }
 
     public function create(Request $request)
@@ -23,7 +24,7 @@ class PsikologiController extends Controller
             }
         }
 
-        return view('pelamars.psikologi.create', [
+        return view('admin.psikologi.create', [
             'pelamar' => $pelamar,
             'poinPsikologisPath' => 'psikologis/poin_psikologis.pdf',
         ]);
@@ -50,13 +51,13 @@ class PsikologiController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('psikologi.create')->with('success', 'Data psikologis berhasil disimpan.');
+        return redirect()->route('psikologi.index')->with('success', 'Data psikologis berhasil disimpan.');
     }
 
     public function edit($id)
     {
         $psikologi = Psikologi::with('pelamar')->findOrFail($id);
-        return view('pelamars.psikologi.edit', compact('psikologi'));
+        return view('admin.psikologi.edit', compact('psikologi'));
     }
 
     public function update(Request $request, $id)
