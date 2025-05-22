@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="bg-gray-700">
 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4" onclick="window.location.href='{{ route('pewawancara.create') }}'">pewawancara</button>
 
 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4" onclick="window.location.href='{{ route('pelamar.create')}}'">input pelamar</button>
@@ -23,6 +23,5 @@
 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4" onclick="window.location.href='{{ route('karyawan.index')}}'">karyawan</button>
 
 <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4" onclick="window.location.href='{{ route('karyawan.create')}}'">input karyawan</button>
-
-<livewire:index.dosen-index />
+</div>
 @endsection

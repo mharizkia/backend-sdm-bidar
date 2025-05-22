@@ -150,7 +150,7 @@ class DosenController extends Controller
     {
         $request->validate([
             'kode_dosen' => 'nullable|string|max:20',
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8',
             'nik_ktp' => 'nullable|string|max:20',
             'nip' => 'nullable|string|max:20',
             'nidn' => 'nullable|string|max:20',
@@ -229,6 +229,6 @@ class DosenController extends Controller
             $dosen->save();
         }
 
-        return redirect()->route('admin.dosen.index')->with('success', 'Dosen diperbarui.');
+        return redirect()->route('dosen.index')->with('success', 'Dosen diperbarui.');
     }
 }

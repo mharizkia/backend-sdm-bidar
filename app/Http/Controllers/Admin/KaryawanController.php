@@ -89,7 +89,7 @@ class KaryawanController extends Controller
             'user_id' => $user?->id,
         ]);
         
-        return redirect()->route('admin.karyawan.index')->with('success', 'Karyawan created successfully.');
+        return redirect()->route('karyawan.index')->with('success', 'Karyawan created successfully.');
     }
 
     public function edit($id)

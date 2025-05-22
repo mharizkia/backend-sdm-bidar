@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PewawancaraController;
 use App\Http\Controllers\Admin\PelamarController;
 use App\Http\Controllers\Admin\DosenController;
+use App\Http\Controllers\Admin\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PsikologiController;
 use App\Http\Controllers\Admin\WawancaraController;
@@ -50,6 +51,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.store');
     Route::get('/dosen/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
+
+    Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+    Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+    Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+    Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
 });
 
 Route::get('/get-prodi/{fakultas_id}', [DosenController::class, 'getProdi']);

@@ -68,7 +68,7 @@ class PelamarController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('admin.pelamar.index')->back()->with('message', 'Data pelamar berhasil disimpan!');
+        return redirect()->route('pelamar.index')->back()->with('message', 'Data pelamar berhasil disimpan!');
     }
 
     public function konfirmasi(Request $request, $id)
