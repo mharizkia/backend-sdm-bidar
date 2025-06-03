@@ -11,7 +11,7 @@
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
             <h2 class="text-xl font-semibold">Tabel Data Tes Psikologi</h2>
-            <a href="{{ route('pelamar.validasi') }}" class="text-sm bg-white text-[#1D3F8E] hover:bg-gray-100 font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center">
+            <a href="{{ route('admin.validasi.pelamar.index') }}" class="text-sm bg-white text-[#1D3F8E] hover:bg-gray-100 font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i>Kembali ke Validasi
             </a>
         </div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="w-full sm:w-auto">
-                <a href="{{ route('psikologi.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                <a href="{{ route('admin.psikologi.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-plus mr-2"></i> Input Data Tes Psikologi
                 </a>
             </div>
@@ -46,7 +46,7 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Kode Pelamar</th>
+                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">ID Pelamar</th>
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Nama Pelamar</th>
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Tanggal Tes</th>
                         <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Dokumen</th>
@@ -56,14 +56,14 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 text-sm text-gray-700">
-                    @forelse ($psikologis as $psikologi)
+                    @forelse ($psikologiData ?? [] as $psikologi)
                     <tr>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $psikologi->pelamar->kode ?? '-' }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap font-medium">{{ $psikologi->pelamar->nama_pelamar ?? '-' }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $psikologi->tanggal_psikologis }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">
-                            @if($psikologi->hasil_psikologis)
-                                <a href="{{ asset('storage/' . $psikologi->hasil_psikologis) }}" target="_blank" class="text-blue-600 hover:text-blue-800" title="Lihat Dokumen Tes Psikologi">
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $psikologi->kode_pelamar }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap font-medium">{{ $psikologi->nama_pelamar }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $psikologi->tanggal_tes }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap text-center">
+                            @if($psikologi->dokumen_ada)
+                                <a href="#" class="text-blue-600 hover:text-blue-800" title="Lihat Dokumen Tes Psikologi">
                                     <i class="fas fa-file-alt text-lg"></i>
                                 </a>
                             @else
@@ -72,28 +72,28 @@
                         </td>
                         <td class="px-4 py-3 text-center ">{{ Str::limit($psikologi->kesimpulan, 70) }}</td>
                         <td class="px-4 py-3 text-center whitespace-nowrap">
-                            @if($psikologi->status == 'lulus')
+                            @if($psikologi->status == 'Lulus')
                                 <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                     Lulus
                                 </span>
-                            @elseif($psikologi->status == 'tidak_lulus')
+                            @elseif($psikologi->status == 'Tidak Lulus')
                                 <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                     Tidak Lulus
                                 </span>
                             @else
                                 <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    {{ ucfirst($psikologi->status) }}
+                                    {{ $psikologi->status }}
                                 </span>
                             @endif
                         </td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">
+                        <td class="px-4 py-3 text-center whitespace-nowrap text-center">
                             <div class="inline-flex items-center space-x-2">
-                                <a href="{{ route('psikologi.edit', $psikologi->id) }}" 
+                                <a href="{{ route('admin.psikologi.edit', ['id_psikologi' => $psikologi->id_psikologi]) }}" 
                                    class="text-blue-600 hover:text-blue-800 transition-colors duration-150 text-lg" 
                                    title="Edit Data Tes Psikologi">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('psikologi.destroy', $psikologi->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data tes psikologi ini?');">
+                                <form action="{{ route('admin.psikologi.destroy', ['id_psikologi' => $psikologi->id_psikologi]) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data tes psikologi ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" 
@@ -118,7 +118,7 @@
 
         <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
             <span class="text-sm text-gray-700">
-                Menampilkan {{ $psikologis->count() > 0 ? '1 sampai ' . $psikologis->count() : '0' }} dari {{ $psikologis->count() }} entri
+                Menampilkan {{ $psikologiData->count() > 0 ? '1 sampai ' . $psikologiData->count() : '0' }} dari {{ $psikologiData->count() }} entri
             </span>
             <div class="inline-flex -space-x-px rounded-md shadow-sm">
                 <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-sm text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 rounded-l-lg">Sebelumnya</button>
@@ -132,8 +132,8 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const filterButton = document.getElementById('filterPsikologiButton');
-    const filterMenu = document.getElementById('filterPsikologiMenu');
+    const filterButton = document.getElementById('filterPsikologiButton'); // ID disesuaikan
+    const filterMenu = document.getElementById('filterPsikologiMenu');   // ID disesuaikan
 
     if (filterButton && filterMenu) {
         filterButton.addEventListener('click', function (event) {
@@ -141,11 +141,11 @@ document.addEventListener('DOMContentLoaded', function () {
             filterMenu.classList.toggle('hidden');
         });
 
-        filterMenu.querySelectorAll('.filter-item-psikologi').forEach(item => {
+        filterMenu.querySelectorAll('.filter-item-psikologi').forEach(item => { // Kelas item disesuaikan
             item.addEventListener('click', function(event) {
                 event.preventDefault();
                 const filterValue = this.dataset.filterValue;
-                // Implementasi filter bisa ditambahkan di sini
+                console.log('Filter Data Tes Psikologi dipilih:', filterValue);
                 filterMenu.classList.add('hidden');
             });
         });

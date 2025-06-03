@@ -60,6 +60,12 @@ class WawancaraController extends Controller
         return redirect()->route('wawancara.index')->with('success', 'Hasil wawancara berhasil disimpan.');
     }
 
+    public function show($id)
+    {
+        $wawancara = Wawancara::with('pelamar')->findOrFail($id);
+        return view('admin.wawancara.show', compact('wawancara'));
+    }
+
     public function edit($id)
     {
         $wawancara = Wawancara::with('pelamar')->findOrFail($id);
@@ -95,5 +101,12 @@ class WawancaraController extends Controller
         ]);
 
         return redirect()->route('wawancara.index')->with('success', 'Wawancara updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $wawancara = Wawancara::findOrFail($id);
+        $wawancara->delete();
+        return redirect()->route('wawancara.index')->with('success', 'Wawancara deleted successfully.');
     }
 }

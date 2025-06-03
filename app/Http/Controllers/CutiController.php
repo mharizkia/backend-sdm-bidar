@@ -51,7 +51,7 @@ class CutiController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->route('pegawai.cuti.index')->with('success', 'Permohonan cuti dikirim.');
+        return redirect()->route('cuti.index')->with('success', 'Permohonan cuti dikirim.');
     }
 
     // Admin: lihat & validasi cuti

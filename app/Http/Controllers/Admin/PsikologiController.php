@@ -55,6 +55,12 @@ class PsikologiController extends Controller
         return redirect()->route('psikologi.index')->with('success', 'Data psikologis berhasil disimpan.');
     }
 
+    public function show($id)
+    {
+        $psikologi = Psikologi::with('pelamar')->findOrFail($id);
+        return view('admin.psikologi.show', compact('psikologi'));
+    }
+
     public function edit($id)
     {
         $psikologi = Psikologi::with('pelamar')->findOrFail($id);
@@ -84,5 +90,12 @@ class PsikologiController extends Controller
         ]);
 
         return redirect()->route('psikologi.index')->with('success', 'Psikologi updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $psikologi = Psikologi::findOrFail($id);
+        $psikologi->delete();
+        return redirect()->route('psikologi.index')->with('success', 'Data psikologis berhasil dihapus.');
     }
 }

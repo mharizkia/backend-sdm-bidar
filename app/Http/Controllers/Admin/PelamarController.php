@@ -21,6 +21,21 @@ class PelamarController extends Controller
         return view('admin.pelamar.create');
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $pelamars = Pelamar::query()
+            ->where('nama_pelamar', 'like', "%{$search}%")
+            ->orWhere('kode', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->get();
+
+        $html = view('admin.pelamar.result', compact('pelamars'))->render();
+
+        return response()->json(['html' => $html]);
+    } 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -67,6 +82,12 @@ class PelamarController extends Controller
         ]);
 
         return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil disimpan!');
+    }
+
+    public function validasi()
+    {
+        $pelamars = Pelamar::all();
+        return view('admin.pelamar.validasi', compact('pelamars'));
     }
 
     public function konfirmasi(Request $request, $id)
