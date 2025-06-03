@@ -8,7 +8,6 @@ use App\Models\Golongan;
 use App\Models\Fakultas;
 use App\Models\JabatanAkademik;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
@@ -26,6 +25,21 @@ class DosenController extends Controller
         $dosens = Dosen::all();
         return view('admin.dosen.index', compact('dosens')); 
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $dosens = Dosen::query()
+            ->where('nama_dosen', 'like', "%{$search}%")
+            ->orWhere('kode_dosen', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->get();
+
+        $html = view('admin.dosen.result', compact('dosens'))->render();
+
+        return response()->json(['html' => $html]);
+    }    
 
     public function create()
     {
@@ -71,7 +85,6 @@ class DosenController extends Controller
             'status_aktivasi' => 'required|in:aktif,tidak_aktif',
         ]);
 
-        // Upload file jika ada
         $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto') : null;
         $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen') : null;
 
@@ -88,7 +101,7 @@ class DosenController extends Controller
 
         Dosen::create([
             'kode_dosen' => $validated['kode_dosen'],
-            'password' => Hash::make($validated['password']), // Simpan apa adanya atau hash? Biasanya jangan simpan password mentah di table lain!
+            'password' => Hash::make($validated['password']),
             'nik_ktp' => $validated['nik_ktp'] ?? null,
             'nip' => $validated['nip'] ?? null,
             'nidn' => $validated['nidn'] ?? null,
@@ -146,19 +159,30 @@ class DosenController extends Controller
         return view('admin.dosen.edit', compact('dosen', 'fakultas', 'jabatanAkademik', 'prodis', 'golongans')); 
     }
 
+    public function show($id)
+    {
+        $dosen = Dosen::with(['fakultas', 'prodi', 'jabatanAkademik', 'golongan'])
+            ->findOrFail($id);
+        $fakultas = Fakultas::all();
+        $jabatanAkademik = JabatanAkademik::all();
+        $prodis = Prodi::all();
+        $golongans = Golongan::all();
+        return view('admin.dosen.show', compact('dosen', 'fakultas', 'jabatanAkademik', 'prodis', 'golongans'));
+    }
+
     public function update(Request $request, Dosen $dosen)
     {
-        $request->validate([
-            'kode_dosen' => 'nullable|string|max:20',
+        $validated = $request->validate([
+            'kode_dosen' => 'required|string|max:20',
             'password' => 'nullable|string|min:8',
             'nik_ktp' => 'nullable|string|max:20',
             'nip' => 'nullable|string|max:20',
             'nidn' => 'nullable|string|max:20',
             'nama_dosen' => 'required|string|max:255',
+            'umur' => 'nullable|integer|min:0|max:120',
             'gelar_depan' => 'nullable|string|max:10',
             'gelar_belakang' => 'nullable|string|max:10',
-            'umur' => 'nullable|integer|min:0|max:120',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:dosens,email,' . $dosen->id,
             'no_hp' => 'nullable|string|max:15',
             'no_npwp' => 'nullable|string|max:20',
             'tempat_lahir' => 'nullable|string|max:50',
@@ -180,55 +204,84 @@ class DosenController extends Controller
             'status_aktivasi' => 'required|in:aktif,tidak_aktif',
         ]);
 
-        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen') : null;
-        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto') : null;
-
-        
-        $dosen->update([
-            'kode_dosen' => $request->kode_dosen,
-            'nik_ktp' => $request->nik_ktp,
-            'nip' => $request->nip,
-            'nidn' => $request->nidn,
-            'nama_dosen' => $request->nama_dosen,
-            'umur' => $request->umur,
-            'gelar_depan' => $request->gelar_depan,
-            'gelar_belakang' => $request->gelar_belakang,
-            'email' => $request->email,
-            'no_hp' => $request->no_hp,
-            'no_npwp' => $request->no_npwp,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat,
-            'agama' => $request->agama,
-            'golongan_darah' => $request->golongan_darah,
-            'fakultas_id' => $request->fakultas_id,
-            'prodi_id' => $request->prodi_id,
-            'bidang_ilmu_kompetensi' => $request->bidang_ilmu_kompetensi,
-            'ikatan_kerja' => $request->ikatan_kerja,
-            'tanggal_mulai_kerja' => $request->tanggal_mulai_kerja,
-            'pendidikan_tertinggi' => $request->pendidikan_tertinggi,
-            'jabatan_akademik_id' => $request->jabatan_akademik_id,
-            'golongan_id' => $request->golongan_id,
-            'foto_dosen' => $pathFoto,
-            'dokumen_dosen' => $pathDokumen,
-            'status_aktivasi' => $request->status_aktivasi,
-        ]);
-
-        if ($request->filled('kode_dosen') && $request->filled('password')) {
-            $user = $dosen->user ?? new User();
-
-            $user->name = $request->nama_dosen;
-            $user->email = $request->email;
-            $user->kode = $request->kode_dosen;
-            $user->password = Hash::make($request->password);
-            $user->save();
-
-            $user->syncRoles('dosen');
-            $dosen->user_id = $user->id;
-            $dosen->save();
+        // Handle file upload
+        if ($request->hasFile('foto_dosen')) {
+            $pathFoto = $request->file('foto_dosen')->store('dosen/foto');
+        } else {
+            $pathFoto = $dosen->foto_dosen;
+        }
+        if ($request->hasFile('dokumen_dosen')) {
+            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen');
+        } else {
+            $pathDokumen = $dosen->dokumen_dosen;
         }
 
-        return redirect()->route('dosen.index')->with('success', 'Dosen diperbarui.');
+        // Handle user creation/update
+        $userId = $dosen->user_id;
+        if ($validated['status_aktivasi'] === 'aktif' && $validated['kode_dosen'] && $request->filled('password')) {
+            // Jika user belum ada, buat baru
+            if (!$userId) {
+                $user = User::create([
+                    'name' => $validated['nama_dosen'],
+                    'email' => $validated['email'],
+                    'kode' => $validated['kode_dosen'],
+                    'password' => Hash::make($validated['password']),
+                ]);
+                $user->assignRole('dosen');
+                $userId = $user->id;
+            } else {
+                // Jika user sudah ada, update
+                $user = User::find($userId);
+                if ($user) {
+                    $user->update([
+                        'name' => $validated['nama_dosen'],
+                        'email' => $validated['email'],
+                        'kode' => $validated['kode_dosen'],
+                        'password' => Hash::make($validated['password']),
+                    ]);
+                }
+            }
+        }
+
+        $dosen->update([
+            'kode_dosen' => $validated['kode_dosen'],
+            'password' => $request->filled('password') ? Hash::make($validated['password']) : $dosen->password,
+            'nik_ktp' => $validated['nik_ktp'] ?? null,
+            'nip' => $validated['nip'] ?? null,
+            'nidn' => $validated['nidn'] ?? null,
+            'nama_dosen' => $validated['nama_dosen'],
+            'umur' => $validated['umur'] ?? null,
+            'gelar_depan' => $validated['gelar_depan'] ?? null,
+            'gelar_belakang' => $validated['gelar_belakang'] ?? null,
+            'email' => $validated['email'],
+            'no_hp' => $validated['no_hp'] ?? null,
+            'no_npwp' => $validated['no_npwp'] ?? null,
+            'tempat_lahir' => $validated['tempat_lahir'] ?? null,
+            'tanggal_lahir' => $validated['tanggal_lahir'] ?? null,
+            'jenis_kelamin' => $validated['jenis_kelamin'] ?? null,
+            'alamat' => $validated['alamat'] ?? null,
+            'agama' => $validated['agama'] ?? null,
+            'golongan_darah' => $validated['golongan_darah'] ?? null,
+            'fakultas_id' => $validated['fakultas_id'] ?? null,
+            'prodi_id' => $validated['prodi_id'] ?? null,
+            'bidang_ilmu_kompetensi' => $validated['bidang_ilmu_kompetensi'] ?? null,
+            'ikatan_kerja' => $validated['ikatan_kerja'] ?? null,
+            'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'] ?? null,
+            'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'] ?? null,
+            'jabatan_akademik_id' => $validated['jabatan_akademik_id'] ?? null,
+            'golongan_id' => $validated['golongan_id'] ?? null,
+            'foto_dosen' => $pathFoto,
+            'dokumen_dosen' => $pathDokumen,
+            'status_aktivasi' => $validated['status_aktivasi'],
+            'user_id' => $userId,
+        ]);
+
+        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil diupdate.');
+    }
+
+    public function destroy(Dosen $dosen)
+    {
+        $dosen->delete();
+        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil dihapus.');
     }
 }

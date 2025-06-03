@@ -11,7 +11,8 @@ class PsikologiController extends Controller
 {
     public function index()
     {
-        return view('admin.psikologi.index'); // Berisi Livewire component untuk tabel
+        $psikologis = Psikologi::with('pelamar')->latest()->get();
+        return view('admin.psikologi.index', compact('psikologis'));
     }
 
     public function create(Request $request)

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('karyawans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('pelamar_id')->constrained('pelamars')->onDelete('cascade');
+            $table->foreignId('pelamar_id')->nullable()->constrained('pelamars')->onDelete('cascade');
             $table->string('kode_karyawan')->unique()->nullable();
             $table->string('password')->nullable();
             $table->string('nik_ktp')->unique()->nullable();

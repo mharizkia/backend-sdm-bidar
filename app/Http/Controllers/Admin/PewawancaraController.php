@@ -38,7 +38,7 @@ class PewawancaraController extends Controller
             'dokumen_pewawancara' => $path,
         ]);
 
-        return redirect()->route('admin.pewawancara.index')->with('success', 'Pewawancara created successfully.');
+        return redirect()->route('pewawancara.index')->with('success', 'Pewawancara created successfully.');
     }
 
     public function edit($id)

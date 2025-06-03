@@ -13,7 +13,8 @@ class WawancaraController extends Controller
 {
     public function index()
     {
-        return view('admin.wawancara.index'); // Berisi Livewire component untuk tabel
+        $wawancaras = Wawancara::with('pelamar')->latest()->get();
+        return view('admin.wawancara.index', compact('wawancaras'));
     }
 
     public function create(Request $request)
@@ -93,6 +94,6 @@ class WawancaraController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('admin.wawancara.index')->with('success', 'Wawancara updated successfully.');
+        return redirect()->route('wawancara.index')->with('success', 'Wawancara updated successfully.');
     }
 }

@@ -13,7 +13,7 @@ class PelamarController extends Controller
 {
     public function index()
     {
-        $pelamars = Pelamar::whereNull('status')->get();
+        $pelamars = Pelamar::all();
         return view('admin.pelamar.index', compact('pelamars'));
     }
     public function create()
@@ -41,11 +41,9 @@ class PelamarController extends Controller
             'dokumen_lamaran' => 'required|file|mimes:pdf|max:10248',
         ]);
 
-        // Buat kode pelamar (D-xxxx atau K-xxxx)
         $count = Pelamar::where('pilihan_lamaran', $request->pilihan_lamaran)->count() + 1;
         $kode = strtoupper(substr($request->pilihan_lamaran, 0, 1)) . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
 
-        // Simpan file
         $path = $request->file('dokumen_lamaran')->store('pdfs', 'public');
 
         Pelamar::create([
@@ -68,7 +66,7 @@ class PelamarController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('pelamar.index')->back()->with('message', 'Data pelamar berhasil disimpan!');
+        return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil disimpan!');
     }
 
     public function konfirmasi(Request $request, $id)
@@ -76,7 +74,7 @@ class PelamarController extends Controller
         $status = $request->input('status');
 
         if (!$status) {
-            return redirect()->route('admin.pelamar.index')
+            return redirect()->route('pelamar.index')
                 ->with('message', 'Silakan pilih status terlebih dahulu.');
         }
 
@@ -147,5 +145,69 @@ class PelamarController extends Controller
 
         return redirect()->route('pelamar.index')
             ->with('message', "Pelamar berhasil dikonfirmasi sebagai: $status.");
+    }
+
+    public function edit($id)
+    {
+        $pelamar = Pelamar::with(['wawancara', 'psikologi'])->findOrFail($id);
+        return view('admin.pelamar.edit', compact('pelamar'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama_pelamar' => 'required|string|max:255',
+            'nidn' => 'nullable|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:L,P',
+            'email' => 'required|email|unique:pelamars,email,' . $id,
+            'no_hp' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'pendidikan_tertinggi' => 'required|string|max:255',
+            'umur' => 'required|integer|min:0',
+            'ipk' => 'required|numeric|min:0|max:4',
+            'bidang_ilmu_kompetensi' => 'required|string|max:255',
+            'pilihan_lamaran' => 'required|in:dosen,karyawan',
+            'tanggal_lamaran' => 'required|date',
+            'dokumen_lamaran' => 'nullable|file|mimes:pdf|max:10248',
+        ]);
+
+        $pelamar = Pelamar::findOrFail($id);
+
+        $data = $request->only([
+            'nama_pelamar',
+            'nidn',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'jenis_kelamin',
+            'email',
+            'no_hp',
+            'alamat',
+            'pendidikan_tertinggi',
+            'umur',
+            'ipk',
+            'bidang_ilmu_kompetensi',
+            'pilihan_lamaran',
+            'tanggal_lamaran',
+        ]);
+
+        if ($request->hasFile('dokumen_lamaran')) {
+            Storage::disk('public')->delete($pelamar->dokumen_lamaran);
+            $data['dokumen_lamaran'] = $request->file('dokumen_lamaran')->store('pdfs', 'public');
+        }
+
+        $pelamar->update($data);
+
+        return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $pelamar = Pelamar::findOrFail($id);
+        Storage::disk('public')->delete($pelamar->dokumen_lamaran);
+        $pelamar->delete();
+
+        return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil dihapus!');
     }
 }

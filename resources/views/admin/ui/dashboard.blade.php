@@ -8,7 +8,7 @@
         class="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 mb-6">
 
     <div id="result">
-        @include('admin.dosen.result', ['dosens' => $dosens])
+        @include('admin.ui.result', ['dosens' => $dosens, 'karyawans' => $karyawans])
     </div>
 </div>
 
@@ -19,7 +19,7 @@
 
             if (keyword.length > 0) {
                 $.ajax({
-                    url: '{{ route("dosen.search") }}',
+                    url: '{{ route("pegawai.search") }}',
                     method: 'GET',
                     data: { search: keyword },
                     success: function (res) {

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="p-4">
-    <h2 class="text-xl font-semibold mb-4">Data Wawancara</h2>
+    <h2 class="text-xl font-semibold mb-4">Data Pelamar</h2>
 
     @if(session('message'))
         <div class="mb-4 text-green-600">{{ session('message') }}</div>
@@ -51,14 +51,20 @@
                             @csrf
                             <select name="status" class="border rounded px-2 py-1">
                                 <option value="">Pilih Status</option>
-                                <option value="terima">Diterima</option>
-                                <option value="tolak">Ditolak</option>
+                                <option value="terima" {{ $w->status == 'terima' ? 'selected' : ''}}>Diterima</option>
+                                <option value="tolak" {{ $w->status == 'tolak' ? 'selected' : ''}}>Ditolak</option>
                             </select>
                     </td>
                     <td class="px-4 py-2 border text-center">
                             <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                                 Konfirmasi
                             </button>
+                        </form>
+                        <a href="{{ route('pelamar.edit', $w->id) }}" class="inline-block bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 ml-1">Edit</a>
+                        <form action="{{ route('pelamar.destroy', $w->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 ml-1">Delete</button>
                         </form>
                     </td>
                 </tr>

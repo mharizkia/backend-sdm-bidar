@@ -11,15 +11,21 @@ use Illuminate\Support\Facades\Hash;
 
 class KaryawanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
+
     public function index()
     {
-        $karyawans = Karyawan::all(); // Assuming you have a Karyawan model
+        $karyawans = Karyawan::all();
         return view('admin.karyawan.index', compact('karyawans'));
     }
 
     public function create()
     {
-        $katunitkerja = KatUnitKerja::all(); // Assuming you have a KatUnitKerja model
+        $katunitkerja = KatUnitKerja::all();
         return view('admin.karyawan.create', compact('katunitkerja'));
     }
 
@@ -27,10 +33,10 @@ class KaryawanController extends Controller
     {
         $validated = $request->validate([
             'kode_karyawan' => 'required|string|max:20',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'nik_ktp' => 'required|string|max:20',
             'nama_karyawan' => 'required|string|max:255',
-            'email' => 'required|email|unique:karyawans,email',
+            'email' => 'required|email|max:255|unique:users,email',
             'umur' => 'required|integer|min:18|max:100',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
@@ -53,8 +59,8 @@ class KaryawanController extends Controller
         $pathFoto = $request->file('foto_karyawan') ? $request->file('foto_karyawan')->store('karyawan/foto') : null;
         $pathDokumen = $request->file('dokumen_karyawan') ? $request->file('dokumen_karyawan')->store('karyawan/dokumen') : null;
 
-        $user = null; // Logic to create a user if needed
-        if ($validated['status_aktivasi'] == 'aktif') {
+        $user = null;
+        if ($validated['status_aktivasi'] === 'aktif') {
             $user = User::create([
                 'name' => $validated['nama_karyawan'],
                 'email' => $validated['email'],
@@ -67,46 +73,144 @@ class KaryawanController extends Controller
         Karyawan::create([
             'kode_karyawan' => $validated['kode_karyawan'],
             'password' => Hash::make($validated['password']),
-            'nik_ktp' => $validated['nik_ktp'] ?? null,
+            'nik_ktp' => $validated['nik_ktp'],
             'nama_karyawan' => $validated['nama_karyawan'],
             'email' => $validated['email'],
-            'tempat_lahir' => $validated['tempat_lahir'] ?? null,
-            'tanggal_lahir' => $validated['tanggal_lahir'] ?? null,
-            'alamat' => $validated['alamat'] ?? null,
-            'agama' => $validated['agama'] ?? null,
-            'jenis_kelamin' => $validated['jenis_kelamin'] ?? null,
-            'no_hp' => $validated['no_hp'] ?? null,
-            'no_npwp' => $validated['no_npwp'] ?? null,
-            'golongan_darah' => $validated['golongan_darah'] ?? null,
-            'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'] ?? null,
-            'ikatan_kerja' => $validated['ikatan_kerja'] ?? null,
-            'jabatan' => $validated['jabatan'] ?? null,
-            'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'] ?? null,
-            'kat_unit_kerja_id' => $validated['kat_unit_kerja_id'] ?? null,
-            'status_aktivasi' => $validated['status_aktivasi'] ?? null,
+            'umur' => $validated['umur'],
+            'tempat_lahir' => $validated['tempat_lahir'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'alamat' => $validated['alamat'],
+            'agama' => $validated['agama'],
+            'jenis_kelamin' => $validated['jenis_kelamin'],
+            'no_hp' => $validated['no_hp'],
+            'no_npwp' => $validated['no_npwp'],
+            'golongan_darah' => $validated['golongan_darah'],
+            'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'],
+            'ikatan_kerja' => $validated['ikatan_kerja'],
+            'jabatan' => $validated['jabatan'],
+            'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'],
+            'kat_unit_kerja_id' => $validated['kat_unit_kerja_id'],
+            'status_aktivasi' => $validated['status_aktivasi'],
             'foto_karyawan' => $pathFoto,
             'dokumen_karyawan' => $pathDokumen,
             'user_id' => $user?->id,
         ]);
-        
-        return redirect()->route('karyawan.index')->with('success', 'Karyawan created successfully.');
+
+        return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
-        // Logic to show the form for editing an existing karyawan
-        return view('admin.karyawan.edit', compact('id'));
+        $karyawan = Karyawan::findOrFail($id);
+        $katunitkerja = KatUnitKerja::all();
+        return view('admin.karyawan.edit', compact('karyawan', 'katunitkerja'));
     }
 
     public function update(Request $request, $id)
     {
-        // Logic to update an existing karyawan
-        return redirect()->route('admin.karyawan.index')->with('success', 'Karyawan updated successfully.');
+        $karyawan = Karyawan::findOrFail($id);
+        $userId = $karyawan->user_id;
+
+        $validated = $request->validate([
+            'kode_karyawan' => 'required|string|max:20',
+            'password' => 'nullable|string|min:8',
+            'nik_ktp' => 'required|string|max:20',
+            'nama_karyawan' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . ($userId ?? 'NULL'),
+            'umur' => 'required|integer|min:18|max:100',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string|max:255',
+            'agama' => 'required|string|max:50',
+            'jenis_kelamin' => 'required|in:L,P',
+            'no_hp' => 'required|string|max:20',
+            'no_npwp' => 'nullable|string|max:20',
+            'golongan_darah' => 'nullable|in:A,B,AB,O',
+            'pendidikan_tertinggi' => 'required|string|max:255',
+            'ikatan_kerja' => 'required|string|max:50',
+            'jabatan' => 'required|string|max:50',
+            'tanggal_mulai_kerja' => 'required|date',
+            'kat_unit_kerja_id' => 'required|exists:kat_unit_kerjas,id',
+            'status_aktivasi' => 'required|in:aktif,nonaktif',
+            'foto_karyawan' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+            'dokumen_karyawan' => 'nullable|file|mimes:pdf|max:10248',
+        ]);
+
+        if ($request->hasFile('foto_karyawan')) {
+            $pathFoto = $request->file('foto_karyawan')->store('karyawan/foto');
+        } else {
+            $pathFoto = $karyawan->foto_karyawan;
+        }
+        if ($request->hasFile('dokumen_karyawan')) {
+            $pathDokumen = $request->file('dokumen_karyawan')->store('karyawan/dokumen');
+        } else {
+            $pathDokumen = $karyawan->dokumen_karyawan;
+        }
+
+        // Handle user creation/update
+        if ($validated['status_aktivasi'] === 'aktif' && $validated['kode_karyawan'] && $request->filled('password')) {
+            if (!$userId) {
+                $user = User::create([
+                    'name' => $validated['nama_karyawan'],
+                    'email' => $validated['email'],
+                    'kode' => $validated['kode_karyawan'],
+                    'password' => Hash::make($validated['password']),
+                ]);
+                $user->assignRole('karyawan');
+                $userId = $user->id;
+            } else {
+                $user = User::find($userId);
+                if ($user) {
+                    $user->update([
+                        'name' => $validated['nama_karyawan'],
+                        'email' => $validated['email'],
+                        'kode' => $validated['kode_karyawan'],
+                        'password' => Hash::make($validated['password']),
+                    ]);
+                }
+            }
+        }
+
+        $karyawan->update([
+            'kode_karyawan' => $validated['kode_karyawan'],
+            'password' => $request->filled('password') ? Hash::make($validated['password']) : $karyawan->password,
+            'nik_ktp' => $validated['nik_ktp'],
+            'nama_karyawan' => $validated['nama_karyawan'],
+            'email' => $validated['email'],
+            'umur' => $validated['umur'],
+            'tempat_lahir' => $validated['tempat_lahir'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'alamat' => $validated['alamat'],
+            'agama' => $validated['agama'],
+            'jenis_kelamin' => $validated['jenis_kelamin'],
+            'no_hp' => $validated['no_hp'],
+            'no_npwp' => $validated['no_npwp'],
+            'golongan_darah' => $validated['golongan_darah'],
+            'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'],
+            'ikatan_kerja' => $validated['ikatan_kerja'],
+            'jabatan' => $validated['jabatan'],
+            'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'],
+            'kat_unit_kerja_id' => $validated['kat_unit_kerja_id'],
+            'status_aktivasi' => $validated['status_aktivasi'],
+            'foto_karyawan' => $pathFoto,
+            'dokumen_karyawan' => $pathDokumen,
+            'user_id' => $userId,
+        ]);
+
+        return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil diupdate.');
+    }
+
+    public function show($id)
+    {
+        $karyawan = Karyawan::with(['katUnitKerja'])->findOrFail($id);
+        $katunitkerja = KatUnitKerja::all();
+        return view('admin.karyawan.show', compact('karyawan', 'katunitkerja'));
     }
 
     public function destroy($id)
     {
-        // Logic to delete an existing karyawan
-        return redirect()->route('admin.karyawan.index')->with('success', 'Karyawan deleted successfully.');
+        $karyawan = Karyawan::findOrFail($id);
+        $karyawan->delete();
+        return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus.');
     }
 }

@@ -3,7 +3,15 @@
 @section('content')
 <div class="container">
     <h2>Edit Dosen</h2>
-
+@if($errors->any())
+    <div class="alert alert-danger mb-3">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <form action="{{ route('dosen.update', $dosen->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -29,7 +37,7 @@
             </div>
         </div>
 
-        {{-- Nik_Ktp --}}
+        {{-- Nik Ktp --}}
         <div class="mb-3">
             <label>NIK/KTP</label>
             <input type="text" name="nik_ktp" class="form-control" value="{{ old('nik_ktp', $dosen->nik_ktp) }}">
