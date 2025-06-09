@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tenggat_waktu')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
+            
         });
     }
 

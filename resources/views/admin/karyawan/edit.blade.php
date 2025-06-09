@@ -29,7 +29,7 @@
                         class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" required>
                 </div>
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-gray-400">(Isi jika ingin mengubah)</span></label>
                     <div class="relative">
                         <input type="password" name="password" id="password"
                             class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm pr-10">
@@ -45,7 +45,6 @@
                             </svg>
                         </button>
                     </div>
-                    <small class="text-gray-500">Kosongkan jika tidak ingin mengubah password.</small>
                 </div>
                 <div>
                     <label for="nik_ktp" class="block text-sm font-medium text-gray-700 mb-1">NIK</label>
@@ -135,9 +134,87 @@
                 </div>
                 <div>
                     <label for="akhir_ikatan_kerja" class="block text-sm font-medium text-gray-700 mb-1">Akhir Ikatan Kerja</label>
-                    <select name="akhir_ikatan_kerja" id="akhir_ikatan_kerja"
+                    <input type="date" name="akhir_ikatan_kerja" id="akhir_ikatan_kerja" value="{{ old('akhir_ikatan_kerja', $karyawan->akhir_ikatan_kerja) }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                    <small class="text-gray-500">Tanggal akhir bisa diubah manual jika diperlukan.</small>
+                </div>
+                <div>
+                    <label for="jabatan" class="block text-sm font-medium text-gray-700 mb-1">Jabatan</label>
+                    <input type="text" name="jabatan" id="jabatan" value="{{ old('jabatan', $karyawan->jabatan) }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="tanggal_mulai_kerja" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai Kerja</label>
+                    <input type="date" name="tanggal_mulai_kerja" id="tanggal_mulai_kerja" value="{{ old('tanggal_mulai_kerja', $karyawan->tanggal_mulai_kerja) }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="kat_unit_kerja_id" class="block text-sm font-medium text-gray-700 mb-1">Unit Kerja</label>
+                    <select name="kat_unit_kerja_id" id="kat_unit_kerja_id"
                         class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
-                        <option value="">Pilih Durasi Ikatan Kerja</option>
-                        <option value="{{ \Carbon\Carbon::now()->addMonths(1)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja', $karyawan->akhir_ikatan_kerja) == \Carbon\Carbon::now()->addMonths(1)->format('Y-m-d') ? 'selected' : '' }}>1 Bulan</option>
-                        <option value="{{ \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja', $karyawan->akhir_ikatan_kerja) == \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') ? 'selected' : '' }}>3 Bulan</option>
-                        <option value="{{ \Carbon\Carbon::now()->addMonths(6)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja', $karyawan->akhir_ikatan_kerja) == \Carbon\Carbon
+                        <option value="">-Pilih-</option>
+                        @foreach($katunitkerja as $unit)
+                            <option value="{{ $unit->id }}" {{ old('kat_unit_kerja_id', $karyawan->kat_unit_kerja_id) == $unit->id ? 'selected' : '' }}>{{ $unit->nama_kat_unit_kerja }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label for="status_aktivasi" class="block text-sm font-medium text-gray-700 mb-1">Status Aktivasi</label>
+                    <select name="status_aktivasi" id="status_aktivasi"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="aktif" {{ old('status_aktivasi', $karyawan->status_aktivasi) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="nonaktif" {{ old('status_aktivasi', $karyawan->status_aktivasi) == 'nonaktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="foto_karyawan" class="block text-sm font-medium text-gray-700 mb-1">Foto Karyawan</label>
+                    <input type="file" name="foto_karyawan" id="foto_karyawan" accept="image/*"
+                        class="form-input mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300">
+                    @if($karyawan->foto_karyawan)
+                        <div class="mt-2">
+                            <img src="{{ asset('storage/'.$karyawan->foto_karyawan) }}" alt="Foto Karyawan" class="h-20 rounded">
+                        </div>
+                    @endif
+                </div>
+                <div>
+                    <label for="dokumen_karyawan" class="block text-sm font-medium text-gray-700 mb-1">Dokumen karyawan</label>
+                    @if($karyawan->dokumen_karyawan)
+                        <a href="{{ asset('storage/' . $karyawan->dokumen_karyawan) }}" target="_blank" class="text-blue-600 underline">Lihat Dokumen</a><br>
+                    @endif
+                    <input type="file" name="dokumen_karyawan" id="dokumen_karyawan"
+                        class="form-input mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300">
+                </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end space-x-3">
+                <a href="{{ route('karyawan.index') }}"
+                    class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Batal
+                </a>
+                <button type="submit"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    Update Data Karyawan
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.956 9.956 0 012.293-3.95m1.414-1.414A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.293 5.95M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 3l18 18" />`;
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+            }
+        }
+    </script>
+@endsection
