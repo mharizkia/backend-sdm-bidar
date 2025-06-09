@@ -31,6 +31,7 @@ return new class extends Migration
             $table->enum('golongan_darah', ['A', 'B', 'AB', 'O'])->nullable();
             $table->string('pendidikan_tertinggi')->nullable();
             $table->string('ikatan_kerja')->nullable();
+            $table->date('akhir_ikatan_kerja')->nullable();
             $table->string('jabatan')->nullable();
             $table->date('tanggal_mulai_kerja')->nullable();
             $table->foreignId('kat_unit_kerja_id')->nullable()->constrained('kat_unit_kerjas')->onDelete('cascade');

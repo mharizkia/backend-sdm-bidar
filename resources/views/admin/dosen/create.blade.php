@@ -199,6 +199,19 @@
             </select>
         </div>
 
+        {{-- Akhir Ikatan Kerja --}}
+        <div class="mb-3">
+            <label for="akhir_ikatan_kerja" class="form-label">Akhir Ikatan Kerja</label>
+            <select name="akhir_ikatan_kerja" id="akhir_ikatan_kerja" class="form-select" required>
+                <option value="">Pilih Durasi Ikatan Kerja</option>
+                <option value="{{ \Carbon\Carbon::now()->addMonths(1)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja') == \Carbon\Carbon::now()->addMonths(1)->format('Y-m-d') ? 'selected' : '' }}>1 Bulan</option>
+                <option value="{{ \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja') == \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') ? 'selected' : '' }}>3 Bulan</option>
+                <option value="{{ \Carbon\Carbon::now()->addMonths(6)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja') == \Carbon\Carbon::now()->addMonths(6)->format('Y-m-d') ? 'selected' : '' }}>6 Bulan</option>
+                <option value="{{ \Carbon\Carbon::now()->addMonths(12)->format('Y-m-d') }}" {{ old('akhir_ikatan_kerja') == \Carbon\Carbon::now()->addMonths(12)->format('Y-m-d') ? 'selected' : '' }}>12 Bulan</option>
+            </select>
+            <small class="text-muted">Tanggal akhir otomatis terisi sesuai pilihan durasi dari hari ini.</small>
+        </div>
+
         {{-- Tanggal Mulai Kerja --}}
         <div class="mb-3">
             <label for="tanggal_mulai_kerja" class="form-label">Tanggal Mulai Kerja</label>

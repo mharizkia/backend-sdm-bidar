@@ -12,8 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('notifikasi:ikatan-kerja')->daily();
+        $schedule->command('check:akhir-ikatan-kerja')->daily();
     }
+
 
 
     /**

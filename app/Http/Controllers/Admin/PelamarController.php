@@ -101,6 +101,12 @@ class PelamarController extends Controller
 
         $pelamar = Pelamar::findOrFail($id);
 
+        $psikologi = $pelamar->psikologi()->latest()->first();
+        if (!$psikologi || $psikologi->status !== 'lulus') {
+            return redirect()->route('pelamar.index')
+                ->with('message', 'Pelamar belum lulus psikologi.');
+        }
+
         if ($status === 'terima') {
             if ($pelamar->pilihan_lamaran === 'dosen' && !$pelamar->dosen) {
                 Dosen::create([
@@ -144,6 +150,7 @@ class PelamarController extends Controller
                     'email' => $pelamar->email,
                     'tempat_lahir' => $pelamar->tempat_lahir,
                     'tanggal_lahir' => $pelamar->tanggal_lahir,
+                    'umur' => $pelamar->umur,
                     'alamat' => $pelamar->alamat,
                     'agama' => '',
                     'jenis_kelamin' => $pelamar->jenis_kelamin,

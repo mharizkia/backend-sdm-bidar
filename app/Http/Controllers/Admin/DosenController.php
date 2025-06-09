@@ -23,7 +23,8 @@ class DosenController extends Controller
     public function index()
     {
         $dosens = Dosen::all();
-        return view('admin.dosen.index', compact('dosens')); 
+        $notifications = auth()->user()->notifications;
+        return view('admin.dosen.index', compact('dosens', 'notifications')); 
     }
 
     public function search(Request $request)
@@ -76,6 +77,7 @@ class DosenController extends Controller
             'prodi_id' => 'nullable|exists:prodis,id',
             'bidang_ilmu_kompetensi' => 'nullable|string|max:255',
             'ikatan_kerja' => 'nullable|string|max:50',
+            'akhir_ikatan_kerja' => 'nullable|date',
             'tanggal_mulai_kerja' => 'nullable|date',
             'pendidikan_tertinggi' => 'nullable|string|max:50',
             'jabatan_akademik_id' => 'nullable|exists:jabatan_akademiks,id',
@@ -122,6 +124,7 @@ class DosenController extends Controller
             'prodi_id' => $validated['prodi_id'] ?? null,
             'bidang_ilmu_kompetensi' => $validated['bidang_ilmu_kompetensi'] ?? null,
             'ikatan_kerja' => $validated['ikatan_kerja'] ?? null,
+            'akhir_ikatan_kerja' => $validated['akhir_ikatan_kerja'] ?? null,
             'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'] ?? null,
             'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'] ?? null,
             'jabatan_akademik_id' => $validated['jabatan_akademik_id'] ?? null,
@@ -132,7 +135,7 @@ class DosenController extends Controller
             'user_id' => $user?->id,
         ]);
 
-        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
+        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
     }
 
     public function getProdi($fakultas_id)

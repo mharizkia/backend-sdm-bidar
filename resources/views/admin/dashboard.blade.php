@@ -69,7 +69,6 @@
                 </div>
             </div>
         </div>
-
         <div class="rounded-lg border border-gray-200 bg-notification-bg p-6 shadow-sm text-white lg:col-span-1 flex flex-col h-full">
             <div class="mb-4 flex items-center justify-between flex-shrink-0">
                 <h4 class="text-lg font-semibold">Notifikasi</h4>
@@ -79,12 +78,8 @@
                 @forelse ($notifications ?? [] as $notification)
                     <div class="flex items-center justify-between p-2.5 bg-gray-700 bg-opacity-50 rounded-md">
                         <div>
-                            <p class="text-sm font-medium">{{ $notification->title }}</p>
-                            <p class="text-xs text-gray-300">{{ $notification->created_at->format('F d, Y') }}</p>
+                            <p class="text-sm font-medium"> {{ $notification->data['message'] ?? '-' }}</p>
                         </div>
-                        @if($notification->is_new ?? false)
-                            <span class="text-xs px-2 py-1 bg-red-500 text-white rounded-full">New</span>
-                        @endif
                     </div>
                 @empty
                     @for ($i = 0; $i < 8; $i++)
@@ -102,7 +97,6 @@
                 @endforelse
             </div>
         </div>
-
     </div>
 @endsection
 

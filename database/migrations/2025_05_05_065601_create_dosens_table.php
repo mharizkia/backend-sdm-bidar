@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('bidang_ilmu_kompetensi')->nullable();
             $table->string('ikatan_kerja')->nullable();
             $table->date('tanggal_mulai_kerja')->nullable();
+            $table->date('akhir_ikatan_kerja')->nullable();
             $table->string('pendidikan_tertinggi')->nullable();
             $table->foreignId('jabatan_akademik_id')->nullable()->constrained('jabatan_akademiks')->onDelete('cascade');
             $table->foreignId('golongan_id')->nullable()->constrained('golongans')->onDelete('cascade');

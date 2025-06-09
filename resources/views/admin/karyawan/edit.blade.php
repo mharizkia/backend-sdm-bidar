@@ -52,9 +52,18 @@
             <label>Alamat</label>
             <textarea name="alamat" class="form-control">{{ old('alamat', $karyawan->alamat) }}</textarea>
         </div>
+        {{-- Agama --}}
         <div class="mb-3">
             <label>Agama</label>
-            <input type="text" name="agama" class="form-control" value="{{ old('agama', $karyawan->agama) }}">
+            <select name="agama" class="form-control">
+                <option value="">-- Pilih Agama --</option>
+                <option value="Islam">Islam</option>
+                <option value="Kristen" >Kristen</option>
+                <option value="Katolik">Katolik</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Buddha">Buddha</option>
+                <option value="Konghucu">Konghucu</option>
+            </select>
         </div>
         <div class="mb-3">
             <label>Jenis Kelamin</label>
@@ -102,7 +111,7 @@
             <select name="kat_unit_kerja_id" class="form-control">
                 @foreach($katunitkerja as $unit)
                     <option value="{{ $unit->id }}" {{ $karyawan->kat_unit_kerja_id == $unit->id ? 'selected' : '' }}>
-                        {{ $unit->nama_unit_kerja }}
+                        {{ $unit->nama_kat_unit_kerja }}
                     </option>
                 @endforeach
             </select>
@@ -119,14 +128,14 @@
             @if($karyawan->foto_karyawan)
                 <img src="{{ asset('storage/' . $karyawan->foto_karyawan) }}" alt="Foto Karyawan" width="100"><br>
             @endif
-            <input type="file" name="foto_karyawan" class="form-control mt-2">
+            <input type="file" name="foto_karyawan" class="form-control mt-2" accept="image/jpeg,image/png,image/jpg">
         </div>
         <div class="mb-3">
             <label>Dokumen Karyawan</label><br>
             @if($karyawan->dokumen_karyawan)
                 <a href="{{ asset('storage/' . $karyawan->dokumen_karyawan) }}" target="_blank">Lihat Dokumen</a><br>
             @endif
-            <input type="file" name="dokumen_karyawan" class="form-control mt-2">
+            <input type="file" name="dokumen_karyawan" class="form-control mt-2" accept="application/pdf">
         </div>
         <button type="submit" class="btn btn-primary">Update Karyawan</button>
         <a href="{{ route('karyawan.index') }}" class="btn btn-secondary">Kembali</a>

@@ -11,7 +11,7 @@
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
             <h2 class="text-xl font-semibold">Tabel Data Wawancara</h2>
-            <a href="{{ route('pelamar.index') }}" class="text-sm bg-white text-[#1D3F8E] hover:bg-gray-100 font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center">
+            <a href="{{ route('pelamar.validasi') }}" class="text-sm bg-white text-[#1D3F8E] hover:bg-gray-100 font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i>Kembali ke Validasi
             </a>
         </div>

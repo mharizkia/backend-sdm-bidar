@@ -48,7 +48,7 @@
                         @if ($p->dokumen_pewawancara)
                             <div class="panduan" data-id="{{ $p->id }}" style="display: none;">
                                 <iframe src="{{ asset('storage/' . $p->dokumen_pewawancara) }}" width="100%" height="400px" class="border"></iframe>
-                                <a href="{{ asset('storage/' . $p->dokumen_pewawancara) }}" download class="text-blue-500 underline block mt-2">Download Panduan Pewawancara</a>
+                                <a href="{{ asset('storage/' . $p->dokumen_pewawancara) }}" download class="text-blue-500 underline block mt-2">Download Dokumen Pewawancara</a>
                             </div>
                         @endif
                     @endforeach

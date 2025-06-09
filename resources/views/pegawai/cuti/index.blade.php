@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
 <div class="max-w-lg mx-auto py-10">
     <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">Ajukan Cuti</h2>

@@ -6,7 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class AkhirIkatanKerjaNotification extends Notification
+class AkhirIkatanKerjaDosenNotification extends Notification
 {
     use Queueable;
 
@@ -27,7 +27,7 @@ class AkhirIkatanKerjaNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => "Masa ikatan kerja dosen {$this->dosen->nama} akan berakhir dalam {$this->interval}.",
+            'message' => "Masa ikatan kerja dosen {$this->dosen->nama_dosen} akan berakhir dalam {$this->interval}.",
             'dosen_id' => $this->dosen->id,
         ];
     }
@@ -36,6 +36,6 @@ class AkhirIkatanKerjaNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Peringatan Akhir Ikatan Kerja')
-            ->line("Masa ikatan kerja dosen {$this->dosen->nama} akan berakhir dalam {$this->interval}.");
+            ->line("Masa ikatan kerja dosen {$this->dosen->nama_dosen} akan berakhir dalam {$this->interval}.");
     }
 }

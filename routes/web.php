@@ -86,7 +86,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 
-Route::middleware(['auth', 'role:dosen|karyawan'])->group(function () {
+Route::middleware(['auth', 'role:dosen|karyawan|admin'])->group(function () {
     Route::get('/home', [PegawaiController::class, 'index'])->name('pegawai.index');
 
     Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');

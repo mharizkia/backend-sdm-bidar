@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Dosen extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'pelamar_id',
@@ -34,6 +35,7 @@ class Dosen extends Model
         'prodi_id',
         'bidang_ilmu_kompetensi',
         'ikatan_kerja',
+        'akhir_ikatan_kerja',
         'tanggal_mulai_kerja',
         'pendidikan_tertinggi',
         'jabatan_akademik_id',

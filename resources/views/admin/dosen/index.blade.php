@@ -10,6 +10,13 @@
     <div id="result">
         @include('admin.dosen.result', ['dosens' => $dosens])
     </div>
+
+    @foreach($notifications as $notification)
+        <div class="alert alert-warning">
+            {{ $notification->data['message'] }}
+        </div>
+    @endforeach
+    
 </div>
 
 <script>

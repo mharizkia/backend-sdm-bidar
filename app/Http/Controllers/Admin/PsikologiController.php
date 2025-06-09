@@ -18,12 +18,17 @@ class PsikologiController extends Controller
     public function create(Request $request)
     {
         $pelamar = null;
-        if ($request->kode) {
-            $pelamar = Pelamar::where('kode', $request->kode)->first();
-            if (!$pelamar) {
-                session()->flash('not_found', 'Pelamar tidak ditemukan.');
+            if ($request->kode) {
+                $pelamar = Pelamar::where('kode', $request->kode)->first();
+                if (!$pelamar) {
+                    session()->flash('not_found', 'Pelamar tidak ditemukan.');
+                } else {
+                    $wawancara = $pelamar->wawancara()->latest()->first();
+                    if (!$wawancara || $wawancara->status !== 'lulus') {
+                        return redirect()->route('psikologi.index')->with('error', 'Pelamar belum lulus wawancara.');
+                    }
+                }
             }
-        }
 
         return view('admin.psikologi.create', [
             'pelamar' => $pelamar,
@@ -33,6 +38,12 @@ class PsikologiController extends Controller
 
     public function store(Request $request)
     {
+        $pelamar = Pelamar::findOrFail($request->pelamar_id);
+        $wawancara = $pelamar->wawancara()->latest()->first();
+        if (!$wawancara || $wawancara->status !== 'lulus') {
+            return redirect()->route('psikologi.index')->with('error', 'Pelamar belum lulus wawancara.');
+        }
+        
         $request->validate([
             'pelamar_id' => 'required|exists:pelamars,id',
             'tanggal_psikologis' => 'required|date',

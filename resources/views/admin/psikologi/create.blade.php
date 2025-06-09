@@ -8,14 +8,6 @@
         <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
     </div>
 
-    <form method="GET" action="{{ route('psikologi.create') }}" class="flex items-center space-x-2 mb-4">
-        <label for="kode" class="block text-sm font-medium text-gray-700 mb-1">Kode Pelamar</label>
-        <input type="text" name="kode" id="kode" value="{{ request('kode') }}" class="border p-1 rounded text-sm">
-        <button type="submit" class="px-3 py-1 bg-blue-600 text-white rounded text-sm">Cari</button>
-    </form>
-    @if (session('not_found'))
-        <div class="text-red-600 mt-2">{{ session('not_found') }}</div>
-    @endif
 
     <div class="bg-white shadow-lg rounded-lg p-6 md:p-8">
         <form action="{{ route('psikologi.store') }}" method="POST" enctype="multipart/form-data">
