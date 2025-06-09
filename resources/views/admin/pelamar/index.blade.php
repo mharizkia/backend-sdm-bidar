@@ -23,12 +23,24 @@
                         <span>Filter</span>
                         <i class="fas fa-chevron-down ml-2 text-sm"></i>
                     </button>
-                    <div id="filterPelamarMenu" class="origin-top-left absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="filterPelamarButton">
-                        <div class="py-1" role="none">
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">Semua</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">Dosen</a>
-                            <a href="#" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">Karyawan</a>
+                    <div id="filterPelamarMenu" class="origin-top-left absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-50 p-4" role="menu" aria-orientation="vertical" aria-labelledby="filterPelamarButton">
+                        <div class="mb-3">
+                            <label class="block text-xs font-semibold mb-1">Pilihan Lamaran</label>
+                            <select id="filter-pilihan" class="form-input w-full rounded-md border-gray-300 text-sm">
+                                <option value="">Semua</option>
+                                <option value="dosen">Dosen</option>
+                                <option value="karyawan">Karyawan</option>
+                            </select>
                         </div>
+                        <div class="mb-3">
+                            <label class="block text-xs font-semibold mb-1">Jenis Kelamin</label>
+                            <select id="filter-jk" class="form-input w-full rounded-md border-gray-300 text-sm">
+                                <option value="">Semua</option>
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                        <button type="button" id="filterPelamarApply" class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded text-sm w-full">Terapkan</button>
                     </div>
                 </div>
             </div>
@@ -42,50 +54,60 @@
             </div>
         </div>
 
-    <div id="result">
-        @include('admin.pelamar.result', ['pelamars' => $pelamars])
+        <div id="result">
+            @include('admin.pelamar.result', ['pelamars' => $pelamars])
+        </div>
     </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterButton = document.getElementById('filterPelamarButton');
+        const filterMenu = document.getElementById('filterPelamarMenu');
+        const filterApply = document.getElementById('filterPelamarApply');
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const filterButton = document.getElementById('filterPelamarButton');
-    const filterMenu = document.getElementById('filterPelamarMenu');
+        if (filterButton && filterMenu) {
+            filterButton.addEventListener('click', function (event) {
+                event.stopPropagation();
+                filterMenu.classList.toggle('hidden');
+            });
 
-    if (filterButton && filterMenu) {
-        filterButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-            filterMenu.classList.toggle('hidden');
-        });
+            window.addEventListener('click', function (event) {
+                if (filterMenu && !filterMenu.classList.contains('hidden') && !filterButton.contains(event.target) && !filterMenu.contains(event.target)) {
+                    filterMenu.classList.add('hidden');
+                }
+            });
+            document.addEventListener('keydown', function (event) {
+                if (filterMenu && event.key === 'Escape' && !filterMenu.classList.contains('hidden')) {
+                    filterMenu.classList.add('hidden');
+                }
+            });
+        }
 
-        window.addEventListener('click', function (event) {
-            if (filterMenu && !filterMenu.classList.contains('hidden') && !filterButton.contains(event.target) && !filterMenu.contains(event.target)) {
+        if (filterApply) {
+            filterApply.addEventListener('click', function () {
+                loadPelamar();
                 filterMenu.classList.add('hidden');
-            }
-        });
-        document.addEventListener('keydown', function (event) {
-            if (filterMenu && event.key === 'Escape' && !filterMenu.classList.contains('hidden')) {
-                filterMenu.classList.add('hidden');
-            }
-        });
-    }
-});
-</script>
+            });
+        }
 
-<script>
-    $(document).ready(function () {
         $('#search').on('input', function () {
-            let keyword = $(this).val();
+            loadPelamar();
+        });
+
+        function loadPelamar() {
+            let keyword = $('#search').val();
+            let pilihan = $('#filter-pilihan').val();
+            let jk = $('#filter-jk').val();
 
             $.ajax({
                 url: '{{ route("pelamar.search") }}',
                 method: 'GET',
-                data: { search: keyword },
+                data: { search: keyword, pilihan: pilihan, jk: jk },
                 success: function (res) {
                     $('#result').html(res.html);
                 }
             });
-        });
+        }
     });
-</script>
+    </script>
 @endsection

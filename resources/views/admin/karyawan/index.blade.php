@@ -1,45 +1,49 @@
-@extends('layouts.app')
+@extends('layouts.admin')
+
+@section('title', 'Data Karyawan')
 
 @section('content')
+    <div class="mb-6">
+        <h1 class="text-2xl font-semibold text-text-dark">Data Karyawan</h1>
+        <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
+    </div>
 
-<div class="p-4">
-    <h2 class="text-lg font-bold mb-4">Data karyawan</h2>
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div class="bg-[#1D3F8E] text-white p-4">
+            <h2 class="text-xl font-semibold">Tabel Data Karyawan</h2>
+        </div>
 
-    @if (session('message'))
-        <div class="text-green-600 mb-2">{{ session('message') }}</div>
-    @endif
+        <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 border-b border-gray-200">
+            <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
+                <div class="w-full sm:w-auto">
+                    <input type="text" id="search" placeholder="Cari nama/kode/email..." class="form-input w-full sm:w-60 rounded-md border-gray-300 shadow-sm text-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2">
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 w-full sm:w-auto justify-start sm:justify-end">
+                <a href="{{ route('karyawan.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                    <i class="fas fa-plus mr-2"></i>Input Data Karyawan
+                </a>
+            </div>
+        </div>
 
-    <table class="w-full border mb-4">
-        <thead>
-            <tr>
-                <th class="border px-2">Nama</th>
-                <th class="border px-2">Jabatan</th>
-                <th class="border px-2">Tempat Lahir</th>
-                <th class="border px-2">Tanggal Lahir</th>
-                <th class="border px-2">Jenis Kelamin</th>
-                <th class="border px-2">Email</th>
-                <th class="border px-2">No HP</th>
-                <th class="border px-2">Status</th>
-                <th class="border px-2">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($karyawans as $karyawan)
-                <tr>
-                    <td class="border px-2">{{ $karyawan->nama_karyawan }}</td>
-                    <td class="border px-2">{{ $karyawan->jabatan }}</td>
-                    <td class="border px-2">{{ $karyawan->tempat_lahir }}</td>
-                    <td class="border px-2">{{ $karyawan->tanggal_lahir }}</td>
-                    <td class="border px-2">{{ $karyawan->jenis_kelamin }}</td>
-                    <td class="border px-2">{{ $karyawan->email }}</td>
-                    <td class="border px-2">{{ $karyawan->no_hp }}</td>
-                    <td class="border px-2">{{ $karyawan->status_aktivasi }}</td>
-                    <td class="border px-2">
-                        <a href="{{ route('karyawan.edit', $karyawan->id) }}" class="bg-yellow-500 text-white px-2 py-1 rounded">Edit</a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+        <div id="result">
+            @include('admin.karyawan.result', ['karyawans' => $karyawans])
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        $('#search').on('input', function () {
+            let keyword = $(this).val();
+            $.ajax({
+                url: '{{ route("karyawan.search") }}',
+                method: 'GET',
+                data: { search: keyword },
+                success: function (res) {
+                    $('#result').html(res.html);
+                }
+            });
+        });
+    });
+    </script>
 @endsection

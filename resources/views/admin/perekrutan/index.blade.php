@@ -1,169 +1,231 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Tes Psikologi')
+@section('title', 'Tambah Dosen')
 
 @section('content')
     <div class="mb-6">
-        <h1 class="text-2xl font-semibold text-text-dark">Data Tes Psikologi</h1>
+        <h1 class="text-2xl font-semibold text-text-dark">Tambah Data Dosen</h1>
         <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
     </div>
 
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
-            <h2 class="text-xl font-semibold">Tabel Data Tes Psikologi</h2>
-            <a href="{{ route('admin.validasi.pelamar.index') }}" class="text-sm bg-white text-[#1D3F8E] hover:bg-gray-100 font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center">
-                <i class="fas fa-arrow-left mr-2"></i>Kembali ke Validasi
-            </a>
-        </div>
-
-        <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 border-b border-gray-200">
-            <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
-                <div class="w-full sm:w-auto">
-                    <input type="text" placeholder="Cari...." class="form-input w-full sm:w-60 rounded-md border-gray-300 shadow-sm text-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2">
+    <div class="bg-white shadow-lg rounded-lg p-6 md:p-8">
+        <form action="{{ route('dosen.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="grid grid-cols-1 gap-y-6">
+                <div>
+                    <label for="kode_dosen" class="block text-sm font-medium text-gray-700 mb-1">Kode Dosen <span class="text-red-500">*</span></label>
+                    <input type="text" name="kode_dosen" id="kode_dosen" value="{{ old('kode_dosen') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" required>
                 </div>
-                <div class="relative w-full sm:w-auto">
-                    <button type="button" id="filterPsikologiButton" class="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 border border-gray-300 rounded-md shadow-sm inline-flex items-center justify-center text-sm h-full">
-                        <span>Filter Status</span>
-                        <i class="fas fa-chevron-down ml-2 text-sm"></i>
-                    </button>
-                    <div id="filterPsikologiMenu" class="origin-top-left absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-50" role="menu" aria-orientation="vertical" aria-labelledby="filterPsikologiButton">
-                        <div class="py-1" role="none">
-                            <a href="#" data-filter-value="semua" class="filter-item-psikologi text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">Semua</a>
-                            <a href="#" data-filter-value="lulus" class="filter-item-psikologi text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">Lulus</a>
-                            <a href="#" data-filter-value="tidak_lulus" class="filter-item-psikologi text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" role="menuitem">Tidak Lulus</a>
-                        </div>
-                    </div>
+                <div>
+                    <label for="nama_dosen" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
+                    <input type="text" name="nama_dosen" id="nama_dosen" value="{{ old('nama_dosen') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" required>
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                    <input type="email" name="email" id="email" value="{{ old('email') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-red-500">*</span></label>
+                    <input type="password" name="password" id="password"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" required>
+                </div>
+                <div>
+                    <label for="nidn" class="block text-sm font-medium text-gray-700 mb-1">NIDN</label>
+                    <input type="text" name="nidn" id="nidn" value="{{ old('nidn') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="nik_ktp" class="block text-sm font-medium text-gray-700 mb-1">NIK</label>
+                    <input type="text" name="nik_ktp" id="nik_ktp" value="{{ old('nik_ktp') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
+                    <input type="text" name="nip" id="nip" value="{{ old('nip') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="gelar_depan" class="block text-sm font-medium text-gray-700 mb-1">Gelar Depan</label>
+                    <input type="text" name="gelar_depan" id="gelar_depan" value="{{ old('gelar_depan') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="gelar_belakang" class="block text-sm font-medium text-gray-700 mb-1">Gelar Belakang</label>
+                    <input type="text" name="gelar_belakang" id="gelar_belakang" value="{{ old('gelar_belakang') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="tempat_lahir" class="block text-sm font-medium text-gray-700 mb-1">Tempat Lahir</label>
+                    <input type="text" name="tempat_lahir" id="tempat_lahir" value="{{ old('tempat_lahir') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="jenis_kelamin" class="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">-Pilih-</option>
+                        <option value="L" {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-Laki</option>
+                        <option value="P" {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="golongan_darah" class="block text-sm font-medium text-gray-700 mb-1">Golongan Darah</label>
+                    <input type="text" name="golongan_darah" id="golongan_darah" value="{{ old('golongan_darah') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="agama" class="block text-sm font-medium text-gray-700 mb-1">Agama</label>
+                    <input type="text" name="agama" id="agama" value="{{ old('agama') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="no_hp" class="block text-sm font-medium text-gray-700 mb-1">Nomor HP</label>
+                    <input type="text" name="no_hp" id="no_hp" value="{{ old('no_hp') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="no_npwp" class="block text-sm font-medium text-gray-700 mb-1">No NPWP</label>
+                    <input type="text" name="no_npwp" id="no_npwp" value="{{ old('no_npwp') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="fakultas_id" class="block text-sm font-medium text-gray-700 mb-1">Fakultas</label>
+                    <select id="fakultas_id" name="fakultas_id"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">-Pilih-</option>
+                        @foreach($fakultas as $f)
+                            <option value="{{ $f->id }}" {{ old('fakultas_id') == $f->id ? 'selected' : '' }}>{{ $f->nama_fakultas }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label for="prodi_id" class="block text-sm font-medium text-gray-700 mb-1">Program Studi</label>
+                    <select id="prodi_id" name="prodi_id"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">-Pilih-</option>
+                        {{-- Akan diisi via JS --}}
+                    </select>
+                </div>
+                <div>
+                    <label for="bidang_ilmu_kompetensi" class="block text-sm font-medium text-gray-700 mb-1">Bidang Ilmu Kompetensi</label>
+                    <input type="text" name="bidang_ilmu_kompetensi" id="bidang_ilmu_kompetensi" value="{{ old('bidang_ilmu_kompetensi') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="ikatan_kerja" class="block text-sm font-medium text-gray-700 mb-1">Ikatan Kerja</label>
+                    <input type="text" name="ikatan_kerja" id="ikatan_kerja" value="{{ old('ikatan_kerja') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="akhir_ikatan_kerja" class="block text-sm font-medium text-gray-700 mb-1">Akhir Ikatan Kerja</label>
+                    <select name="akhir_ikatan_kerja" id="akhir_ikatan_kerja"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">Pilih Durasi Ikatan Kerja</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(1)->format('Y-m-d') }}">1 Bulan</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') }}">3 Bulan</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(6)->format('Y-m-d') }}">6 Bulan</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(12)->format('Y-m-d') }}">12 Bulan</option>
+                    </select>
+                    <small class="text-gray-500">Tanggal akhir otomatis terisi sesuai pilihan durasi dari hari ini.</small>
+                </div>
+                <div>
+                    <label for="tanggal_mulai_kerja" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai Kerja</label>
+                    <input type="date" name="tanggal_mulai_kerja" id="tanggal_mulai_kerja" value="{{ old('tanggal_mulai_kerja') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="pendidikan_tertinggi" class="block text-sm font-medium text-gray-700 mb-1">Pendidikan Tertinggi</label>
+                    <input type="text" name="pendidikan_tertinggi" id="pendidikan_tertinggi" value="{{ old('pendidikan_tertinggi') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
+                    <label for="jabatan_akademik_id" class="block text-sm font-medium text-gray-700 mb-1">Jabatan Akademik</label>
+                    <select id="jabatan_akademik_id" name="jabatan_akademik_id"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">-Pilih-</option>
+                        @foreach($jabatanAkademik as $ja)
+                            <option value="{{ $ja->id }}" {{ old('jabatan_akademik_id') == $ja->id ? 'selected' : '' }}>{{ $ja->nama_jabatan }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label for="golongan_id" class="block text-sm font-medium text-gray-700 mb-1">Golongan</label>
+                    <select id="golongan_id" name="golongan_id"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">-Pilih-</option>
+                        {{-- Akan diisi via JS --}}
+                    </select>
+                </div>
+                <div>
+                    <label for="foto_dosen" class="block text-sm font-medium text-gray-700 mb-1">Foto Dosen</label>
+                    <input type="file" name="foto_dosen" id="foto_dosen"
+                        class="form-input mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300">
+                </div>
+                <div>
+                    <label for="dokumen_dosen" class="block text-sm font-medium text-gray-700 mb-1">Dokumen Dosen</label>
+                    <input type="file" name="dokumen_dosen" id="dokumen_dosen"
+                        class="form-input mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300">
+                </div>
+                <div>
+                    <label for="status_aktivasi" class="block text-sm font-medium text-gray-700 mb-1">Status Aktivasi</label>
+                    <select name="status_aktivasi" id="status_aktivasi"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="aktif" {{ old('status_aktivasi') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="tidak_aktif" {{ old('status_aktivasi') == 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
                 </div>
             </div>
-            <div class="w-full sm:w-auto">
-                <a href="{{ route('admin.psikologi.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
-                    <i class="fas fa-plus mr-2"></i> Input Data Tes Psikologi
+
+            <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end space-x-3">
+                <a href="{{ route('dosen.index') }}"
+                    class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Batal
                 </a>
+                <button type="submit"
+                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    Simpan Data Dosen
+                </button>
             </div>
-        </div>
-
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">ID Pelamar</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Nama Pelamar</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Tanggal Tes</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Dokumen</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider min-w-[200px]">Kesimpulan</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Status</th>
-                        <th class="px-4 py-3 text-center text-sm font-semibold text-gray-800 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200 text-sm text-gray-700">
-                    @forelse ($psikologiData ?? [] as $psikologi)
-                    <tr>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $psikologi->kode_pelamar }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap font-medium">{{ $psikologi->nama_pelamar }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $psikologi->tanggal_tes }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap text-center">
-                            @if($psikologi->dokumen_ada)
-                                <a href="#" class="text-blue-600 hover:text-blue-800" title="Lihat Dokumen Tes Psikologi">
-                                    <i class="fas fa-file-alt text-lg"></i>
-                                </a>
-                            @else
-                                <span class="text-gray-400">-</span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-3 text-center ">{{ Str::limit($psikologi->kesimpulan, 70) }}</td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap">
-                            @if($psikologi->status == 'Lulus')
-                                <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                    Lulus
-                                </span>
-                            @elseif($psikologi->status == 'Tidak Lulus')
-                                <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                    Tidak Lulus
-                                </span>
-                            @else
-                                <span class="px-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                    {{ $psikologi->status }}
-                                </span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-3 text-center whitespace-nowrap text-center">
-                            <div class="inline-flex items-center space-x-2">
-                                <a href="{{ route('admin.psikologi.edit', ['id_psikologi' => $psikologi->id_psikologi]) }}" 
-                                   class="text-blue-600 hover:text-blue-800 transition-colors duration-150 text-lg" 
-                                   title="Edit Data Tes Psikologi">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form action="{{ route('admin.psikologi.destroy', ['id_psikologi' => $psikologi->id_psikologi]) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data tes psikologi ini?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" 
-                                            class="text-red-600 hover:text-red-800 transition-colors duration-150 text-lg" 
-                                            title="Hapus Data Tes Psikologi">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="px-4 py-4 text-center text-sm text-gray-500">
-                            Tidak ada data tes psikologi yang ditemukan.
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-
-        <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
-            <span class="text-sm text-gray-700">
-                Menampilkan {{ $psikologiData->count() > 0 ? '1 sampai ' . $psikologiData->count() : '0' }} dari {{ $psikologiData->count() }} entri
-            </span>
-            <div class="inline-flex -space-x-px rounded-md shadow-sm">
-                <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-sm text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 rounded-l-lg">Sebelumnya</button>
-                <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-sm text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700">1</button>
-                <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-sm text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg">Berikutnya</button>
-            </div>
-        </div>
+        </form>
     </div>
-@endsection
 
-@push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const filterButton = document.getElementById('filterPsikologiButton'); // ID disesuaikan
-    const filterMenu = document.getElementById('filterPsikologiMenu');   // ID disesuaikan
-
-    if (filterButton && filterMenu) {
-        filterButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-            filterMenu.classList.toggle('hidden');
-        });
-
-        filterMenu.querySelectorAll('.filter-item-psikologi').forEach(item => { // Kelas item disesuaikan
-            item.addEventListener('click', function(event) {
-                event.preventDefault();
-                const filterValue = this.dataset.filterValue;
-                console.log('Filter Data Tes Psikologi dipilih:', filterValue);
-                filterMenu.classList.add('hidden');
+    $('#fakultas_id').on('change', function () {
+        var fakultasId = $(this).val();
+        $('#prodi_id').html('<option value="">Loading...</option>');
+        if (fakultasId) {
+            $.get('/get-prodi/' + fakultasId, function (data) {
+                $('#prodi_id').empty().append('<option value="">-Pilih-</option>');
+                $.each(data, function (key, value) {
+                    $('#prodi_id').append('<option value="'+ value.id +'">'+ value.jenjang.kode_jenjang + ' ' + value.nama_prodi +'</option>');
+                });
             });
-        });
-    }
-
-    window.addEventListener('click', function (event) {
-        if (filterMenu && !filterMenu.classList.contains('hidden') && filterButton && !filterButton.contains(event.target) && !filterMenu.contains(event.target)) {
-            filterMenu.classList.add('hidden');
+        } else {
+            $('#prodi_id').html('<option value="">-Pilih-</option>');
         }
     });
 
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-            if (filterMenu && !filterMenu.classList.contains('hidden')) {
-                filterMenu.classList.add('hidden');
-            }
+    $('#jabatan_akademik_id').on('change', function () {
+        var jabatanAkademikId = $(this).val();
+        $('#golongan_id').html('<option value="">Loading...</option>');
+        if (jabatanAkademikId) {
+            $.get('/get-golongan/' + jabatanAkademikId, function (data) {
+                $('#golongan_id').empty().append('<option value="">-Pilih-</option>');
+                $.each(data, function (key, value) {
+                    $('#golongan_id').append('<option value="'+ value.id +'">'+ value.nama_golongan +'</option>');
+                });
+            });
+        } else {
+            $('#golongan_id').html('<option value="">-Pilih-</option>');
         }
     });
-});
 </script>
-@endpush
+@endsection

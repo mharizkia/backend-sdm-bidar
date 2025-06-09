@@ -24,17 +24,29 @@ class PelamarController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
+        $pilihan = $request->input('pilihan');
+        $jk = $request->input('jk');
 
         $pelamars = Pelamar::query()
-            ->where('nama_pelamar', 'like', "%{$search}%")
-            ->orWhere('kode', 'like', "%{$search}%")
-            ->orWhere('email', 'like', "%{$search}%")
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('nama_pelamar', 'like', "%{$search}%")
+                    ->orWhere('kode', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->when($pilihan, function ($query, $pilihan) {
+                $query->where('pilihan_lamaran', $pilihan);
+            })
+            ->when($jk, function ($query, $jk) {
+                $query->where('jenis_kelamin', $jk);
+            })
             ->get();
 
         $html = view('admin.pelamar.result', compact('pelamars'))->render();
 
         return response()->json(['html' => $html]);
-    } 
+    }
 
     public function store(Request $request)
     {
@@ -169,7 +181,17 @@ class PelamarController extends Controller
             }
         }
 
-        $pelamar->update(['status' => $status]);
+        if ($status === 'tolak') {
+            if ($pelamar->pilihan_lamaran === 'dosen' && $pelamar->dosen) {
+                $pelamar->dosen->delete();
+            }
+            if ($pelamar->pilihan_lamaran === 'karyawan' && $pelamar->karyawan) {
+                $pelamar->karyawan->delete();
+            }
+            $pelamar->update(['is_archive' => true]);
+        } else {
+            $pelamar->update(['is_archive' => false]);
+        }
 
         return redirect()->route('pelamar.index')
             ->with('message', "Pelamar berhasil dikonfirmasi sebagai: $status.");

@@ -198,6 +198,7 @@ class DosenController extends Controller
             'prodi_id' => 'nullable|exists:prodis,id',
             'bidang_ilmu_kompetensi' => 'nullable|string|max:255',
             'ikatan_kerja' => 'nullable|string|max:50',
+            'akhir_ikatan_kerja' => 'nullable|date',
             'tanggal_mulai_kerja' => 'nullable|date',
             'pendidikan_tertinggi' => 'nullable|string|max:50',
             'jabatan_akademik_id' => 'nullable|exists:jabatan_akademiks,id',
@@ -207,7 +208,6 @@ class DosenController extends Controller
             'status_aktivasi' => 'required|in:aktif,tidak_aktif',
         ]);
 
-        // Handle file upload
         if ($request->hasFile('foto_dosen')) {
             $pathFoto = $request->file('foto_dosen')->store('dosen/foto');
         } else {
@@ -219,10 +219,15 @@ class DosenController extends Controller
             $pathDokumen = $dosen->dokumen_dosen;
         }
 
-        // Handle user creation/update
         $userId = $dosen->user_id;
-        if ($validated['status_aktivasi'] === 'aktif' && $validated['kode_dosen'] && $request->filled('password')) {
-            // Jika user belum ada, buat baru
+
+        if ($dosen->status_aktivasi === 'aktif' && $validated['status_aktivasi'] === 'tidak_aktif' && $userId) {
+            $user = User::find($userId);
+            if ($user) {
+                $user->delete();
+            }
+            $userId = null;
+        } elseif ($validated['status_aktivasi'] === 'aktif' && $validated['kode_dosen'] && $request->filled('password')) {
             if (!$userId) {
                 $user = User::create([
                     'name' => $validated['nama_dosen'],
@@ -233,7 +238,6 @@ class DosenController extends Controller
                 $user->assignRole('dosen');
                 $userId = $user->id;
             } else {
-                // Jika user sudah ada, update
                 $user = User::find($userId);
                 if ($user) {
                     $user->update([
@@ -269,6 +273,7 @@ class DosenController extends Controller
             'prodi_id' => $validated['prodi_id'] ?? null,
             'bidang_ilmu_kompetensi' => $validated['bidang_ilmu_kompetensi'] ?? null,
             'ikatan_kerja' => $validated['ikatan_kerja'] ?? null,
+            'akhir_ikatan_kerja' => $validated['akhir_ikatan_kerja'] ?? null,
             'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'] ?? null,
             'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'] ?? null,
             'jabatan_akademik_id' => $validated['jabatan_akademik_id'] ?? null,
@@ -285,6 +290,6 @@ class DosenController extends Controller
     public function destroy(Dosen $dosen)
     {
         $dosen->delete();
-        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil dihapus.');
+        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil dihapus.');
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminPegawaiController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\PewawancaraController;
 use App\Http\Controllers\Admin\PelamarController;
 use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Admin\KaryawanController;
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\Admin\PsikologiController;
 use App\Http\Controllers\Admin\WawancaraController;
@@ -32,7 +31,10 @@ Route::get('/', function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/pegawai', [AdminPegawaiController::class, 'index'])->name('pegawai.index');
+    Route::get('/pegawai', [AdminDashboardController::class, 'index'])->name('pegawai.index');
+
+    Route::get('/admin/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::put('/admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 
     Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
     Route::get('/pelamar/create', [PelamarController::class, 'create'])->name('pelamar.create');
@@ -70,23 +72,33 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.store');
     Route::get('/dosen/edit/{dosen}', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::put('/dosen/{dosen}', [DosenController::class, 'update'])->name('dosen.update');
+    Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
+    Route::delete('/dosen/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy');
 
     Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::get('/karyawan/search', [KaryawanController::class, 'search'])->name('karyawan.search');
     Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
     Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+    Route::get('/karyawan/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
     Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
     Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+    Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
 
-    Route::get('/pegawai', [AdminPegawaiController::class, 'index'])->name('pegawai.index');
-    Route::get('/pegawai/search', [AdminPegawaiController::class, 'search'])->name('pegawai.search');
+    Route::get('/pegawai', [AdminDashboardController::class, 'pegawaiIndex'])->name('pegawai.index');
+    Route::get('/pegawai/search', [AdminDashboardController::class, 'search'])->name('pegawai.search');
 
     Route::get('/admin/cuti', [CutiController::class, 'adminIndex'])->name('cuti.admin');
     Route::post('/admin/cuti/{id}/validate', [CutiController::class, 'validateCuti'])->name('cuti.validate');
+
+    Route::get('/telepon', [AdminDashboardController::class, 'teleponIndex'])->name('admin.telepon');
+
+    Route::get('/mutasi', [AdminDashboardController::class, 'mutasi'])->name('admin.mutasi');
+    Route::post('/mutasi/store', [AdminDashboardController::class, 'mutasiStore'])->name('mutasi.store');
 });
 
 
 
-Route::middleware(['auth', 'role:dosen|karyawan|admin'])->group(function () {
+Route::middleware(['auth', 'role:dosen|karyawan'])->group(function () {
     Route::get('/home', [PegawaiController::class, 'index'])->name('pegawai.index');
 
     Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');

@@ -26,7 +26,8 @@ class Pelamar extends Model
         'pilihan_lamaran',
         'tanggal_lamaran',
         'dokumen_lamaran',
-        'status',   
+        'status',
+        'is_archived',   
     ];
 
     protected static function boot()
@@ -34,7 +35,7 @@ class Pelamar extends Model
         parent::boot();
 
         static::creating(function ($pelamar) {
-            $prefix = strtoupper(substr($pelamar->pilihan_lamaran, 0, 1)); // 'dosen' -> 'D', 'karyawan' -> 'K'
+            $prefix = strtoupper(substr($pelamar->pilihan_lamaran, 0, 1));
 
             $lastKode = self::where('pilihan_lamaran', $pelamar->pilihan_lamaran)
                 ->where('kode', 'like', $prefix . '-%')

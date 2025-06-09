@@ -17,6 +17,21 @@ class KaryawanController extends Controller
         $this->middleware('role:admin');
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $karyawans = Karyawan::query()
+            ->where('nama_karyawan', 'like', "%{$search}%")
+            ->orWhere('kode_karyawan', 'like', "%{$search}%")
+            ->orWhere('email', 'like', "%{$search}%")
+            ->get();
+
+        $html = view('admin.karyawan.result', compact('karyawans'))->render();
+
+        return response()->json(['html' => $html]);
+    }
+
     public function index()
     {
         $karyawans = Karyawan::all();
@@ -48,6 +63,7 @@ class KaryawanController extends Controller
             'golongan_darah' => 'nullable|in:A,B,AB,O',
             'pendidikan_tertinggi' => 'required|string|max:255',
             'ikatan_kerja' => 'required|string|max:50',
+            'akhir_ikatan_kerja' => 'nullable|date',
             'jabatan' => 'required|string|max:50',
             'tanggal_mulai_kerja' => 'required|date',
             'kat_unit_kerja_id' => 'required|exists:kat_unit_kerjas,id',
@@ -87,6 +103,7 @@ class KaryawanController extends Controller
             'golongan_darah' => $validated['golongan_darah'],
             'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'],
             'ikatan_kerja' => $validated['ikatan_kerja'],
+            'akhir_ikatan_kerja' => $validated['akhir_ikatan_kerja'],
             'jabatan' => $validated['jabatan'],
             'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'],
             'kat_unit_kerja_id' => $validated['kat_unit_kerja_id'],
@@ -128,6 +145,7 @@ class KaryawanController extends Controller
             'golongan_darah' => 'nullable|in:A,B,AB,O',
             'pendidikan_tertinggi' => 'required|string|max:255',
             'ikatan_kerja' => 'required|string|max:50',
+            'akhir_ikatan_kerja' => 'nullable|date',
             'jabatan' => 'required|string|max:50',
             'tanggal_mulai_kerja' => 'required|date',
             'kat_unit_kerja_id' => 'required|exists:kat_unit_kerjas,id',
@@ -147,7 +165,6 @@ class KaryawanController extends Controller
             $pathDokumen = $karyawan->dokumen_karyawan;
         }
 
-        // Handle user creation/update
         if ($validated['status_aktivasi'] === 'aktif' && $validated['kode_karyawan'] && $request->filled('password')) {
             if (!$userId) {
                 $user = User::create([
@@ -188,6 +205,7 @@ class KaryawanController extends Controller
             'golongan_darah' => $validated['golongan_darah'],
             'pendidikan_tertinggi' => $validated['pendidikan_tertinggi'],
             'ikatan_kerja' => $validated['ikatan_kerja'],
+            'akhir_ikatan_kerja' => $validated['akhir_ikatan_kerja'],
             'jabatan' => $validated['jabatan'],
             'tanggal_mulai_kerja' => $validated['tanggal_mulai_kerja'],
             'kat_unit_kerja_id' => $validated['kat_unit_kerja_id'],
