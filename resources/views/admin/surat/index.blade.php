@@ -1,23 +1,21 @@
 @extends('layouts.admin')
 
-@section('title', 'Surat Tugas Masih Berlaku')
+@section('title', 'Daftar Surat Tugas')
 
 @section('content')
     <div class="mb-6">
-        <h1 class="text-2xl font-semibold text-text-dark">Surat Tugas Masih Berlaku</h1>
+        <h1 class="text-2xl font-semibold text-text-dark">Daftar Surat Tugas</h1>
         <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
     </div>
 
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-        {{-- Card Header (Dark Blue) dengan Judul --}}
+        {{-- Card Header --}}
         <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
             <h2 class="text-xl font-semibold">Tabel Surat Tugas</h2>
-            {{-- Tombol Tambah Surat Tugas dipindahkan ke filter bar di bawah --}}
         </div>
 
-        {{-- Filter Bar dengan Tombol Tambah di Kanan --}}
+        {{-- Filter Bar --}}
         <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 border-b border-gray-200">
-            {{-- Grup Filter Kiri (Cari dan Tombol Filter) --}}
             <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
                 <div class="w-full sm:w-auto">
                     <input type="text" placeholder="Cari...." class="form-input w-full sm:w-60 rounded-md border-gray-300 shadow-sm text-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 py-2">
@@ -36,9 +34,8 @@
                     </div>
                 </div>
             </div>
-            {{-- Tombol Tambah Surat Tugas di Kanan --}}
             <div class="w-full sm:w-auto">
-                <a href="{{ route('admin.surat-tugas.create') }}" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-xs">
+                <a href="{{ route('surat-tugas.create') }}" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-xs">
                     <i class="fas fa-plus mr-2"></i> Tambah Surat Tugas
                 </a>
             </div>
@@ -48,36 +45,32 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Kode Pegawai</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">No</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pegawai</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">NIDN</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">NIK</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">No. SK</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Tanggal SK</th>
                         <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider min-w-[200px]">Keterangan</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Tengat Waktu</th>
+                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Tenggat Waktu</th>
                         <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 text-sm text-gray-700">
-                    @forelse ($suratTugasData ?? [] as $surat)
+                    @forelse ($suratTugas as $surat)
                     <tr>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->kode_pegawai }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap font-medium">{{ $surat->nama_pegawai }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->nidn }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->nik }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->nomor_sk }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap font-medium">{{ $surat->user->name ?? '-' }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->no_sk }}</td>
                         <td class="px-4 py-3 whitespace-nowrap">{{ $surat->tanggal_sk }}</td>
                         <td class="px-4 py-3">{{ $surat->keterangan }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->tengat_waktu }}</td>
+                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->tenggat_waktu ?? '-' }}</td>
                         <td class="px-4 py-3 whitespace-nowrap text-center">
                             <div class="inline-flex items-center space-x-2">
-                                <a href="{{ route('admin.surat-tugas.edit', ['id_surat' => $surat->id_surat]) }}" 
+                                <a href="{{ route('surat-tugas.edit', $surat->id) }}" 
                                    class="text-blue-600 hover:text-blue-800 transition-colors duration-150 text-lg" 
                                    title="Edit Surat Tugas">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.surat-tugas.destroy', ['id_surat' => $surat->id_surat]) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus surat tugas ini?');">
+                                <form action="{{ route('surat-tugas.destroy', $surat->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus surat tugas ini?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" 
@@ -91,8 +84,8 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="9" class="px-4 py-4 text-center text-sm text-gray-500">
-                            Tidak ada data surat tugas yang masih berlaku.
+                        <td colspan="7" class="px-4 py-4 text-center text-sm text-gray-500">
+                            Tidak ada data surat tugas.
                         </td>
                     </tr>
                     @endforelse
@@ -102,13 +95,12 @@
 
         <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
             <span class="text-xs text-gray-700">
-                Menampilkan {{ $suratTugasData->count() > 0 ? '1 sampai ' . $suratTugasData->count() : '0' }} dari {{ $suratTugasData->count() }} entri
+                Menampilkan {{ $suratTugas->count() > 0 ? '1 sampai ' . $suratTugas->count() : '0' }} dari {{ $suratTugas->count() }} entri
             </span>
-            <div class="inline-flex -space-x-px rounded-md shadow-sm">
-                <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-xs text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 rounded-l-lg">Sebelumnya</button>
-                <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-xs text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700">1</button>
-                <button class="py-1 px-2 sm:py-2 sm:px-3 leading-tight text-xs text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg">Berikutnya</button>
-            </div>
+            {{-- Pagination jika ada --}}
+            @if(method_exists($suratTugas, 'links'))
+                {{ $suratTugas->links() }}
+            @endif
         </div>
     </div>
 @endsection
@@ -133,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 filterMenu.classList.add('hidden');
             });
         });
-         window.addEventListener('click', function (event) {
+        window.addEventListener('click', function (event) {
             if (filterMenu && !filterMenu.classList.contains('hidden') && !filterButton.contains(event.target) && !filterMenu.contains(event.target)) {
                 filterMenu.classList.add('hidden');
             }

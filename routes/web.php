@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Admin\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CutiController;
+use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\Admin\PsikologiController;
 use App\Http\Controllers\Admin\WawancaraController;
 use App\Http\Controllers\PegawaiController;
@@ -94,12 +95,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/mutasi', [AdminDashboardController::class, 'mutasi'])->name('admin.mutasi');
     Route::post('/mutasi/store', [AdminDashboardController::class, 'mutasiStore'])->name('mutasi.store');
+
+    Route::get('/surat-tugas', [SuratTugasController::class, 'index'])->name('surat-tugas.index');
+    Route::get('/surat-tugas/{id}', [SuratTugasController::class, 'show'])->name('surat-tugas.show');
+    Route::get('/surat-tugas/create', [SuratTugasController::class, 'create'])->name('surat-tugas.create');
+    Route::post('/surat-tugas', [SuratTugasController::class, 'store'])->name('surat-tugas.store');
+    Route::get('/surat-tugas/edit/{id}', [SuratTugasController::class, 'edit'])->name('surat-tugas.edit');
+    Route::put('/surat-tugas/{id}', [SuratTugasController::class, 'update'])->name('surat-tugas.update');
+    Route::delete('/surat-tugas/{id}', [SuratTugasController::class, 'destroy'])->name('surat-tugas.destroy');
 });
 
 
 
 Route::middleware(['auth', 'role:dosen|karyawan'])->group(function () {
-    Route::get('/home', [PegawaiController::class, 'index'])->name('pegawai.index');
+    Route::get('/home', [PegawaiController::class, 'index'])->name('pegawai.indexs');
 
     Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');
     Route::get('/cuti/create', [CutiController::class, 'create'])->name('cuti.create');
