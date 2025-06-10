@@ -7,7 +7,17 @@
         <h1 class="text-2xl font-semibold text-text-dark">Edit Data Karyawan</h1>
         <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
     </div>
-
+    @if ($errors->any())
+        <div class="mb-4">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
     <div class="bg-white shadow-lg rounded-lg p-6 md:p-8">
         <form action="{{ route('karyawan.update', $karyawan->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -29,7 +39,7 @@
                         class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" required>
                 </div>
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-gray-400">(Isi jika ingin mengubah)</span></label>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password <span class="text-gray-400">(Kosongkan jika tidak ingin mengubah)</span></label>
                     <div class="relative">
                         <input type="password" name="password" id="password"
                             class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm pr-10">
@@ -45,6 +55,7 @@
                             </svg>
                         </button>
                     </div>
+                    <small class="text-gray-500">Kosongkan jika tidak ingin mengubah password.</small>
                 </div>
                 <div>
                     <label for="nik_ktp" class="block text-sm font-medium text-gray-700 mb-1">NIK</label>
@@ -54,7 +65,7 @@
                 <div>
                     <label for="umur" class="block text-sm font-medium text-gray-700 mb-1">Umur</label>
                     <input type="number" name="umur" id="umur" value="{{ old('umur', $karyawan->umur) }}"
-                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" min="18" max="100">
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm" min="0" max="120">
                 </div>
                 <div>
                     <label for="alamat" class="block text-sm font-medium text-gray-700 mb-1">Alamat</label>
@@ -163,7 +174,7 @@
                     <select name="status_aktivasi" id="status_aktivasi"
                         class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
                         <option value="aktif" {{ old('status_aktivasi', $karyawan->status_aktivasi) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                        <option value="nonaktif" {{ old('status_aktivasi', $karyawan->status_aktivasi) == 'nonaktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="tidak_aktif" {{ old('status_aktivasi', $karyawan->status_aktivasi) == 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                     </select>
                 </div>
                 <div>

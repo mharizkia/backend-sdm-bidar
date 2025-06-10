@@ -47,34 +47,34 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Kode Pelamar</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pelamar</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pewawancara</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Tanggal</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Kode Pelamar</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pelamar</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pewawancara</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Tanggal</th>
                         <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Dokumen</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider min-w-[200px]">Kesimpulan</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Status</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider min-w-[200px]">Kesimpulan</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Status</th>
                         <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 text-sm text-gray-700">
                     @forelse ($wawancaras as $wawancara)
                     <tr>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $wawancara->pelamar->kode ?? '-' }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap font-medium">{{ $wawancara->pelamar->nama_pelamar ?? '-' }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $wawancara->nama_pewawancara }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $wawancara->tanggal_wawancara }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap text-center">
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $wawancara->pelamar->kode ?? '-' }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap font-medium">{{ $wawancara->pelamar->nama_pelamar ?? '-' }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $wawancara->nama_pewawancara }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $wawancara->tanggal_wawancara }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">
                             @if($wawancara->hasil_wawancara)
-                                <a href="{{ asset('storage/' . $wawancara->hasil_wawancara) }}" target="_blank" class="text-blue-600 hover:text-blue-800" title="Lihat Dokumen Wawancara">
+                                <a href="{{ asset('storage/' . $wawancara->hasil_wawancara) }}" target="_blank" class=" text-blue-600 hover:text-blue-800" title="Lihat Dokumen Wawancara">
                                     <i class="fas fa-file-alt text-lg"></i>
                                 </a>
                             @else
                                 <span class="text-gray-400">-</span>
                             @endif
                         </td>
-                        <td class="px-4 py-3 ">{{ Str::limit($wawancara->kesimpulan, 70) }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">
+                        <td class="px-4 py-3 text-center">{{ Str::limit($wawancara->kesimpulan, 70) }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">
                             @if($wawancara->status == 'lulus')
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                     Lulus

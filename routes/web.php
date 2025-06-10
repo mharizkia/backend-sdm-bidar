@@ -12,6 +12,7 @@ use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\Admin\PsikologiController;
 use App\Http\Controllers\Admin\WawancaraController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -97,12 +98,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/mutasi/store', [AdminDashboardController::class, 'mutasiStore'])->name('mutasi.store');
 
     Route::get('/surat-tugas', [SuratTugasController::class, 'index'])->name('surat-tugas.index');
-    Route::get('/surat-tugas/{id}', [SuratTugasController::class, 'show'])->name('surat-tugas.show');
     Route::get('/surat-tugas/create', [SuratTugasController::class, 'create'])->name('surat-tugas.create');
+    Route::get('/surat-tugas/{id}', [SuratTugasController::class, 'show'])->name('surat-tugas.show');
     Route::post('/surat-tugas', [SuratTugasController::class, 'store'])->name('surat-tugas.store');
     Route::get('/surat-tugas/edit/{id}', [SuratTugasController::class, 'edit'])->name('surat-tugas.edit');
     Route::put('/surat-tugas/{id}', [SuratTugasController::class, 'update'])->name('surat-tugas.update');
     Route::delete('/surat-tugas/{id}', [SuratTugasController::class, 'destroy'])->name('surat-tugas.destroy');
+
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });
 
 

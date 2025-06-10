@@ -46,19 +46,19 @@
                     @forelse ($pelamars as $pelamar)
                     <tr>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->kode }}</td>
-                        <td class="px-3 py-3 text-left whitespace-nowrap font-medium text-gray-900">{{ $pelamar->nama_pelamar }}</td>
+                        <td class="px-3 py-3 text-center whitespace-nowrap font-medium text-gray-900">{{ $pelamar->nama_pelamar }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->nidn }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->tempat_lahir }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->tanggal_lahir }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">
                             {{ $pelamar->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}
                         </td>
-                        <td class="px-3 py-3 text-left whitespace-nowrap">{{ $pelamar->email }}</td>
-                        <td class="px-3 py-3 text-left whitespace-nowrap">{{ $pelamar->alamat }}</td>
+                        <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->email }}</td>
+                        <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->alamat }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->pendidikan_tertinggi }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->umur }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->ipk }}</td>
-                        <td class="px-3 py-3 text-left whitespace-nowrap">{{ $pelamar->bidang_ilmu_kompetensi }}</td>
+                        <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->bidang_ilmu_kompetensi }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->no_hp }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ ucfirst($pelamar->pilihan_lamaran) }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->tanggal_lamaran }}</td>

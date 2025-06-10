@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             GolonganSeeder::class,
             RolesSeeder::class,
             UserSeeder::class,
+            DosenSeeder::class,
+            KaryawanSeeder::class,
         ]);
     }
 }

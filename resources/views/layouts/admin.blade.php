@@ -68,66 +68,67 @@
                         <h6 class="mb-2 px-8 text-sm font-semibold text-white/75">
                             Menu Utama
                         </h6>
-                        <ul class="text-sm text-white"> 
-                            <li class="animation py-3 hover:text-white/50 group {{ Request::routeIs('pelamar.index') || Request::routeIs('wawancara.index') || Request::routeIs('psikologi.index') || Request::routeIs('validasi.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
-                                <button type="button"
-                                    class="flex items-center w-full space-x-3 font-semibold px-8 text-white/90 focus:outline-none"
-                                    onclick="document.getElementById('dropdown-perekrutan').classList.toggle('hidden')">
-                                    <i class="fas fa-user-plus {{ Request::routeIs('pelamar.index') || Request::routeIs('wawancara.index') || Request::routeIs('psikologi.index') || Request::routeIs('validasi.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
-                                    <span>Perekrutan</span>
-                                    <i class="fas fa-chevron-down ml-auto"></i>
-                                </button>
-                                <ul id="dropdown-perekrutan" class="pl-8 mt-2 space-y-1 {{ Request::routeIs('pelamar.index') || Request::routeIs('wawancara.index') || Request::routeIs('psikologi.index') || Request::routeIs('validasi.index') ? '' : 'hidden' }}">
-                                    <li>
-                                        <a href="{{ route('pelamar.index') }}"
-                                        class="flex items-center py-2 px-4 rounded hover:bg-blue-900
-                                        {{ Request::routeIs('pelamar.index') ? 'bg-blue-900 text-white' : 'text-white/80' }}">
-                                            <i class="fas fa-users mr-2"></i> Pelamar
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('wawancara.index') }}"
-                                        class="flex items-center py-2 px-4 rounded hover:bg-blue-900
-                                        {{ Request::routeIs('wawancara.index') ? 'bg-blue-900 text-white' : 'text-white/80' }}">
-                                            <i class="fas fa-comments mr-2"></i> Wawancara
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('psikologi.index') }}"
-                                        class="flex items-center py-2 px-4 rounded hover:bg-blue-900
-                                        {{ Request::routeIs('psikologi.index') ? 'bg-blue-900 text-white' : 'text-white/80' }}">
-                                            <i class="fas fa-brain mr-2"></i> Psikologi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('pelamar.validasi') }}"
-                                        class="flex items-center py-2 px-4 rounded hover:bg-blue-900
-                                        {{ Request::routeIs('validasi.index') ? 'bg-blue-900 text-white' : 'text-white/80' }}">
-                                            <i class="fas fa-check-circle mr-2"></i> Validasi
-                                        </a>
-                                    </li>
-                                </ul>
+                        <ul class="text-sm text-white">
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('admin.dashboard') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('admin.dashboard') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('admin.dashboard') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-tachometer-alt {{ Request::routeIs('admin.dashboard') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Dashboard</span> 
+                                </a>
                             </li>
-                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('dosen.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
-                                <a href="{{ route('dosen.index') }}"
-                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('dosen.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
-                                    <i class="fas fa-user-check {{ Request::routeIs('dosen.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
-                                    <span>dosen</span>
+                        <h6 class="mb-2 px-8 text-sm font-semibold text-white/75">
+                            Perekrutan
+                        </h6>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('pelamar.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('pelamar.index') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('pelamar.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-users {{ Request::routeIs('pelamar.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Pelamar</span> 
+                                </a>
+                            </li>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('wawancara.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('wawancara.index') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('wawancara.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-comments {{ Request::routeIs('wawancara.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Wawancara</span> 
+                                </a>
+                            </li>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('psikologi.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('psikologi.index') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('psikologi.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-brain {{ Request::routeIs('psikologi.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Psikologi</span> 
+                                </a>
+                            </li>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('pelamar.validasi') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('pelamar.validasi') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('pelamar.validasi') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-check-circle {{ Request::routeIs('pelamar.validasi') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Validasi</span> 
                                 </a>
                             </li>
                             <h6 class="mb-2 px-8 text-sm font-semibold text-white/75 pt-3"> 
-                                Update Soon
+                                Update
                             </h6>
-                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('pewawancara.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
-                                <a href="{{ route('pewawancara.index') }}"
-                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('pewawancara.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
-                                    <i class="fas fa-edit {{ Request::routeIs('pewawancara.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
-                                    <span>Update</span>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('dosen.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('dosen.index') }}"
+                                class="flex items-center space-x-3 font-semibold {{ Request::routeIs('dosen.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-graduation-cap {{ Request::routeIs('dosen.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Dosen</span>
+                                </a>
+                            </li>
+
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('karyawan.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('karyawan.index') }}"
+                                class="flex items-center space-x-3 font-semibold {{ Request::routeIs('karyawan.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-id-card {{ Request::routeIs('karyawan.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                                    <span>Karyawan</span>
                                 </a>
                             </li>
                              <h6 class="mb-2 px-8 text-sm font-semibold text-white/75 pt-3">
                                 Informasi Data
                             </h6>
+
                             <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('cuti.admin') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
                                 <a href="{{ route('cuti.admin') }}"
                                    class="flex items-center space-x-3 font-semibold {{ Request::routeIs('cuti.admin') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
@@ -135,10 +136,10 @@
                                     <span>Validasi Cuti</span>
                                 </a>
                             </li>
-                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('wawancara.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
-                                <a href="{{ route('wawancara.index') }}"
-                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('wawancara.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
-                                    <i class="fas fa-file-alt {{ Request::routeIs('wawancara.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('surat-tugas.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('surat-tugas.index') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('surat-tugas.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-file-alt {{ Request::routeIs('surat-tugas.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
                                     <span>Surat Tugas</span>
                                 </a>
                             </li>
@@ -152,10 +153,10 @@
                              <h6 class="mb-2 px-8 text-sm font-semibold text-white/75 pt-3">
                                 Lainnya
                             </h6>
-                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('pelamar.index') || Request::routeIs('roles.create') || Request::routeIs('roles.edit') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
-                                <a href="{{ route('pelamar.index') }}"
-                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('pelamar.index') || Request::routeIs('roles.create') || Request::routeIs('roles.edit') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
-                                    <i class="fas fa-users-cog {{ Request::routeIs('pelamar.index') || Request::routeIs('roles.create') || Request::routeIs('roles.edit') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('roles.index') || Request::routeIs('roles.create') || Request::routeIs('roles.edit') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('roles.index') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('roles.index') || Request::routeIs('roles.create') || Request::routeIs('roles.edit') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-users-cog {{ Request::routeIs('roles.index') || Request::routeIs('roles.create') || Request::routeIs('roles.edit') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
                                     <span>Manajemen Role</span>
                                 </a>
                             </li>
@@ -202,7 +203,7 @@
                             <span class="hidden text-right lg:block">
                                 <span class="block text-sm font-medium text-text-dark">{{ Auth::user()->name ?? 'Admin' }}</span>
                             </span>
-                            <img src="{{ Auth::user() && Auth::user()->profile_photo ? asset('storage/'.Auth::user()->profile_photo) : asset('images/pp.png') }}" alt="User" class="rounded-full h-12 w-auto">
+                            <img src="{{ Auth::user() && Auth::user()->profile_photo ? asset('storage/'.Auth::user()->profile_photo) : asset('images/profil.png') }}" alt="User" class="rounded-full h-12 w-12 object-cover">
                             <i class="fas fa-chevron-down text-gray-500 hidden sm:block"></i>
                         </button>
             

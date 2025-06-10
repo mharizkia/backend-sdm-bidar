@@ -34,8 +34,8 @@
             </div>
         </div>
     </div>
-    <div class="mt-6">
-        <button type="submit" class="bg-[#1D3F8E] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-md shadow-sm">
+    <div class="mt-6 flex justify-end">
+        <button type="submit" class="bg-[#1D3F8E] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-md shadow-sm ">
             Simpan Perubahan
         </button>
     </div>

@@ -17,7 +17,8 @@ class CutiController extends Controller
 
     public function create()
     {
-        return view('pegawai.cuti.create');
+        $cutis = Cuti::where('user_id', Auth::id())->get();
+        return view('pegawai.cuti.create', compact('cutis'));
     }
 
     public function store(Request $request)

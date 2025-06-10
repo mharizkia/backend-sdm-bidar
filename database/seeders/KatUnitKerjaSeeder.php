@@ -47,7 +47,7 @@ class KatUnitKerjaSeeder extends Seeder
                 'nama_kat_unit_kerja' => 'Direktorat Inovasi dan Inkubator Bisnis',
             ],
             [
-                `id` => 9,
+                'id' => 9,
                 'nama_kat_unit_kerja' => 'Direktorat Keuangan',
             ],
             [

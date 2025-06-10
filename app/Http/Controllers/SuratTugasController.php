@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratTugas;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SuratTugasController extends Controller
@@ -15,7 +16,7 @@ class SuratTugasController extends Controller
 
     public function create()
     {
-        $users = \App\Models\User::all();
+        $users = User::role(['dosen', 'karyawan'])->pluck('name', 'id');
         return view('admin.surat.create', compact('users'));
     }
 

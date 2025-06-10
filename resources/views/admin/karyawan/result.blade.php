@@ -22,7 +22,7 @@
             @forelse ($karyawans ?? [] as $karyawan)
             <tr>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->kode_karyawan }}</td>
-                <td class="px-3 py-3 text-left whitespace-nowrap font-medium text-gray-900">{{ $karyawan->nama_karyawan }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap font-medium text-gray-900">{{ $karyawan->nama_karyawan }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->nik_ktp }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->tempat_lahir }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->tanggal_lahir }}</td>
@@ -35,12 +35,12 @@
                         -
                     @endif
                 </td>
-                <td class="px-3 py-3 text-left whitespace-nowrap">{{ $karyawan->email }}</td>
-                <td class="px-3 py-3 text-left whitespace-nowrap">{{ $karyawan->alamat }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->email }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->alamat }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->pendidikan_tertinggi }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->umur }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->no_hp }}</td>
-                <td class="px-3 py-3 text-left whitespace-nowrap">{{ $karyawan->jabatan }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->jabatan }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">
                     @if($karyawan->status_aktivasi == 'aktif')
                         <span class="text-green-600 font-semibold">Aktif</span>
