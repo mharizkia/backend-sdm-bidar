@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratTugas;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SuratTugasController extends Controller
@@ -15,8 +16,8 @@ class SuratTugasController extends Controller
 
     public function create()
     {
-        $users = \App\Models\User::all();
-        return view('admin.surat.create', compact('users'));
+        $pegawaiOptions = User::pluck('name', 'id');
+        return view('admin.surat.create', compact('pegawaiOptions'));
     }
 
     public function show($id)
