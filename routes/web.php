@@ -67,6 +67,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/pewawancara', [PewawancaraController::class,'index'])->name('pewawancara.index');
     Route::get('/pewawancara/create', [PewawancaraController::class, 'create'])->name('pewawancara.create');
     Route::post('/pewawancara', [PewawancaraController::class, 'store'])->name('pewawancara.store');
+    Route::get('/pewawancara', [PewawancaraController::class, 'index'])->name('pewawancara.index');
+    Route::get('/pewawancara/{id}/edit', [PewawancaraController::class, 'edit'])->name('pewawancara.edit');
+    Route::put('/pewawancara/{id}', [PewawancaraController::class, 'update'])->name('pewawancara.update');
+    Route::delete('/pewawancara/{id}', [PewawancaraController::class, 'destroy'])->name('pewawancara.destroy');
 
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/dosen/search', [DosenController::class, 'search'])->name('dosen.search');

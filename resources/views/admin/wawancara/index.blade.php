@@ -37,6 +37,9 @@
                 </div>
             </div>
             <div class="w-full sm:w-auto">
+                <a href="{{ route('pewawancara.index') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                    <i class="fas fa-plus mr-2"></i> Tambah Pewawancara
+                </a>
                 <a href="{{ route('wawancara.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-plus mr-2"></i> Input Data Wawancara
                 </a>
