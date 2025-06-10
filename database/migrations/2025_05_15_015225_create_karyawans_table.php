@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('karyawans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('pelamar_id')->nullable()->constrained('pelamars')->onDelete('cascade');
             $table->string('kode_karyawan')->unique()->nullable();
             $table->string('password')->nullable();
@@ -37,7 +37,7 @@ return new class extends Migration
             $table->foreignId('kat_unit_kerja_id')->nullable()->constrained('kat_unit_kerjas')->onDelete('cascade');
             $table->string('foto_karyawan')->nullable();
             $table->string('dokumen_karyawan')->nullable();
-            $table->enum('status_aktivasi', ['aktif', 'nonaktif'])->nullable();
+            $table->enum('status_aktivasi', ['aktif', 'tidak_aktif'])->nullable();
             $table->timestamps();
         });
     }

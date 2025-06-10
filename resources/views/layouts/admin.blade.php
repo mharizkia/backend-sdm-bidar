@@ -135,10 +135,10 @@
                                     <span>Validasi Cuti</span>
                                 </a>
                             </li>
-                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('wawancara.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
-                                <a href="{{ route('wawancara.index') }}"
-                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('wawancara.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
-                                    <i class="fas fa-file-alt {{ Request::routeIs('wawancara.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
+                            <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('surat-tugas.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
+                                <a href="{{ route('surat-tugas.index') }}"
+                                   class="flex items-center space-x-3 font-semibold {{ Request::routeIs('surat-tugas.index') ? 'px-6 text-white' : 'px-8 text-white/90' }}">
+                                    <i class="fas fa-file-alt {{ Request::routeIs('surat-tugas.index') ? 'text-white' : 'text-white/75' }} h-5 w-5 inline-flex items-center justify-center"></i>
                                     <span>Surat Tugas</span>
                                 </a>
                             </li>
