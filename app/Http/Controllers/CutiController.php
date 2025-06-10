@@ -9,7 +9,6 @@ use Spatie\Permission\Traits\HasRoles;
 
 class CutiController extends Controller
 {
-    // Dosen/Karyawan: lihat & ajukan cuti
     public function index()
     {
         $cutis = Cuti::where('user_id', Auth::id())->get();
@@ -54,7 +53,6 @@ class CutiController extends Controller
         return redirect()->route('cuti.index')->with('success', 'Permohonan cuti dikirim.');
     }
 
-    // Admin: lihat & validasi cuti
     public function adminIndex()
     {
         $cutis = Cuti::latest()->get();
