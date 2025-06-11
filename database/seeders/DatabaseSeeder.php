@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Dosen;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +25,10 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             UserSeeder::class,
             DosenSeeder::class,
+<<<<<<< HEAD
             KaryawanSeeder::class,
+=======
+>>>>>>> refs/remotes/origin/main
         ]);
     }
 }

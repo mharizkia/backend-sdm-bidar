@@ -45,7 +45,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S3',
                 'jabatan_akademik_id' => 1,
                 'golongan_id' => 1,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -77,7 +81,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S3',
                 'jabatan_akademik_id' => 2,
                 'golongan_id' => 2,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -109,7 +117,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S3',
                 'jabatan_akademik_id' => 3,
                 'golongan_id' => 3,
+<<<<<<< HEAD
                 'status_aktivasi' => 'tidak_aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -141,7 +153,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S2',
                 'jabatan_akademik_id' => 2,
                 'golongan_id' => 2,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -173,7 +189,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S2',
                 'jabatan_akademik_id' => 2,
                 'golongan_id' => 2,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -205,7 +225,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S2',
                 'jabatan_akademik_id' => 1,
                 'golongan_id' => 1,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -237,7 +261,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S3',
                 'jabatan_akademik_id' => 4,
                 'golongan_id' => 3,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -269,7 +297,11 @@ class DosenSeeder extends Seeder
                 'pendidikan_tertinggi' => 'S2',
                 'jabatan_akademik_id' => 1,
                 'golongan_id' => 1,
+<<<<<<< HEAD
                 'status_aktivasi' => 'aktif',
+=======
+                'status_aktivasi' => true,
+>>>>>>> refs/remotes/origin/main
                 'foto_dosen' => '',
                 'dokumen_dosen' => '',
             ],
@@ -290,4 +322,8 @@ class DosenSeeder extends Seeder
             Dosen::create($dosenData);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> refs/remotes/origin/main
