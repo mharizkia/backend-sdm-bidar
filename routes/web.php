@@ -40,17 +40,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/pelamar', [PelamarController::class, 'index'])->name('pelamar.index');
     Route::get('/pelamar/create', [PelamarController::class, 'create'])->name('pelamar.create');
-    Route::post('/pelamar/store', [PelamarController::class, 'store'])->name('pelamar.store');
+    Route::post('/pelamar', [PelamarController::class, 'store'])->name('pelamar.store');
     Route::get('/pelamar/edit/{id}', [PelamarController::class, 'edit'])->name('pelamar.edit');
     Route::put('/pelamar/{id}', [PelamarController::class, 'update'])->name('pelamar.update');
     Route::get('/pelamar/search', [PelamarController::class, 'search'])->name('pelamar.search');
     Route::get('/pelamar/validasi', [PelamarController::class, 'validasi'])->name('pelamar.validasi');
     Route::post('/pelamar/konfirmasi/{id}', [PelamarController::class, 'konfirmasi'])->name('pelamar.konfirmasi');
     Route::delete('/pelamar/{id}', [PelamarController::class, 'destroy'])->name('pelamar.destroy');
+    Route::get('/pelamar/export', [PelamarController::class, 'export'])->name('pelamar.export');
 
     Route::get('/wawancara', [WawancaraController::class, 'index'])->name('wawancara.index');
     Route::get('/wawancara/create', [WawancaraController::class, 'create'])->name('wawancara.create');
     Route::post('/wawancara', [WawancaraController::class, 'store'])->name('wawancara.store');
+    Route::get('/wawancara/export', [WawancaraController::class, 'export'])->name('wawancara.export');
     Route::get('/wawancara/{id}', [WawancaraController::class, 'show'])->name('wawancara.show');
     Route::get('/wawancara/edit/{id}', [WawancaraController::class, 'edit'])->name('wawancara.edit');
     Route::put('/wawancara/{id}', [WawancaraController::class, 'update'])->name('wawancara.update');
@@ -59,10 +61,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/psikologi', [PsikologiController::class, 'index'])->name('psikologi.index');
     Route::get('/psikologi/create', [PsikologiController::class, 'create'])->name('psikologi.create');
     Route::post('/psikologi', [PsikologiController::class, 'store'])->name('psikologi.store');
+    Route::get('/psikologi/export', [PsikologiController::class, 'export'])->name('psikologi.export');
     Route::get('/psikologi/{id}', [PsikologiController::class, 'show'])->name('psikologi.show');
     Route::get('/psikologi/edit/{id}', [PsikologiController::class, 'edit'])->name('psikologi.edit');
     Route::put('/psikologi/{id}', [PsikologiController::class, 'update'])->name('psikologi.update');
     Route::delete('/psikologi/{id}', [PsikologiController::class, 'destroy'])->name('psikologi.destroy');
+
 
     Route::get('/pewawancara', [PewawancaraController::class,'index'])->name('pewawancara.index');
     Route::get('/pewawancara/create', [PewawancaraController::class, 'create'])->name('pewawancara.create');

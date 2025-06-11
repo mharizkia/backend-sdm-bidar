@@ -108,7 +108,7 @@
                                 </a>
                             </li>
                             <h6 class="mb-2 px-8 text-sm font-semibold text-white/75 pt-3"> 
-                                Update
+                                Data Pegawai
                             </h6>
                             <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('dosen.index') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
                                 <a href="{{ route('dosen.index') }}"
@@ -125,10 +125,7 @@
                                     <span>Karyawan</span>
                                 </a>
                             </li>
-                             <h6 class="mb-2 px-8 text-sm font-semibold text-white/75 pt-3">
-                                Informasi Data
-                            </h6>
-
+                            
                             <li class="animation py-3 hover:text-white/50 {{ Request::routeIs('cuti.admin') ? 'border-l-8 border-yellow-300 bg-gradient-to-l from-[#FCD34D]/80 to-[#1865B3]' : '' }}">
                                 <a href="{{ route('cuti.admin') }}"
                                    class="flex items-center space-x-3 font-semibold {{ Request::routeIs('cuti.admin') ? 'px-6 text-white' : 'px-8 text-white/90' }}">

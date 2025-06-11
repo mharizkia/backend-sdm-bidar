@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Exports\PsikologiExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Psikologi;
 use App\Models\Pelamar;
 
@@ -108,5 +110,10 @@ class PsikologiController extends Controller
         $psikologi = Psikologi::findOrFail($id);
         $psikologi->delete();
         return redirect()->route('psikologi.index')->with('success', 'Data psikologis berhasil dihapus.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PsikologiExport, 'daftar_psikologi.xlsx');
     }
 }
