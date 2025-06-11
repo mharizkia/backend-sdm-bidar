@@ -35,6 +35,8 @@ class DosenController extends Controller
             ->where('nama_dosen', 'like', "%{$search}%")
             ->orWhere('kode_dosen', 'like', "%{$search}%")
             ->orWhere('email', 'like', "%{$search}%")
+            ->orWhere('nidn', 'like', "%{$search}%")
+            ->orWhere('nip', 'like', "%{$search}%")
             ->get();
 
         $html = view('admin.dosen.result', compact('dosens'))->render();
@@ -181,6 +183,7 @@ class DosenController extends Controller
             'nik_ktp' => 'nullable|string|max:20',
             'nip' => 'nullable|string|max:20',
             'nidn' => 'nullable|string|max:20',
+            'nuptk' => 'nullable|string|max:20',
             'nama_dosen' => 'required|string|max:255',
             'umur' => 'nullable|integer|min:0|max:120',
             'gelar_depan' => 'nullable|string|max:10',

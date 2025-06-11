@@ -76,6 +76,9 @@
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
+                                <a href="{{ route('pelamar.exportIndividu', $pelamar->id) }}" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs" title="Export Individu">
+                                    <i class="fas fa-file-excel"></i> Export Individu
+                                </a>
                             </div>
                         </td>
                     </tr>

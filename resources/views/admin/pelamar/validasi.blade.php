@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/admin/pelamar/validasi.blade.php --}}
 @extends('layouts.admin')
 
 @section('title', 'Data Validasi Pelamar')

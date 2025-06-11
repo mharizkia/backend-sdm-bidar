@@ -180,6 +180,7 @@ class KaryawanController extends Controller
                 'email' => $validated['email'],
                 'kode' => $validated['kode_karyawan'],
                 'password' => Hash::make($validated['password']),
+                'profile_photo' => $request->hasFile('foto_karyawan') ? $pathFoto : null,
             ]);
             $user->assignRole('karyawan');
             $userId = $user->id;
@@ -191,6 +192,7 @@ class KaryawanController extends Controller
                     'email' => $validated['email'],
                     'kode' => $validated['kode_karyawan'],
                     'password' => Hash::make($validated['password']),
+                    'profile_photo' => $request->hasFile('foto_karyawan') ? $pathFoto : $user->profile_photo,
                 ]);
             }
         }
