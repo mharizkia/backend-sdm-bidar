@@ -97,8 +97,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/mutasi/store', [AdminDashboardController::class, 'mutasiStore'])->name('mutasi.store');
 
     Route::get('/surat-tugas', [SuratTugasController::class, 'index'])->name('surat-tugas.index');
-    Route::get('/surat-tugas/{id}', [SuratTugasController::class, 'show'])->name('surat-tugas.show');
     Route::get('/surat-tugas/create', [SuratTugasController::class, 'create'])->name('surat-tugas.create');
+    Route::get('/surat-tugas/{id}', [SuratTugasController::class, 'show'])->name('surat-tugas.show');
     Route::post('/surat-tugas', [SuratTugasController::class, 'store'])->name('surat-tugas.store');
     Route::get('/surat-tugas/edit/{id}', [SuratTugasController::class, 'edit'])->name('surat-tugas.edit');
     Route::put('/surat-tugas/{id}', [SuratTugasController::class, 'update'])->name('surat-tugas.update');

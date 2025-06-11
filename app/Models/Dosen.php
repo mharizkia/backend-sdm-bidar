@@ -18,6 +18,7 @@ class Dosen extends Model
         'nik_ktp',
         'nip',
         'nidn',
+        'nuptk',
         'nama_dosen',
         'umur',
         'gelar_depan',

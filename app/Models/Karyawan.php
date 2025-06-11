@@ -20,6 +20,7 @@ class Karyawan extends Model
         'email',
         'tempat_lahir',
         'tanggal_lahir',
+        'umur',
         'alamat',
         'agama',
         'jenis_kelamin',
