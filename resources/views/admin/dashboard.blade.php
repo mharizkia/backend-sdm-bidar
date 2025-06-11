@@ -17,7 +17,7 @@
                     <div>
                         <div class="flex items-center justify-between">
                             <div>
-                                <h4 class="text-4xl font-bold">{{ $totalPegawaiKeseluruhan ?? '200' }}</h4>
+                                <h4 class="text-4xl font-bold"> {{ $totalPegawaiKeseluruhan ?? '0' }}</h4>
                                 <span class="text-sm font-medium">Jumlah Pegawai</span>
                             </div>
                             <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-white bg-opacity-25">
@@ -82,17 +82,6 @@
                         </div>
                     </div>
                 @empty
-                    @for ($i = 0; $i < 8; $i++)
-                    <div class="flex items-center justify-between p-2.5 bg-gray-700 bg-opacity-50 rounded-md">
-                        <div>
-                            <p class="text-sm font-medium">Contoh Notifikasi ({{ $i + 1 }})</p>
-                            <p class="text-xs text-gray-300">Mei {{ 1 + $i }}, 2025</p>
-                        </div>
-                        @if($i == 0)
-                        <span class="text-xs px-2 py-1 bg-red-500 text-white rounded-full">New</span>
-                        @endif
-                    </div>
-                    @endfor
                     <p class="text-sm text-gray-400 text-center py-4">Tidak ada notifikasi baru.</p>
                 @endforelse
             </div>

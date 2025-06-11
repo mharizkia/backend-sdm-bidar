@@ -42,9 +42,9 @@ class LoginController extends Controller
         if ($user->hasRole('admin')) {
             return redirect()->route('admin.dashboard');
         } elseif ($user->hasRole('dosen')) {
-            return redirect()->route('pegawai.index');
+            return redirect()->route('cuti.create');
         } elseif ($user->hasRole('karyawan')) {
-            return redirect()->route('pegawai.index');
+            return redirect()->route('cuti.create');
         }
 
         return redirect('/');

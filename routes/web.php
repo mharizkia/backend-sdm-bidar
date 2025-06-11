@@ -12,6 +12,7 @@ use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\Admin\PsikologiController;
 use App\Http\Controllers\Admin\WawancaraController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,6 +67,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/pewawancara', [PewawancaraController::class,'index'])->name('pewawancara.index');
     Route::get('/pewawancara/create', [PewawancaraController::class, 'create'])->name('pewawancara.create');
     Route::post('/pewawancara', [PewawancaraController::class, 'store'])->name('pewawancara.store');
+    Route::get('/pewawancara', [PewawancaraController::class, 'index'])->name('pewawancara.index');
+    Route::get('/pewawancara/{id}/edit', [PewawancaraController::class, 'edit'])->name('pewawancara.edit');
+    Route::put('/pewawancara/{id}', [PewawancaraController::class, 'update'])->name('pewawancara.update');
+    Route::delete('/pewawancara/{id}', [PewawancaraController::class, 'destroy'])->name('pewawancara.destroy');
 
     Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/dosen/search', [DosenController::class, 'search'])->name('dosen.search');
@@ -103,6 +108,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/surat-tugas/edit/{id}', [SuratTugasController::class, 'edit'])->name('surat-tugas.edit');
     Route::put('/surat-tugas/{id}', [SuratTugasController::class, 'update'])->name('surat-tugas.update');
     Route::delete('/surat-tugas/{id}', [SuratTugasController::class, 'destroy'])->name('surat-tugas.destroy');
+
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });
 
 

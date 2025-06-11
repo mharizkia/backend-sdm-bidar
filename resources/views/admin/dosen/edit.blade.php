@@ -8,6 +8,19 @@
     <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
 </div>
 
+ @if ($errors->any())
+        <div class="mb-4">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    @endif
+
+
 <div class="bg-white shadow-lg rounded-lg p-6 md:p-8">
     <form action="{{ route('dosen.update', $dosen->id) }}" method="POST" enctype="multipart/form-data">
         @csrf

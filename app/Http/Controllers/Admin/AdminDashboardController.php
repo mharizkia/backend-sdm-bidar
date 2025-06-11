@@ -11,8 +11,24 @@ class AdminDashboardController extends Controller
 {
     public function index()
     {
+        $dosens = Dosen::all();
+        $karyawans = Karyawan::all();
+
+        $dataRingkasan = [
+            'dosen' => [
+                'jumlah' => $dosens->count(),
+            ],
+            'karyawan' => [
+                'jumlah' => $karyawans->count(),
+            ],
+        ];
+
+        $totalPegawaiKeseluruhan = $dataRingkasan['dosen']['jumlah'] + $dataRingkasan['karyawan']['jumlah'];
+
         $notifications = auth()->user()->notifications->sortByDesc('created_at')->take(10);
-        return view('admin.dashboard', compact('notifications'));
+        return view('admin.dashboard', compact('notifications', 'dataRingkasan',
+            'dosens', 'karyawans', 'totalPegawaiKeseluruhan'));
+        
     }
 
     public function pegawaiIndex()

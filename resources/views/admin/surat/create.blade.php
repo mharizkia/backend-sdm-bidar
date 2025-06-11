@@ -13,11 +13,11 @@
             @csrf
             <div class="grid grid-cols-1 gap-y-6">
                 <div>
-                    <label for="user_id" class="block text-sm font-medium text-gray-700 mb-1">Pegawai <span class="text-red-500">*</span></label>
-                    <select id="user_id" name="user_id" class="form-select mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm" required>
-                        <option value="">- Pilih Pegawai -</option>
-                        @foreach($pegawaiOptions ?? [] as $id => $nama)
-                            <option value="{{ $id }}" {{ old('user_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Pegawai <span class="text-red-500">*</span></label>
+                    <select name="user_id" required class="form-select mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                        <option value="">-- Pilih Pegawai --</option>
+                        @foreach($users ?? [] as $id => $name)
+                            <option value="{{ $id }}" {{ old('user_id') == $id ? 'selected' : '' }}>{{ $name }}</option>
                         @endforeach
                     </select>
                 </div>

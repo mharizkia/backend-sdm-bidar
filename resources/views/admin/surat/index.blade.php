@@ -9,12 +9,10 @@
     </div>
 
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-        {{-- Card Header --}}
         <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
             <h2 class="text-xl font-semibold">Tabel Surat Tugas</h2>
         </div>
 
-        {{-- Filter Bar --}}
         <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 border-b border-gray-200">
             <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-3 w-full sm:w-auto">
                 <div class="w-full sm:w-auto">
@@ -45,25 +43,25 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">No</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pegawai</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">No. SK</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Tanggal SK</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider min-w-[200px]">Keterangan</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 uppercase tracking-wider">Tenggat Waktu</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">No</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Nama Pegawai</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">No. SK</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Tanggal SK</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider min-w-[200px]">Keterangan</th>
+                        <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Tenggat Waktu</th>
                         <th class="px-4 py-3 text-center text-xs font-semibold text-gray-800 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 text-sm text-gray-700">
                     @forelse ($suratTugas as $surat)
                     <tr>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $loop->iteration }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap font-medium">{{ $surat->user->name ?? '-' }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->no_sk }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->tanggal_sk }}</td>
-                        <td class="px-4 py-3">{{ $surat->keterangan }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap">{{ $surat->tenggat_waktu ?? '-' }}</td>
-                        <td class="px-4 py-3 whitespace-nowrap text-center">
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap font-medium">{{ $surat->user->name ?? '-' }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $surat->no_sk }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $surat->tanggal_sk }}</td>
+                        <td class="px-4 py-3 text-center">{{ $surat->keterangan }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">{{ $surat->tenggat_waktu ?? '-' }}</td>
+                        <td class="px-4 py-3 text-center whitespace-nowrap">
                             <div class="inline-flex items-center space-x-2">
                                 <a href="{{ route('surat-tugas.edit', $surat->id) }}" 
                                    class="text-blue-600 hover:text-blue-800 transition-colors duration-150 text-lg" 
