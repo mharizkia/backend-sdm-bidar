@@ -8,6 +8,8 @@ use App\Models\Dosen;
 use App\Models\Karyawan;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Exports\PelamarExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PelamarController extends Controller
 {
@@ -259,5 +261,10 @@ class PelamarController extends Controller
         $pelamar->delete();
 
         return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil dihapus!');
+    }
+
+     public function export() 
+    {
+        return Excel::download(new PelamarExport, 'daftar_pelamar.xlsx');
     }
 }

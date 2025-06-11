@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Wawancara;
 use App\Models\Pelamar;
 use App\Models\Pewawancara;
+use App\Exports\WawancaraExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class WawancaraController extends Controller
@@ -108,5 +110,10 @@ class WawancaraController extends Controller
         $wawancara = Wawancara::findOrFail($id);
         $wawancara->delete();
         return redirect()->route('wawancara.index')->with('success', 'Wawancara deleted successfully.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new WawancaraExport, 'daftar_wawancara.xlsx');
     }
 }

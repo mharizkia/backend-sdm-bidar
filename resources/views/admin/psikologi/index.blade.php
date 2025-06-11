@@ -11,9 +11,6 @@
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
             <h2 class="text-xl font-semibold">Tabel Data Tes Psikologi</h2>
-            <a href="{{ route('pelamar.validasi') }}" class="text-sm bg-white text-[#1D3F8E] hover:bg-gray-100 font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center">
-                <i class="fas fa-arrow-left mr-2"></i>Kembali ke Validasi
-            </a>
         </div>
 
         <div class="p-4 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 border-b border-gray-200">
@@ -38,6 +35,9 @@
             <div class="w-full sm:w-auto">
                 <a href="{{ route('psikologi.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-plus mr-2"></i> Input Data Tes Psikologi
+                </a>
+                <a href="{{ route('psikologi.export') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                    <i class="fas fa-file-excel mr-2"></i>Export Excel
                 </a>
             </div>
         </div>
