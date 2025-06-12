@@ -45,13 +45,12 @@
                 </div>
             </div>
             <div class="flex flex-wrap items-center space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 w-full sm:w-auto justify-start sm:justify-end">
-                <a href="{{ route('pelamar.create') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                <a href="{{ route('pelamar.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-plus mr-2"></i>Input Data Pelamar
                 </a>
                 <a href="{{ route('pelamar.export') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-file-excel mr-2"></i>Export Excel
                 </a>
-                
             </div>
         </div>
 
