@@ -48,6 +48,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/pelamar/konfirmasi/{id}', [PelamarController::class, 'konfirmasi'])->name('pelamar.konfirmasi');
     Route::delete('/pelamar/{id}', [PelamarController::class, 'destroy'])->name('pelamar.destroy');
     Route::get('/pelamar/arsip', [PelamarController::class, 'arsip'])->name('pelamar.arsip');
+    Route::post('/pelamar/import', [PelamarController::class, 'import'])->name('pelamar.import');
     Route::get('/pelamar/export', [PelamarController::class, 'export'])->name('pelamar.export');
     Route::get('/pelamar/{id}/export', [PelamarController::class, 'exportIndividu'])->name('pelamar.exportIndividu');
 
