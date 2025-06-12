@@ -9,10 +9,10 @@
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Tanggal Lahir</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Jenis Kelamin</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Email</th>
+                        <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Nomor HP</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Alamat</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Pendidikan Tertinggi</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Umur</th>
-                        <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Nomor HP</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">IPK</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Bidang Ilmu Kompetensi</th>
                         <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Pilihan Lamaran</th>
@@ -39,10 +39,10 @@
                             @endif
                         </td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->email }}</td>
+                        <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->no_hp }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->alamat }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->pendidikan_tertinggi }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->umur }}</td>
-                        <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->no_hp }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->ipk }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">{{ $pelamar->bidang_ilmu_kompetensi }}</td>
                         <td class="px-3 py-3 text-center whitespace-nowrap">

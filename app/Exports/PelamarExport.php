@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
+
 class PelamarExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
 
@@ -28,10 +29,10 @@ class PelamarExport implements FromCollection, WithHeadings, WithMapping, Should
             'Tanggal Lahir',
             'Jenis Kelamin',
             'Email',
+            'Nomor HP',
             'Alamat',
             'Pendidikan Terakhir',
             'Usia',
-            'Nomor HP',
             'IPK',
             'Bidang Ilmu',
             'Pilihan Lamaran',
@@ -51,10 +52,10 @@ class PelamarExport implements FromCollection, WithHeadings, WithMapping, Should
             $pelamar->tanggal_lahir,
             $pelamar->jenis_kelamin,
             $pelamar->email,
+            $pelamar->nomor_hp,
             $pelamar->alamat,
             $pelamar->pendidikan_tertinggi,
             $pelamar->umur,
-            $pelamar->no_hp,
             $pelamar->ipk,
             $pelamar->bidang_ilmu_kompetensi,
             $pelamar->pilihan_lamaran,

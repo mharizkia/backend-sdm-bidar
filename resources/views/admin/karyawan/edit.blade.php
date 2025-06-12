@@ -143,11 +143,17 @@
                     <input type="text" name="ikatan_kerja" id="ikatan_kerja" value="{{ old('ikatan_kerja', $karyawan->ikatan_kerja) }}"
                         class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
                 </div>
-                <div>
+               <div>
                     <label for="akhir_ikatan_kerja" class="block text-sm font-medium text-gray-700 mb-1">Akhir Ikatan Kerja</label>
-                    <input type="date" name="akhir_ikatan_kerja" id="akhir_ikatan_kerja" value="{{ old('akhir_ikatan_kerja', $karyawan->akhir_ikatan_kerja) }}"
-                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
-                    <small class="text-gray-500">Tanggal akhir bisa diubah manual jika diperlukan.</small>
+                    <select name="akhir_ikatan_kerja" id="akhir_ikatan_kerja"
+                        class="form-select mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                        <option value="">Pilih Durasi Ikatan Kerja</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(1)->format('Y-m-d') }}">1 Bulan</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(3)->format('Y-m-d') }}">3 Bulan</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(6)->format('Y-m-d') }}">6 Bulan</option>
+                        <option value="{{ \Carbon\Carbon::now()->addMonths(12)->format('Y-m-d') }}">12 Bulan</option>
+                    </select>
+                    <small class="text-gray-500">Tanggal akhir otomatis terisi sesuai pilihan durasi dari hari ini.</small>
                 </div>
                 <div>
                     <label for="jabatan" class="block text-sm font-medium text-gray-700 mb-1">Jabatan</label>

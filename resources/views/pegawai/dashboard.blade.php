@@ -4,9 +4,9 @@
 
 @section('content')
     <div class="mb-8 p-6 bg-white shadow-lg rounded-lg flex items-center space-x-4">
-        <img class="h-20 w-20 rounded-full object-cover" src="{{ $user->avatar_url ?? 'https://via.placeholder.com/150' }}" alt="Foto Profil">
+        <img class="h-20 w-20 rounded-full object-cover" src="{{ Auth::user() && Auth::user()->profile_photo ? asset('storage/'.Auth::user()->profile_photo) : asset('images/profil.png') }}" alt="Foto Profil">
         <div>
-            <h1 class="text-2xl font-bold text-text-dark">Selamat Datang Kembali, {{ $user->name ?? 'Pegawai' }}!</h1>
+            <h1 class="text-2xl font-bold text-text-dark">Selamat Datang Kembali, {{ Auth::user()->name ?? 'Pegawai' }}!</h1>
             <p class="text-sm text-text-muted">Ini adalah ringkasan aktivitas dan informasi Anda.</p>
         </div>
     </div>

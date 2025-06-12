@@ -15,6 +15,7 @@
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Nomor HP</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Bidang Ilmu Kompetensi</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Status Aktivasi</th>
+                <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Dokumen Karyawan</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Aksi</th>
             </tr>
         </thead>
@@ -48,6 +49,7 @@
                         <span class="text-red-600 font-semibold">Tidak Aktif</span>
                     @endif
                 </td>
+                 <td class="px-3 py-3 text-center whitespace-nowrap"></td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">
                     <div class="inline-flex items-center space-x-2">
                         <a href="{{ route('dosen.edit', $dosen->id) }}" class="text-blue-600 hover:text-blue-800 transition-colors duration-150 text-lg" title="Edit Data Dosen">

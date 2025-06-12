@@ -72,8 +72,8 @@ class KaryawanController extends Controller
             'dokumen_karyawan' => 'nullable|file|mimes:pdf|max:10248',
         ]);
 
-        $pathFoto = $request->file('foto_karyawan') ? $request->file('foto_karyawan')->store('karyawan/foto') : null;
-        $pathDokumen = $request->file('dokumen_karyawan') ? $request->file('dokumen_karyawan')->store('karyawan/dokumen') : null;
+        $pathFoto = $request->file('foto_karyawan') ? $request->file('foto_karyawan')->store('foto', 'karyawan', 'public') : null;
+        $pathDokumen = $request->file('dokumen_karyawan') ? $request->file('dokumen_karyawan')->store('karyawan', 'public') : null;
 
         $user = null;
         if ($validated['status_aktivasi'] === 'aktif') {
@@ -155,12 +155,12 @@ class KaryawanController extends Controller
     ]);
 
     if ($request->hasFile('foto_karyawan')) {
-        $pathFoto = $request->file('foto_karyawan')->store('karyawan/foto');
+        $pathFoto = $request->file('foto_karyawan')->store('fotokaryawan', 'public');
     } else {
         $pathFoto = $karyawan->foto_karyawan;
     }
     if ($request->hasFile('dokumen_karyawan')) {
-        $pathDokumen = $request->file('dokumen_karyawan')->store('karyawan/dokumen');
+        $pathDokumen = $request->file('dokumen_karyawan')->store('karyawan', 'public');
     } else {
         $pathDokumen = $karyawan->dokumen_karyawan;
     }

@@ -123,7 +123,7 @@
                     <div class="relative">
                         <button id="userMenuButton" onclick="toggleUserDropdown()" class="flex items-center gap-2 rounded-md hover:bg-gray-100">
                             <span class="hidden text-right lg:block">
-                                <span class="block text-sm font-medium text-text-dark">{{ Auth::user()->name ?? 'Admin' }}</span>
+                                <span class="block text-sm font-medium text-text-dark">{{ Auth::user()->name ?? 'Pegawai' }}</span>
                             </span>
                             <img src="{{ Auth::user() && Auth::user()->profile_photo ? asset('storage/'.Auth::user()->profile_photo) : asset('images/profil.png') }}" alt="User" class="rounded-full h-12 w-12 object-cover">
                             <i class="fas fa-chevron-down text-gray-500 hidden sm:block"></i>
