@@ -8,7 +8,7 @@
         <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
     </div>
 
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-white shadow-lg rounded-lg overflow-visible">
         <div class="bg-[#1D3F8E] text-white p-4">
             <h2 class="text-xl font-semibold">Tabel Data Pelamar</h2>
         </div>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="flex flex-wrap items-center space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 w-full sm:w-auto justify-start sm:justify-end">
-                <a href="{{ route('pelamar.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                <a href="{{ route('pelamar.create') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-plus mr-2"></i>Input Data Pelamar
                 </a>
                 <a href="{{ route('pelamar.export') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
@@ -106,22 +106,23 @@
             loadPelamar();
         });
 
-            function loadPelamar() {
-                let keyword = $('#search').val();
-                let pilihan = $('#filter-pilihan').val();
-                let jk = $('#filter-jk').val();
-                let tahun = $('#filter-tahun').val();
+        function loadPelamar() {
+            console.log('loadPelamar called');
+            let keyword = $('#search').val();
+            let pilihan = $('#filter-pilihan').val();
+            let jk = $('#filter-jk').val();
+            let tahun = $('#filter-tahun').val();
 
-                $.ajax({
-                    url: '{{ route("pelamar.search") }}',
-                    method: 'GET',
-                    data: { search: keyword, pilihan: pilihan, jk: jk, tahun: tahun },
-                    success: function (res) {
-                        $('#result').html(res.html);
-                    }
-                });
-            }
-        });
+            $.ajax({
+                url: '{{ route("pelamar.search") }}',
+                method: 'GET',
+                data: { search: keyword, pilihan: pilihan, jk: jk, tahun: tahun },
+                success: function (res) {
+                    $('#result').html(res.html);
+                }
+            });
+        }
+    });
     </script>
 
     <script>

@@ -88,9 +88,13 @@
                                     <button type="button" class="status-dropdown-button inline-flex justify-between items-center w-full rounded-md border shadow-sm px-3 py-1 text-xs font-medium text-white focus:outline-none
                                         {{ $pelamar->status == 'terima' ? 'bg-green-500 hover:bg-green-600 border-green-500' : ($pelamar->status == 'tolak' ? 'bg-red-500 hover:bg-red-600 border-red-500' : 'bg-yellow-500 hover:bg-yellow-600 border-yellow-500') }}">
                                         <span class="status-text">
-                                            @if($pelamar->status == 'terima') Terima
-                                            @elseif($pelamar->status == 'tolak') Tolak
-                                            @else Pending @endif
+                                            @if($pelamar->status == 'terima')
+                                                Terima
+                                            @elseif($pelamar->status == 'tolak')
+                                                Tolak
+                                            @else
+                                                Pending
+                                            @endif
                                         </span>
                                         <i class="fas fa-chevron-down -mr-1 ml-1 h-4 w-4"></i>
                                     </button>

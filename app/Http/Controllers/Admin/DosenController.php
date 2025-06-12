@@ -89,8 +89,8 @@ class DosenController extends Controller
             'status_aktivasi' => 'required|in:aktif,tidak_aktif',
         ]);
 
-        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto') : null;
-        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen') : null;
+        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto', 'public') : null;
+        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen', 'public') : null;
 
         $user = null;
         if ($validated['status_aktivasi'] === 'aktif') {
@@ -212,12 +212,12 @@ class DosenController extends Controller
         ]);
 
         if ($request->hasFile('foto_dosen')) {
-            $pathFoto = $request->file('foto_dosen')->store('dosen/foto');
+            $pathFoto = $request->file('foto_dosen')->store('dosen/foto', 'public');
         } else {
             $pathFoto = $dosen->foto_dosen;
         }
         if ($request->hasFile('dokumen_dosen')) {
-            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen');
+            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen', 'public');
         } else {
             $pathDokumen = $dosen->dokumen_dosen;
         }
@@ -237,6 +237,7 @@ class DosenController extends Controller
                     'email' => $validated['email'],
                     'kode' => $validated['kode_dosen'],
                     'password' => Hash::make($validated['password']),
+                    'profile_photo' => $pathFoto,
                 ]);
                 $user->assignRole('dosen');
                 $userId = $user->id;
@@ -248,10 +249,22 @@ class DosenController extends Controller
                         'email' => $validated['email'],
                         'kode' => $validated['kode_dosen'],
                         'password' => Hash::make($validated['password']),
+                        'foto' => $pathFoto,
                     ]);
                 }
             }
+        } elseif ($userId) {
+            $user = User::find($userId);
+            if ($user) {
+                $user->update([
+                    'name' => $validated['nama_dosen'],
+                    'email' => $validated['email'],
+                    'kode' => $validated['kode_dosen'],
+                    'profile_photo' => $pathFoto,
+                ]);
+            }
         }
+        
 
         $dosen->update([
             'kode_dosen' => $validated['kode_dosen'],
