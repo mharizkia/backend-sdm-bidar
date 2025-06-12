@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PewawancaraController;
 use App\Http\Controllers\Admin\PelamarController;
 use App\Http\Controllers\Admin\DosenController;
 use App\Http\Controllers\Admin\KaryawanController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\SuratTugasController;
@@ -25,10 +26,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
 
@@ -127,7 +124,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 Route::middleware(['auth', 'role:dosen|karyawan'])->group(function () {
-    Route::get('/home', [PegawaiController::class, 'index'])->name('pegawai.indexs');
+    
+    Route::get('/home', [DashboardController::class, 'index'])->name('pegawai.dashboard');
 
     Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');
     Route::get('/cuti/create', [CutiController::class, 'create'])->name('cuti.create');
