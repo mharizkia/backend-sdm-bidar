@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PsikologiController;
 use App\Http\Controllers\Admin\WawancaraController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\SertifikatController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -119,6 +120,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
     Route::put('/roles/{id}', [RoleController::class, 'update'])->name('roles.update');
     Route::delete('/roles/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+
+    Route::get('/admin/sertifikat', [SertifikatController::class, 'adminIndex'])->name('admin.sertifikat.index');
+    Route::patch('/admin/sertifikat/{id}/validate', [SertifikatController::class, 'validateSertifikat'])->name('admin.sertifikat.validate');
 });
 
 
@@ -134,6 +138,10 @@ Route::middleware(['auth', 'role:dosen|karyawan'])->group(function () {
     Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');
     Route::get('/cuti/create', [CutiController::class, 'create'])->name('cuti.create');
     Route::post('/cuti', [CutiController::class, 'store'])->name('cuti.store');
+
+    Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+    Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->name('sertifikat.create');
+    Route::post('/sertifikat', [SertifikatController::class, 'store'])->name('sertifikat.store');
 });
 
 Route::get('/get-prodi/{fakultas_id}', [DosenController::class, 'getProdi']);
