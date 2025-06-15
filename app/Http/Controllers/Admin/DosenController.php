@@ -227,25 +227,26 @@ class DosenController extends Controller
                 $user->delete();
             }
             $userId = null;
-        } elseif ($validated['status_aktivasi'] === 'aktif' && $validated['kode_dosen'] && $request->filled('password')) {
+        } elseif ($validated['status_aktivasi'] === 'aktif' && $validated['kode_dosen']) {
             if (!$userId) {
                 $user = User::create([
                     'name' => $validated['nama_dosen'],
                     'email' => $validated['email'],
                     'kode' => $validated['kode_dosen'],
-                    'password' => Hash::make($validated['password']),
+                    'password' => Hash::make($validated['password'] ?? 'passworddefault123'),
                 ]);
                 $user->assignRole('dosen');
                 $userId = $user->id;
             } else {
                 $user = User::find($userId);
                 if ($user) {
-                    $user->update([
-                        'name' => $validated['nama_dosen'],
-                        'email' => $validated['email'],
-                        'kode' => $validated['kode_dosen'],
-                        'password' => Hash::make($validated['password']),
-                    ]);
+                    $user->name = $validated['nama_dosen'];
+                    $user->email = $validated['email'];
+                    $user->kode = $validated['kode_dosen'];
+                    if ($request->filled('password')) {
+                        $user->password = Hash::make($validated['password']);
+                    }
+                    $user->save();
                 }
             }
         }
