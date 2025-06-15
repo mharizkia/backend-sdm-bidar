@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\KatUnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Exports\KaryawanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KaryawanController extends Controller
 {
@@ -239,4 +241,12 @@ class KaryawanController extends Controller
         $karyawan->delete();
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus.');
     }
+
+    
+     public function export() 
+    {
+        return Excel::download(new KaryawanExport, 'karyawan.xlsx');
+    }
+
+
 }

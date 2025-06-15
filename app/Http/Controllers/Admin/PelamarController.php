@@ -9,6 +9,7 @@ use App\Models\Karyawan;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Exports\PelamarExport;
+use App\Exports\ValidasiExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PelamarController extends Controller
@@ -266,5 +267,10 @@ class PelamarController extends Controller
      public function export() 
     {
         return Excel::download(new PelamarExport, 'daftar_pelamar.xlsx');
+    }
+
+    public function exportvalidasi() 
+    {
+        return Excel::download(new ValidasiExport, 'daftar_validasi_pelamar.xlsx');
     }
 }

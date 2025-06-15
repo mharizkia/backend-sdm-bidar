@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\Exports\DosenExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DosenController extends Controller
 {
@@ -87,8 +89,8 @@ class DosenController extends Controller
             'status_aktivasi' => 'required|in:aktif,tidak_aktif',
         ]);
 
-        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto') : null;
-        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen') : null;
+        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto', 'public') : null;
+        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen', 'public') : null;
 
         $user = null;
         if ($validated['status_aktivasi'] === 'aktif') {
@@ -209,12 +211,12 @@ class DosenController extends Controller
         ]);
 
         if ($request->hasFile('foto_dosen')) {
-            $pathFoto = $request->file('foto_dosen')->store('dosen/foto');
+            $pathFoto = $request->file('foto_dosen')->store('dosen/foto', 'public');
         } else {
             $pathFoto = $dosen->foto_dosen;
         }
         if ($request->hasFile('dokumen_dosen')) {
-            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen');
+            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen', 'public');
         } else {
             $pathDokumen = $dosen->dokumen_dosen;
         }
@@ -291,5 +293,10 @@ class DosenController extends Controller
     {
         $dosen->delete();
         return redirect()->route('dosen.index')->with('success', 'Dosen berhasil dihapus.');
+    }
+
+    public function export()
+    {
+        return Excel::download(new DosenExport, 'dosen.xlsx');
     }
 }

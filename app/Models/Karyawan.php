@@ -29,6 +29,7 @@ class Karyawan extends Model
         'golongan_darah',
         'pendidikan_tertinggi',
         'ikatan_kerja',
+        'akhir_ikatan_kerja',
         'jabatan',
         'tanggal_mulai_kerja',
         'kat_unit_kerja_id',

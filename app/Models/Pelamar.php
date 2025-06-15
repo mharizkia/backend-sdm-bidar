@@ -26,6 +26,7 @@ class Pelamar extends Model
         'pilihan_lamaran',
         'tanggal_lamaran',
         'dokumen_lamaran',
+        'tanggal_dibuat',
         'status',
         'is_archived',   
     ];

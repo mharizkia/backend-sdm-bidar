@@ -10,16 +10,17 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
 class PsikologiExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
+
     public function collection()
     {
-        return Psikologi::all();
+        return Psikologi::with('pelamar')->get();
     }
 
     public function headings(): array
     {
         return [
             'ID',
-            'Pelamar ID',
+            'Nama Pelamar',
             'Tanggal Psikologi',
             'Hasil Psikologi',
             'Kesimpulan',
@@ -28,16 +29,17 @@ class PsikologiExport implements FromCollection, WithHeadings, WithMapping, Shou
         ];
     }
 
+ 
     public function map($psikologi): array
     {
         return [
             $psikologi->id,
-            $psikologi->pelamar_id,
-            $psikologi->tanggal_psikologis,
-            $psikologi->hasil_psikologis,
-            $psikologi->kesimpulan,
-            $psikologi->status,
-            $psikologi->created_at,
+            optional($psikologi->pelamar)->nama_pelamar ?? '-',
+            $psikologi->tanggal_psikologis ? date('d-m-Y', strtotime($psikologi->tanggal_psikologis)) : '-',
+            $psikologi->hasil_psikologis ?? '-',
+            $psikologi->kesimpulan ?? '-',
+            $psikologi->status ?? '-',
+            $psikologi->created_at->format('d-m-Y H:i:s'),
         ];
     }
 }

@@ -4,7 +4,6 @@
             <tr>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Kode</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Nama</th>
-                <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Password</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Email</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">NIK</th>
                 <th class="px-3 py-3 text-center text-sm font-semibold text-gray-700 uppercase tracking-wider">Umur</th>
@@ -31,69 +30,14 @@
         <tbody class="bg-white divide-y divide-gray-200 text-sm text-gray-600">
             @forelse ($karyawans ?? [] as $karyawan)
             <tr>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->kode_karyawan)
-                        {{ $karyawan->kode_karyawan }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap font-medium text-gray-900">
-                    @if($karyawan->nama_karyawan)
-                        {{ $karyawan->nama_karyawan }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->password)
-                        <span class="text-gray-500 italic">Tersembunyi</span>
-                    @else
-                        <span class="text-red-500 font-semibold">Belum Diatur</span>
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->email)
-                        {{ $karyawan->email }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->nik_ktp)
-                        {{ $karyawan->nik_ktp }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->umur)
-                        {{ $karyawan->umur }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->alamat)
-                        {{ $karyawan->alamat }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->tempat_lahir)
-                        {{ $karyawan->tempat_lahir }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->tanggal_lahir)
-                        {{ $karyawan->tanggal_lahir }}
-                    @else
-                        -
-                    @endif
-                </td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->kode_karyawan ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap font-medium text-gray-900">{{ $karyawan->nama_karyawan ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->email ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->nik_ktp ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->umur ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->alamat ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->tempat_lahir ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->tanggal_lahir ?? '-'}}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">
                     @if($karyawan->jenis_kelamin == 'L')
                         Laki-laki
@@ -104,73 +48,17 @@
                     @endif
                 </td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->golongan_darah == 'A')
-                        A
-                    @elseif($karyawan->golongan_darah == 'B')
-                        B
-                    @elseif($karyawan->golongan_darah == 'AB')
-                        AB
-                    @elseif($karyawan->golongan_darah == 'O')
-                        O
-                    @else
-                        -
-                    @endif
+                   {{ $karyawan->golongan_darah ?? '-' }}                   
                 </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->agama)
-                        {{ $karyawan->agama }}
-                    @else
-                        -
-                    @endif
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->no_hp)
-                        {{ $karyawan->no_hp }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->no_npwp)
-                        {{ $karyawan->no_npwp }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->pendidikan_tertinggi)
-                        {{ $karyawan->pendidikan_tertinggi }}
-                    @else
-                        -
-                    @endif
-                </td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->agama ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->no_hp ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->no_npwp ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->pendidikan_tertinggi ?? '-' }}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->ikatan_kerja }}</td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->akhir_ikatan_kerja)
-                        {{ $karyawan->akhir_ikatan_kerja }}
-                    @else
-                        -
-                    @endif
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->jabatan)
-                        {{ $karyawan->jabatan }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->tanggal_mulai_kerja)
-                        {{ $karyawan->tanggal_mulai_kerja }}
-                    @else
-                        -
-                    @endif
-                </td>
-                <td class="px-3 py-3 text-center whitespace-nowrap">
-                    @if($karyawan->kat_unit_kerja_id)
-                        {{ $karyawan->kat_unit_kerja_id }}
-                    @else
-                        -
-                    @endif
-                </td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->akhir_ikatan_kerja ?? '-'}}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->jabatan ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->tanggal_mulai_kerja ?? '-' }}</td>
+                <td class="px-3 py-3 text-center whitespace-nowrap">{{ $karyawan->katUnitKerja->nama_kat_unit_kerja ?? '-'}}</td>
                 <td class="px-3 py-3 text-center whitespace-nowrap">
                     @if($karyawan->status_aktivasi == 'aktif')
                         <span class="text-green-600 font-semibold">Aktif</span>
@@ -180,7 +68,7 @@
                 </td>
                         <td class="px-3 py-3 text-center text-sm whitespace-nowrap">
                             @if($karyawan->foto_karyawan)
-                                <a href="{{ asset('storage/' . $karyawan->foto_karyawan) }}" class="text-blue-600 text-lg hover:text-blue-800 transition-colors duration-150" title="Lihat Data Wawancara Pelamar">
+                                <a href="{{ asset('storage/' . $karyawan->foto_karyawan) }}" class="text-blue-600 text-lg hover:text-blue-800 transition-colors duration-150" title="Lihat Data Wawancara Pelamar" target="_blank">
                                     <i class="fas fa-eye"></i>
                                 </a>
                             @else

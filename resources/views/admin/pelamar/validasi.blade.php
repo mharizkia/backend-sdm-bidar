@@ -12,8 +12,10 @@
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="bg-[#1D3F8E] text-white p-4 flex justify-between items-center">
             <h2 class="text-xl font-semibold">Tabel Data Validasi</h2>
+                <a href="{{ route('validasi.export') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                    <i class="fas fa-file-excel mr-2"></i>Export Excel
+                </a>
         </div>
-
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">

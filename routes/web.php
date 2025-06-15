@@ -42,6 +42,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/pelamar/{id}', [PelamarController::class, 'update'])->name('pelamar.update');
     Route::get('/pelamar/search', [PelamarController::class, 'search'])->name('pelamar.search');
     Route::get('/pelamar/validasi', [PelamarController::class, 'validasi'])->name('pelamar.validasi');
+    Route::get('pelamar/validasi/export', [PelamarController::class, 'exportvalidasi'])->name('validasi.export');
     Route::post('/pelamar/konfirmasi/{id}', [PelamarController::class, 'konfirmasi'])->name('pelamar.konfirmasi');
     Route::delete('/pelamar/{id}', [PelamarController::class, 'destroy'])->name('pelamar.destroy');
     Route::get('/pelamar/export', [PelamarController::class, 'export'])->name('pelamar.export');
@@ -64,7 +65,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/psikologi/{id}', [PsikologiController::class, 'update'])->name('psikologi.update');
     Route::delete('/psikologi/{id}', [PsikologiController::class, 'destroy'])->name('psikologi.destroy');
 
-
     Route::get('/pewawancara', [PewawancaraController::class,'index'])->name('pewawancara.index');
     Route::get('/pewawancara/create', [PewawancaraController::class, 'create'])->name('pewawancara.create');
     Route::post('/pewawancara', [PewawancaraController::class, 'store'])->name('pewawancara.store');
@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dosen/search', [DosenController::class, 'search'])->name('dosen.search');
     Route::get('/dosen/create', [DosenController::class, 'create'])->name('dosen.create');
     Route::post('/dosen', [DosenController::class, 'store'])->name('dosen.store');
+    Route::get('/dosen/export', [DosenController::class, 'export'])->name('dosen.export');
     Route::get('/dosen/edit/{dosen}', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::put('/dosen/{dosen}', [DosenController::class, 'update'])->name('dosen.update');
     Route::get('/dosen/{id}', [DosenController::class, 'show'])->name('dosen.show');
@@ -86,6 +87,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/karyawan/search', [KaryawanController::class, 'search'])->name('karyawan.search');
     Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
     Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+   Route::get('/karyawan/export', [KaryawanController::class, 'export'])->name('karyawan.export');
     Route::get('/karyawan/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
     Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
     Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');

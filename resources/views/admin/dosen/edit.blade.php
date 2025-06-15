@@ -227,7 +227,7 @@
                 @if($dosen->foto_dosen)
                     <img src="{{ asset('storage/' . $dosen->foto_dosen) }}" alt="Foto Dosen" width="100" class="mb-2"><br>
                 @endif
-                <input type="file" name="foto_dosen" id="foto_dosen"
+                <input type="file" name="foto_dosen" id="foto_dosen" accept="image/*"
                     class="form-input mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300">
             </div>
             <div>
@@ -235,7 +235,7 @@
                 @if($dosen->dokumen_dosen)
                     <a href="{{ asset('storage/' . $dosen->dokumen_dosen) }}" target="_blank" class="text-blue-600 underline">Lihat Dokumen</a><br>
                 @endif
-                <input type="file" name="dokumen_dosen" id="dokumen_dosen"
+                <input type="file" name="dokumen_dosen" id="dokumen_dosen" accept="application/pdf"
                     class="form-input mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300">
             </div>
             <div>

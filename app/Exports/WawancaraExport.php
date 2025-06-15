@@ -35,13 +35,13 @@ class WawancaraExport implements FromCollection, WithHeadings, WithMapping, Shou
     {
         return [
             $wawancara->id,
-            $wawancara->pelamar_id,
-            $wawancara->nama_pewawancara,
-            $wawancara->tanggal_wawancara,
-            $wawancara->hasil_wawancara,
-            $wawancara->kesimpulan,
-            $wawancara->pewawancara_id,
-            $wawancara->status,
+            $wawancara->pelamar_id ?? '-',
+            $wawancara->nama_pewawancara ?? '-',
+            $wawancara->tanggal_wawancara ?? '-',
+            $wawancara->hasil_wawancara ?? '-',
+            $wawancara->kesimpulan ?? '-',
+            $wawancara->pewawancara_id ?? '-',
+            $wawancara->status ?? '-',
             $wawancara->created_at->format('d-m-Y'),
         ];
     }
