@@ -8,7 +8,9 @@ use App\Models\Dosen;
 use App\Models\Karyawan;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Imports\PelamarImport;
 use App\Exports\PelamarExport;
+use App\Exports\PelamarIndividuExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PelamarController extends Controller
@@ -28,6 +30,7 @@ class PelamarController extends Controller
         $search = $request->input('search');
         $pilihan = $request->input('pilihan');
         $jk = $request->input('jk');
+        $tahun = $request->input('tahun');
 
         $pelamars = Pelamar::query()
             ->when($search, function ($query, $search) {
@@ -42,6 +45,17 @@ class PelamarController extends Controller
             })
             ->when($jk, function ($query, $jk) {
                 $query->where('jenis_kelamin', $jk);
+            })
+            ->when($tahun, function ($query, $tahun) {
+                if (is_array($tahun)) {
+                    $query->where(function($q) use ($tahun) {
+                        foreach ($tahun as $t) {
+                            $q->orWhereYear('tanggal_lamaran', $t);
+                        }
+                    });
+                } else {
+                    $query->whereYear('tanggal_lamaran', $tahun);
+                }
             })
             ->get();
 
@@ -263,8 +277,37 @@ class PelamarController extends Controller
         return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil dihapus!');
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,csv|max:2048',
+        ]);
+
+        $file = $request->file('file');
+        $path = $file->store('imports', 'public');
+
+        try {
+            Excel::import(new PelamarImport, storage_path('app/public/' . $path));
+            return redirect()->route('pelamar.index')->with('message', 'Data pelamar berhasil diimpor!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['file' => 'Gagal mengimpor data: ' . $e->getMessage()]);
+        }
+    }
+
      public function export() 
     {
         return Excel::download(new PelamarExport, 'daftar_pelamar.xlsx');
+    }
+
+    public function exportIndividu($id)
+    {
+        $pelamar = Pelamar::findOrFail($id);
+        return Excel::download(new PelamarIndividuExport($pelamar), 'pelamar_' . $pelamar->kode . '.xlsx');
+    }
+
+    public function arsip()
+    {
+        $pelamars = Pelamar::where('is_archive', true)->get();
+        return view('admin.pelamar.arsip', compact('pelamars'));
     }
 }

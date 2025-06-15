@@ -25,10 +25,7 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             UserSeeder::class,
             DosenSeeder::class,
-<<<<<<< HEAD
             KaryawanSeeder::class,
-=======
->>>>>>> refs/remotes/origin/main
         ]);
     }
 }

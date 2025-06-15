@@ -8,7 +8,7 @@
         <p class="text-sm text-text-muted">Sistem Informasi Sumber Daya Manusia</p>
     </div>
 
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="bg-white shadow-lg rounded-lg overflow-visible">
         <div class="bg-[#1D3F8E] text-white p-4">
             <h2 class="text-xl font-semibold">Tabel Data Pelamar</h2>
         </div>
@@ -40,17 +40,29 @@
                                 <option value="P">Perempuan</option>
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <label class="block text-xs font-semibold mb-1">Tahun Lamaran</label>
+                            <input type="text" id="filter-tahun" class="form-input w-full rounded-md border-gray-300 text-sm" placeholder="Pilih tahun" readonly>
+                            <small class="text-xs text-gray-500">Klik untuk memilih tahun</small>
+                        </div>
                         <button type="button" id="filterPelamarApply" class="bg-blue-600 hover:bg-blue-700 text-white py-1 px-4 rounded text-sm w-full">Terapkan</button>
                     </div>
                 </div>
             </div>
             <div class="flex flex-wrap items-center space-x-0 sm:space-x-2 space-y-2 sm:space-y-0 w-full sm:w-auto justify-start sm:justify-end">
-                <a href="{{ route('pelamar.create') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                <a href="{{ route('pelamar.create') }}" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-plus mr-2"></i>Input Data Pelamar
                 </a>
                 <a href="{{ route('pelamar.export') }}" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
                     <i class="fas fa-file-excel mr-2"></i>Export Excel
                 </a>
+                <form action="{{ route('pelamar.import') }}" method="POST" enctype="multipart/form-data" class="flex items-center space-x-2 w-full sm:w-auto" id="form-import-pelamar">
+                    @csrf
+                    <input type="file" name="file" id="input-import-pelamar" class="hidden" required>
+                    <button type="button" id="btn-import-pelamar" class="bg-yellow-600 hover:bg-yellow-700 text-white font-medium py-2 px-3 rounded-md shadow-sm inline-flex items-center justify-center text-sm">
+                        <i class="fas fa-upload mr-2"></i>Import Data
+                    </button>
+                </form>
             </div>
         </div>
 
@@ -95,14 +107,16 @@
         });
 
         function loadPelamar() {
+            console.log('loadPelamar called');
             let keyword = $('#search').val();
             let pilihan = $('#filter-pilihan').val();
             let jk = $('#filter-jk').val();
+            let tahun = $('#filter-tahun').val();
 
             $.ajax({
                 url: '{{ route("pelamar.search") }}',
                 method: 'GET',
-                data: { search: keyword, pilihan: pilihan, jk: jk },
+                data: { search: keyword, pilihan: pilihan, jk: jk, tahun: tahun },
                 success: function (res) {
                     $('#result').html(res.html);
                 }
@@ -110,4 +124,33 @@
         }
     });
     </script>
+
+    <script>
+        $(function() {
+            $('#filter-tahun').datepicker({
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true,
+                clearBtn: true,
+                container: '#filterPelamarMenu' // tambahkan ini!
+            });
+        });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputImport = document.getElementById('input-import-pelamar');
+        const btnImport = document.getElementById('btn-import-pelamar');
+        const formImport = document.getElementById('form-import-pelamar');
+        btnImport.addEventListener('click', function () {
+            inputImport.click();
+        });
+        inputImport.addEventListener('change', function () {
+            if (this.files.length > 0) {
+                formImport.submit();
+            }
+        });
+    });
+</script>
 @endsection

@@ -27,7 +27,7 @@ class Pelamar extends Model
         'tanggal_lamaran',
         'dokumen_lamaran',
         'status',
-        'is_archived',   
+        'is_archive',   
     ];
 
     protected static function boot()

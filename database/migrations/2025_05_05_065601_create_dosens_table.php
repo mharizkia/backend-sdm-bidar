@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nik_ktp')->nullable();
             $table->string('nip')->nullable();
             $table->string('nidn')->nullable();
+            $table->string('nuptk')->nullable();
             $table->string('nama_dosen');
             $table->integer('umur')->nullable();
             $table->string('gelar_depan')->nullable();

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->date('tanggal_lamaran');
             $table->string('dokumen_lamaran');
             $table->enum('status', ['terima', 'tolak', 'pending'])->nullable();
+            $table->boolean('is_archive')->default(false);
             $table->timestamps();
         });
     }

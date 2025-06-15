@@ -51,6 +51,11 @@
                         class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
                 </div>
                 <div>
+                    <label for="nuptk" class="block text-sm font-medium text-gray-700 mb-1">NUPTK</label>
+                    <input type="text" name="nuptk" id="nuptk" value="{{ old('nuptk') }}"
+                        class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">
+                </div>
+                <div>
                     <label for="nik_ktp" class="block text-sm font-medium text-gray-700 mb-1">NIK</label>
                     <input type="text" name="nik_ktp" id="nik_ktp" value="{{ old('nik_ktp') }}"
                         class="form-input mt-1 block w-full border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm">

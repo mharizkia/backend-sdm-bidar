@@ -35,6 +35,8 @@ class DosenController extends Controller
             ->where('nama_dosen', 'like', "%{$search}%")
             ->orWhere('kode_dosen', 'like', "%{$search}%")
             ->orWhere('email', 'like', "%{$search}%")
+            ->orWhere('nidn', 'like', "%{$search}%")
+            ->orWhere('nip', 'like', "%{$search}%")
             ->get();
 
         $html = view('admin.dosen.result', compact('dosens'))->render();
@@ -87,8 +89,8 @@ class DosenController extends Controller
             'status_aktivasi' => 'required|in:aktif,tidak_aktif',
         ]);
 
-        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto') : null;
-        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen') : null;
+        $pathFoto = $request->file('foto_dosen') ? $request->file('foto_dosen')->store('dosen/foto', 'public') : null;
+        $pathDokumen = $request->file('dokumen_dosen') ? $request->file('dokumen_dosen')->store('dosen/dokumen', 'public') : null;
 
         $user = null;
         if ($validated['status_aktivasi'] === 'aktif') {
@@ -181,6 +183,7 @@ class DosenController extends Controller
             'nik_ktp' => 'nullable|string|max:20',
             'nip' => 'nullable|string|max:20',
             'nidn' => 'nullable|string|max:20',
+            'nuptk' => 'nullable|string|max:20',
             'nama_dosen' => 'required|string|max:255',
             'umur' => 'nullable|integer|min:0|max:120',
             'gelar_depan' => 'nullable|string|max:10',
@@ -209,12 +212,12 @@ class DosenController extends Controller
         ]);
 
         if ($request->hasFile('foto_dosen')) {
-            $pathFoto = $request->file('foto_dosen')->store('dosen/foto');
+            $pathFoto = $request->file('foto_dosen')->store('dosen/foto', 'public');
         } else {
             $pathFoto = $dosen->foto_dosen;
         }
         if ($request->hasFile('dokumen_dosen')) {
-            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen');
+            $pathDokumen = $request->file('dokumen_dosen')->store('dosen/dokumen', 'public');
         } else {
             $pathDokumen = $dosen->dokumen_dosen;
         }
@@ -233,23 +236,35 @@ class DosenController extends Controller
                     'name' => $validated['nama_dosen'],
                     'email' => $validated['email'],
                     'kode' => $validated['kode_dosen'],
-                    'password' => Hash::make($validated['password'] ?? 'passworddefault123'),
+                    'password' => Hash::make($validated['password']),
+                    'profile_photo' => $pathFoto,
                 ]);
                 $user->assignRole('dosen');
                 $userId = $user->id;
             } else {
                 $user = User::find($userId);
                 if ($user) {
-                    $user->name = $validated['nama_dosen'];
-                    $user->email = $validated['email'];
-                    $user->kode = $validated['kode_dosen'];
-                    if ($request->filled('password')) {
-                        $user->password = Hash::make($validated['password']);
-                    }
-                    $user->save();
+                    $user->update([
+                        'name' => $validated['nama_dosen'],
+                        'email' => $validated['email'],
+                        'kode' => $validated['kode_dosen'],
+                        'password' => Hash::make($validated['password']),
+                        'foto' => $pathFoto,
+                    ]);
                 }
             }
+        } elseif ($userId) {
+            $user = User::find($userId);
+            if ($user) {
+                $user->update([
+                    'name' => $validated['nama_dosen'],
+                    'email' => $validated['email'],
+                    'kode' => $validated['kode_dosen'],
+                    'profile_photo' => $pathFoto,
+                ]);
+            }
         }
+        
 
         $dosen->update([
             'kode_dosen' => $validated['kode_dosen'],
