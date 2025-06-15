@@ -127,6 +127,10 @@ Route::middleware(['auth', 'role:dosen|karyawan'])->group(function () {
     
     Route::get('/home', [DashboardController::class, 'index'])->name('pegawai.dashboard');
 
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/cuti', [CutiController::class, 'index'])->name('cuti.index');
     Route::get('/cuti/create', [CutiController::class, 'create'])->name('cuti.create');
     Route::post('/cuti', [CutiController::class, 'store'])->name('cuti.store');

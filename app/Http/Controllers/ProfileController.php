@@ -2,59 +2,81 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use App\Models\User as EloquentUser;
+use App\Models\Dosen;
+use App\Models\Karyawan;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+   public function edit()
+{
+    $user = Auth::user();
+    if (!$user instanceof \App\Models\User) {
+        $user = EloquentUser::find($user->id);
+    }
+    $profile = null;
+
+    if ($user->role === 'dosen') {
+        $profile = Dosen::where('user_id', $user->id)->first();
+    } elseif ($user->role === 'karyawan') {
+        $profile = Karyawan::where('user_id', $user->id)->first();
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    // Pastikan $profile selalu objek
+    if (!$profile) {
+        $profile = (object)['alamat' => ''];
+    }
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+    // Jika ada old('alamat'), timpa $profile->alamat
+    if (old('alamat') !== null) {
+        $profile->alamat = old('alamat');
+    }
+
+    return view('pegawai.profile', compact('user', 'profile'));
+}
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $profile = null;
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'alamat' => 'nullable|string|max:255',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->hasFile('profile_photo')) {
+            if ($user->profile_photo) {
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+            $user->profile_photo = $path;
         }
 
-        $request->user()->save();
+        if (!$user instanceof \App\Models\User) {
+            $user = EloquentUser::find($user->id);
+        }
+        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+        // Update alamat di tabel dosen/karyawan
+        if ($user->role === 'dosen') {
+            $profile = Dosen::where('user_id', $user->id)->first();
+        } elseif ($user->role === 'karyawan') {
+            $profile = Karyawan::where('user_id', $user->id)->first();
+        }
+        if ($profile) {
+            $profile->alamat = $request->alamat;
+            $profile->save();
+        }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 }

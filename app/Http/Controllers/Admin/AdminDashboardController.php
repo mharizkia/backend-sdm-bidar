@@ -81,12 +81,10 @@ class AdminDashboardController extends Controller
         $validated = $request->validate([
             'karyawan_id' => 'required|exists:karyawans,id',
             'kat_unit_kerja_id' => 'required|exists:kat_unit_kerjas,id',
-            'tanggal_mutasi' => 'required|date',
         ]);
 
         $karyawan = Karyawan::findOrFail($validated['karyawan_id']);
         $karyawan->kat_unit_kerja_id = $validated['kat_unit_kerja_id'];
-        $karyawan->tanggal_mutasi = $validated['tanggal_mutasi'];
         $karyawan->save();
 
         return redirect()->route('admin.mutasi')->with('success', 'Mutasi karyawan berhasil dilakukan.');
